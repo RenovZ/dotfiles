@@ -103,7 +103,7 @@ antigen apply
 export BUNDLE_HOME=$HOME/Bundler
 source $BUNDLE_HOME/iterm2_shell_integration.zsh
 
-CUSTOM_SYS_SHELL_HOME=~/WorkSpace/sys_shell
+CUSTOM_SYS_SHELL_HOME=~/.config/sys_shell/shell
 for file in $CUSTOM_SYS_SHELL_HOME/*;do
     source $file
 done
