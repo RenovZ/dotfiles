@@ -156,6 +156,7 @@ alias tpc="curl cip.cc"
 alias pc4="proxychains4 -q -f ~/.proxychains.conf"
 alias proxy="all_proxy=socks5://127.0.0.1:1086"
 alias unproxy="unset all_proxy"
+alias xtime="$(which gtime) -f '%Uu %Ss %er %MkB %c %C'"
 
 export PATH=~/bin:$ICU4C_HOME/bin:$ICU4C_HOME/sbin:$SDKBOX_HOME/bin:$BUNDLE_HOME/bin:$GOPATH/bin:/usr/local/sbin:$PATH
 
