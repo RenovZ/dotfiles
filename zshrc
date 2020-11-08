@@ -108,17 +108,8 @@ for file in $CUSTOM_SYS_SHELL_HOME/*;do
     source $file
 done
 
-#alias mongo_deamon="/usr/local/bin/mongod --dbpath ~/data/db --fork --logpath ~/data/logs/mongodb.log"
-
-# export PATH="$HOME/.jenv/bin:$PATH"
-# eval "$(jenv init -)"
 # JAVA_HOME
-#export JDK_HOME=/Library/Java/JavaVirtualMachines/openjdk-11.jdk
-export JDK_HOME=/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk
-export JAVA_HOME=$JDK_HOME/Contents/Home
-#export JDK_HOME=/usr/local/opt/openjdk@11
-#export JAVA_HOME=$JDK_HOME/libexec/openjdk.jdk/Contents/Home
-export JRE_HOME=$JAVA_HOME/jre
+export JAVA_HOME=/usr/local/Cellar/openjdk@11/11.0.9
 
 [ -f ~/.bashrc_docker ] && . ~/.bashrc_docker
 
@@ -158,7 +149,7 @@ alias proxy="all_proxy=socks5://127.0.0.1:1086"
 alias unproxy="unset all_proxy"
 alias xtime="$(which gtime) -f '%Uu %Ss %er %MkB %c %C'"
 
-export PATH=~/bin:$ICU4C_HOME/bin:$ICU4C_HOME/sbin:$SDKBOX_HOME/bin:$BUNDLE_HOME/bin:$GOPATH/bin:/usr/local/sbin:$PATH
+export PATH=~/bin:$ICU4C_HOME/bin:$ICU4C_HOME/sbin:$SDKBOX_HOME/bin:$JAVA_HOME/bin:$BUNDLE_HOME/bin:$GOPATH/bin:/usr/local/sbin:$PATH
 
 #`which archey` -c
 export HOMEBREW_GITHUB_API_TOKEN=c05f8288f1765c0c277a3199473a9f527cc16eca
