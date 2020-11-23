@@ -124,22 +124,21 @@ export GOPROXY=https://goproxy.cn
 #export GOPROXY=https://goproxy.io
 #export GODEBUG=allocfreetrace=1 #,gctrace=1
 
-export ICU4C_HOME=/usr/local/opt/icu4c
-export PKG_CONFIG_PATH=/usr/local/opt/libffi/lib/pkgconfig
-export GREP_OPTIONS='--color=auto'
-export EDITOR='vim'
-export LC_ALL=en_US.UTF-8
-export LIBRARY_PATH=/usr/local/Cellar/libtensorflow/2.3.0/lib
-export DYLD_LIBRARY_PATH=/usr/local/Cellar/libtensorflow/2.3.0/lib
-export CPPFLAGS="-I/usr/local/opt/openjdk@11/include"
+#export ICU4C_HOME=/usr/local/opt/icu4c
+#export PKG_CONFIG_PATH=/usr/local/opt/libffi/lib/pkgconfig
+#export GREP_OPTIONS='--color=auto'
+#export LIBRARY_PATH=/usr/local/Cellar/libtensorflow/2.3.0/lib
+#export DYLD_LIBRARY_PATH=/usr/local/Cellar/libtensorflow/2.3.0/lib
+#export CPPFLAGS="-I/usr/local/opt/openjdk@11/include"
 #export SQLITE3_HOME=
 
+export LC_ALL=en_US.UTF-8
+export EDITOR='vim'
 export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 
 eval $(luarocks path --bin)
 eval $(thefuck --alias)
 eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
 
 alias emacs='TERM=xterm-24bits emacs'
 alias man='man -M /usr/local/share/man/zh_CN'
@@ -157,6 +156,9 @@ export HOMEBREW_GITHUB_API_TOKEN=c05f8288f1765c0c277a3199473a9f527cc16eca
 #export PKG_CONFIG_PATH="/usr/local/opt/python@3.8/lib/pkgconfig"
 #export LDFLAGS="-L/usr/local/opt/python@3.8/lib"
 
+zstyle ':completion:*:*:docker:*' option-stacking yes
+zstyle ':completion:*:*:docker-*:*' option-stacking yes
+
 # This speeds up pasting w/ autosuggest
 # https://github.com/zsh-users/zsh-autosuggestions/issues/238
 pasteinit() {
@@ -170,5 +172,5 @@ pastefinish() {
 zstyle :bracketed-paste-magic paste-init pasteinit
 zstyle :bracketed-paste-magic paste-finish pastefinish
 
-export BREW_REPO="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
-export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
+#export BREW_REPO="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
+#export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
