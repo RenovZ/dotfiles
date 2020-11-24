@@ -124,14 +124,6 @@ export GOPROXY=https://goproxy.cn
 #export GOPROXY=https://goproxy.io
 #export GODEBUG=allocfreetrace=1 #,gctrace=1
 
-#export ICU4C_HOME=/usr/local/opt/icu4c
-#export PKG_CONFIG_PATH=/usr/local/opt/libffi/lib/pkgconfig
-#export GREP_OPTIONS='--color=auto'
-#export LIBRARY_PATH=/usr/local/Cellar/libtensorflow/2.3.0/lib
-#export DYLD_LIBRARY_PATH=/usr/local/Cellar/libtensorflow/2.3.0/lib
-#export CPPFLAGS="-I/usr/local/opt/openjdk@11/include"
-#export SQLITE3_HOME=
-
 export LC_ALL=en_US.UTF-8
 export EDITOR='vim'
 export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
@@ -148,13 +140,9 @@ alias proxy="all_proxy=socks5://127.0.0.1:1086"
 alias unproxy="unset all_proxy"
 alias xtime="$(which gtime) -f '%Uu %Ss %er %MkB %c %C'"
 
-export PATH=~/bin:$ICU4C_HOME/bin:$ICU4C_HOME/sbin:$SDKBOX_HOME/bin:$JAVA_HOME/bin:$BUNDLE_HOME/bin:$GOPATH/bin:/usr/local/sbin:$PATH
+export PATH=~/bin:$SDKBOX_HOME/bin:$JAVA_HOME/bin:$BUNDLE_HOME/bin:$GOPATH/bin:/usr/local/sbin:$PATH
 
 #`which archey` -c
-export HOMEBREW_GITHUB_API_TOKEN=c05f8288f1765c0c277a3199473a9f527cc16eca
-#export PATH="/usr/local/opt/python@3.8/bin:$PATH"
-#export PKG_CONFIG_PATH="/usr/local/opt/python@3.8/lib/pkgconfig"
-#export LDFLAGS="-L/usr/local/opt/python@3.8/lib"
 
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
