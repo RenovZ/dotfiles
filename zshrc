@@ -131,6 +131,8 @@ export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 eval $(luarocks path --bin)
 eval $(thefuck --alias)
 eval "$(pyenv init -)"
+eval "$(starship init zsh)"
+eval "$(zoxide init zsh)"
 
 alias emacs='TERM=xterm-24bits emacs'
 alias man='man -M /usr/local/share/man/zh_CN'
