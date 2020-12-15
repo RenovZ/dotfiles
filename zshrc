@@ -124,6 +124,9 @@ export GOPROXY=https://goproxy.cn
 #export GOPROXY=https://goproxy.io
 #export GODEBUG=allocfreetrace=1 #,gctrace=1
 
+export LDFLAGS="-L/usr/local/opt/llvm/lib"
+export CPPFLAGS="-I/usr/local/opt/llvm/include"
+
 export LC_ALL=en_US.UTF-8
 export EDITOR='vim'
 export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
@@ -143,7 +146,7 @@ alias unproxy="unset all_proxy"
 alias xtime="$(which gtime) -f '%Uu %Ss %er %MkB %c %C'"
 alias ash="$(which autossh) -M 0"
 
-export PATH=~/bin:$SDKBOX_HOME/bin:$JAVA_HOME/bin:$BUNDLE_HOME/bin:$GOPATH/bin:/usr/local/sbin:$PATH
+export PATH=/usr/local/opt/llvm/bin:~/bin:$SDKBOX_HOME/bin:$JAVA_HOME/bin:$BUNDLE_HOME/bin:$GOPATH/bin:/usr/local/sbin:$PATH
 
 #`which archey` -c
 
