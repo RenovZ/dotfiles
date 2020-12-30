@@ -108,8 +108,10 @@ for file in $CUSTOM_SYS_SHELL_HOME/*;do
     source $file
 done
 
-# JAVA_HOME
-export JAVA_HOME=/usr/local/Cellar/openjdk@11/11.0.9
+# java configuration
+#export JAVA_HOME=/usr/local/Cellar/openjdk@11/11.0.9
+export JENV_HOME=~/.jenv
+eval "$(jenv init -)"
 
 [ -f ~/.bashrc_docker ] && . ~/.bashrc_docker
 
@@ -146,7 +148,7 @@ alias unproxy="unset all_proxy"
 alias xtime="$(which gtime) -f '%Uu %Ss %er %MkB %c %C'"
 alias ash="$(which autossh) -M 0"
 
-export PATH=/usr/local/opt/llvm/bin:~/bin:$SDKBOX_HOME/bin:$JAVA_HOME/bin:$BUNDLE_HOME/bin:$GOPATH/bin:/usr/local/sbin:$PATH
+export PATH=/usr/local/opt/llvm/bin:~/bin:$SDKBOX_HOME/bin:$JENV_HOME/bin:$BUNDLE_HOME/bin:$GOPATH/bin:/usr/local/sbin:$PATH
 
 #`which archey` -c
 
