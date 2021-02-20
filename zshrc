@@ -128,8 +128,8 @@ export GOPROXY=https://goproxy.cn
 #export GOPROXY=https://goproxy.io
 #export GODEBUG=allocfreetrace=1 #,gctrace=1
 
-export LDFLAGS="-L/usr/local/opt/llvm/lib"
-export CPPFLAGS="-I/usr/local/opt/llvm/include"
+export LDFLAGS="-L/usr/local/opt/llvm/lib -L/usr/local/opt/zlib/lib -L/usr/local/opt/bzip2/lib"
+export CPPFLAGS="-I/usr/local/opt/llvm/include -I/usr/local/opt/zlib/include -I/usr/local/opt/bzip2/include"
 
 export LC_ALL=en_US.UTF-8
 export EDITOR='vim'
@@ -140,6 +140,7 @@ PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 eval $(luarocks path --bin)
 eval $(thefuck --alias)
 eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 
