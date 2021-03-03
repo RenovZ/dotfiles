@@ -134,6 +134,8 @@ export CPPFLAGS="-I/usr/local/opt/llvm/include -I/usr/local/opt/zlib/include -I/
 export LC_ALL=en_US.UTF-8
 export EDITOR='vim'
 export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
+# refer to https://mirrors.tuna.tsinghua.edu.cn/help/rustup/
+export RUSTUP_DIST_SERVER="https://mirrors.tuna.tsinghua.edu.cn/rustup"
 
 PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 
