@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
@@ -72,7 +79,9 @@ antigen bundle zsh-users/zsh-history-substring-search
 antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zaw
 
-antigen theme denysdovhan/spaceship-prompt
+#antigen theme denysdovhan/spaceship-prompt
+#eval "$(starship init zsh)"
+antigen theme romkatv/powerlevel10k
 antigen apply
 
 # You may need to manually set your language environment
@@ -128,14 +137,18 @@ export GOPROXY=https://goproxy.cn
 #export GOPROXY=https://goproxy.io
 #export GODEBUG=allocfreetrace=1 #,gctrace=1
 
-export LDFLAGS="-L/usr/local/opt/llvm/lib -L/usr/local/opt/zlib/lib -L/usr/local/opt/bzip2/lib"
-export CPPFLAGS="-I/usr/local/opt/llvm/include -I/usr/local/opt/zlib/include -I/usr/local/opt/bzip2/include"
+export LDFLAGS="-L/usr/local/opt/llvm/lib -L/usr/local/opt/zlib/lib -L/usr/local/opt/bzip2/lib -L/usr/local/opt/mysql-client/lib"
+export CPPFLAGS="-I/usr/local/opt/llvm/include -I/usr/local/opt/zlib/include -I/usr/local/opt/bzip2/include -I/usr/local/opt/mysql-client/include"
+export PKG_CONFIG_PATH=$(find /usr/local/Cellar -name 'pkgconfig' -type d | grep lib/pkgconfig | tr '\n' ':' | sed s/.$//)
 
 export LC_ALL=en_US.UTF-8
 export EDITOR='vim'
+
+#rust config
 export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 # refer to https://mirrors.tuna.tsinghua.edu.cn/help/rustup/
-export RUSTUP_DIST_SERVER="https://mirrors.tuna.tsinghua.edu.cn/rustup"
+#export RUSTUP_DIST_SERVER="https://mirrors.tuna.tsinghua.edu.cn/rustup"
+source "$HOME/.cargo/env"
 
 PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 
@@ -143,7 +156,6 @@ eval $(luarocks path --bin)
 eval $(thefuck --alias)
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
-eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 
 alias emacs='TERM=xterm-24bits emacs'
@@ -177,3 +189,7 @@ zstyle :bracketed-paste-magic paste-finish pastefinish
 
 #export BREW_REPO="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
 #export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+(( ! ${+functions[p10k]} )) || p10k finalize
