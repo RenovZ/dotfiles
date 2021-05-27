@@ -57,10 +57,10 @@ export ZSH=$HOME/.oh-my-zsh
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  node autojump sudo osx web-search brew docker history z
+  node autojump sudo osx web-search brew docker docker-compose history z
   tig git git-auto-fetch git-escape-magic git-extras git-flow git-flow-avh git-hubflow git-prompt gitfast github gitignore
-  vscode xcode emacs
-  tmux httpie npm
+  vscode xcode emacs vagrant vagrant-prompt
+  tmux tmuxinator httpie npm
 )
 
 # User configuration
@@ -130,16 +130,16 @@ eval "$(jenv init -)"
 export SDKBOX_HOME=$HOME/.sdkbox
 
 export GOPATH=/Users/zzq/WorkSpace/Golang
-#export GO111MODULE=on
+export GO111MODULE=on
 export GOCACHE=$GOPATH/go-build
 export GOENV=$GOPATH/env
 export GOPROXY=https://goproxy.cn
 #export GOPROXY=https://goproxy.io
 #export GODEBUG=allocfreetrace=1 #,gctrace=1
 
-export LDFLAGS="-L/usr/local/opt/llvm/lib -L/usr/local/opt/zlib/lib -L/usr/local/opt/bzip2/lib -L/usr/local/opt/mysql-client/lib"
-export CPPFLAGS="-I/usr/local/opt/llvm/include -I/usr/local/opt/zlib/include -I/usr/local/opt/bzip2/include -I/usr/local/opt/mysql-client/include"
-export PKG_CONFIG_PATH=$(find /usr/local/Cellar -name 'pkgconfig' -type d | grep lib/pkgconfig | tr '\n' ':' | sed s/.$//)
+#export LDFLAGS="-L/usr/local/opt/llvm/lib -L/usr/local/opt/mysql-client/lib"
+#export CPPFLAGS="-I/usr/local/opt/llvm/include -I/usr/local/opt/mysql-client/include"
+#export PKG_CONFIG_PATH=$(find /usr/local/Cellar -name 'pkgconfig' -type d | grep lib/pkgconfig | tr '\n' ':' | sed s/.$//)
 
 export LC_ALL=en_US.UTF-8
 export EDITOR='vim'
@@ -157,25 +157,36 @@ export PATH=$ANDROID_HOME/platform-tools:$PATH
 
 PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 
+# Fix pyenv install python on macos bigsure error
+#https://stackoverflow.com/questions/66766531/installation-of-python-3-8-fails-with-pyenv-on-macos
+export SDKROOT=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
+export MACOSX_DEPLOYMENT_TARGET=10.15
+
 eval $(luarocks path --bin)
 eval $(thefuck --alias)
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 eval "$(zoxide init zsh)"
 
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
+#export PATH="$HOME/.phpenv/bin:$PATH"
+#eval "$(phpenv init -)"
+
 alias emacs='TERM=xterm-24bits emacs'
 alias man='man -M /usr/local/share/man/zh_CN'
 alias tpc="curl cip.cc"
 alias pc4="proxychains4 -q -f ~/.proxychains.conf"
-alias proxy="all_proxy=socks5://127.0.0.1:1086"
-#alias proxy="all_proxy=http://127.0.0.1:1087"
+alias proxy="all_proxy=socks5://0.0.0.0:1086"
+#alias proxy="all_proxy=http://0.0.0.0:1087"
 alias unproxy="unset all_proxy"
 alias pigcha="all_proxy=http://127.0.0.1:61422"
 alias xtime="$(which gtime) -f '%Uu %Ss %er %MkB %c %C'"
 alias ash="$(which autossh) -M 0"
 alias awk="$(which gawk)"
 
-export PATH=$GNU_HOME/gnubin:/usr/local/opt/llvm/bin:~/bin:$SDKBOX_HOME/bin:$JENV_HOME/bin:$BUNDLE_HOME/bin:$GOPATH/bin:/usr/local/sbin:$PATH
+export PATH=$GNU_HOME/gnubin:/usr/local/opt/llvm/bin:~/bin:$SDKBOX_HOME/bin:$JENV_HOME/bin:$BUNDLE_HOME/bin:$GOPATH/bin:/usr/local/bin:/usr/local/sbin:$PATH
 
 #`which archey` -c
 
@@ -201,3 +212,43 @@ zstyle :bracketed-paste-magic paste-finish pastefinish
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 (( ! ${+functions[p10k]} )) || p10k finalize
+###-begin-pm2-completion-###
+### credits to npm for the completion file model
+#
+# Installation: pm2 completion >> ~/.bashrc  (or ~/.zshrc)
+#
+
+COMP_WORDBREAKS=${COMP_WORDBREAKS/=/}
+COMP_WORDBREAKS=${COMP_WORDBREAKS/@/}
+export COMP_WORDBREAKS
+
+if type complete &>/dev/null; then
+  _pm2_completion () {
+    local si="$IFS"
+    IFS=$'\n' COMPREPLY=($(COMP_CWORD="$COMP_CWORD" \
+                           COMP_LINE="$COMP_LINE" \
+                           COMP_POINT="$COMP_POINT" \
+                           pm2 completion -- "${COMP_WORDS[@]}" \
+                           2>/dev/null)) || return $?
+    IFS="$si"
+  }
+  complete -o default -F _pm2_completion pm2
+elif type compctl &>/dev/null; then
+  _pm2_completion () {
+    local cword line point words si
+    read -Ac words
+    read -cn cword
+    let cword-=1
+    read -l line
+    read -ln point
+    si="$IFS"
+    IFS=$'\n' reply=($(COMP_CWORD="$cword" \
+                       COMP_LINE="$line" \
+                       COMP_POINT="$point" \
+                       pm2 completion -- "${words[@]}" \
+                       2>/dev/null)) || return $?
+    IFS="$si"
+  }
+  compctl -K _pm2_completion + -f + pm2
+fi
+###-end-pm2-completion-###
