@@ -111,84 +111,18 @@ antigen apply
 
 export BUNDLE_HOME=$HOME/Bundler
 source $BUNDLE_HOME/iterm2_shell_integration.zsh
-
-CUSTOM_SYS_SHELL_HOME=~/.config/sys-config/shell
-for file in $CUSTOM_SYS_SHELL_HOME/*;do
-    source $file
-done
-
-export GNU_HOME=/usr/local/opt/make/libexec
-
-# java configuration
-#export JAVA_HOME=/usr/local/Cellar/openjdk@11/11.0.9
-export JENV_HOME=~/.jenv
-eval "$(jenv init -)"
-
-[ -f ~/.bashrc_docker ] && . ~/.bashrc_docker
-
-# Add environment variable SDKBOX_HOME for sdkbox installer
-export SDKBOX_HOME=$HOME/.sdkbox
-
-export GOPATH=/Users/zzq/WorkSpace/Golang
-export GO111MODULE=on
-export GOCACHE=$GOPATH/go-build
-export GOENV=$GOPATH/env
-export GOPROXY=https://goproxy.cn
-#export GOPROXY=https://goproxy.io
-#export GODEBUG=allocfreetrace=1 #,gctrace=1
-
-#export LDFLAGS="-L/usr/local/opt/llvm/lib -L/usr/local/opt/mysql-client/lib"
-#export CPPFLAGS="-I/usr/local/opt/llvm/include -I/usr/local/opt/mysql-client/include"
-#export PKG_CONFIG_PATH=$(find /usr/local/Cellar -name 'pkgconfig' -type d | grep lib/pkgconfig | tr '\n' ':' | sed s/.$//)
-
-export LC_ALL=en_US.UTF-8
-export EDITOR='vim'
-
-#rust config
-export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/library"
-# refer to https://mirrors.tuna.tsinghua.edu.cn/help/rustup/
-#export RUSTUP_DIST_SERVER="https://mirrors.tuna.tsinghua.edu.cn/rustup"
-source "$HOME/.cargo/env"
-export RUST_BACKTRACE=1
-export CARGO_NET_GIT_FETCH_WITH_CLI=true
-
-ANDROID_HOME=/Volumes/SOFT/Android/sdk
-export PATH=$ANDROID_HOME/platform-tools:$PATH
-
-PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
+export PATH=$BUNDLE_HOME/bin:$PATH
 
 # Fix pyenv install python on macos bigsure error
 #https://stackoverflow.com/questions/66766531/installation-of-python-3-8-fails-with-pyenv-on-macos
-export SDKROOT=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
-export MACOSX_DEPLOYMENT_TARGET=10.15
+#export SDKROOT=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
+#export MACOSX_DEPLOYMENT_TARGET=10.15
 
-eval $(luarocks path --bin)
-eval $(thefuck --alias)
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
 eval "$(zoxide init zsh)"
 
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-
-#export PATH="$HOME/.phpenv/bin:$PATH"
-#eval "$(phpenv init -)"
-
 alias emacs='TERM=xterm-24bits emacs'
-alias man='man -M /usr/local/share/man/zh_CN'
-alias tpc="curl cip.cc"
-alias pc4="proxychains4 -q -f ~/.proxychains.conf"
-alias proxy="all_proxy=socks5://0.0.0.0:1086"
-#alias proxy="all_proxy=http://0.0.0.0:1087"
-alias unproxy="unset all_proxy"
-alias pigcha="all_proxy=http://127.0.0.1:61422"
-alias xtime="$(which gtime) -f '%Uu %Ss %er %MkB %c %C'"
-alias ash="$(which autossh) -M 0"
-alias awk="$(which gawk)"
 
-export PATH=$GNU_HOME/gnubin:/usr/local/opt/llvm/bin:~/bin:$SDKBOX_HOME/bin:$JENV_HOME/bin:$BUNDLE_HOME/bin:$GOPATH/bin:/usr/local/bin:/usr/local/sbin:$PATH
-
-#`which archey` -c
+source ~/.profile
 
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
