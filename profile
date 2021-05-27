@@ -1,38 +1,74 @@
-# ~/.profile: executed by the command interpreter for login shells.
-# This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
-# exists.
-# see /usr/share/doc/bash/examples/startup-files for examples.
-# the files are located in the bash-doc package.
+CUSTOM_SYS_SHELL_HOME=~/.config/sys-config/shell
+for file in $CUSTOM_SYS_SHELL_HOME/*;do
+    source $file
+done
 
-# the default umask is set in /etc/profile; for setting the umask
-# for ssh logins, install and configure the libpam-umask package.
-#umask 022
+export GNU_HOME=/usr/local/opt/make/libexec
 
-# if running bash
-if [ -n "$BASH_VERSION" ]; then
-    # include .bashrc if it exists
-    if [ -f "$HOME/.bashrc" ]; then
-	. "$HOME/.bashrc"
-    fi
-fi
+# java configuration
+#export JAVA_HOME=/usr/local/Cellar/openjdk@11/11.0.9
+export JENV_HOME=~/.jenv
+eval "$(jenv init -)"
 
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
-fi
+[ -f ~/.bashrc_docker ] && . ~/.bashrc_docker
 
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/.local/bin" ] ; then
-    PATH="$HOME/.local/bin:$PATH"
-fi
+# Add environment variable SDKBOX_HOME for sdkbox installer
+export SDKBOX_HOME=$HOME/.sdkbox
 
-export GOROOT=~/bundler/go/go
-export GOPATH=~/go
-export GO111MODULE=auto
-#export GOPROXY=https://goproxy.io
+export GOPATH=/Users/zzq/WorkSpace/Golang
+export GO111MODULE=on
+export GOCACHE=$GOPATH/go-build
+export GOENV=$GOPATH/env
 export GOPROXY=https://goproxy.cn
+#export GOPROXY=https://goproxy.io
 #export GODEBUG=allocfreetrace=1 #,gctrace=1
 
-export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
-export CGO_ENABLED=1
-export GOROOT_BOOTSTRAP=~/bundler/go/1.4.3
+#export LDFLAGS="-L/usr/local/opt/llvm/lib -L/usr/local/opt/mysql-client/lib"
+#export CPPFLAGS="-I/usr/local/opt/llvm/include -I/usr/local/opt/mysql-client/include"
+#export PKG_CONFIG_PATH=$(find /usr/local/Cellar -name 'pkgconfig' -type d | grep lib/pkgconfig | tr '\n' ':' | sed s/.$//)
+
+export LC_ALL=en_US.UTF-8
+export EDITOR='vim'
+
+#rust config
+export PATH="$HOME/.cargo/bin:$PATH"
+export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/library"
+# refer to https://mirrors.tuna.tsinghua.edu.cn/help/rustup/
+#export RUSTUP_DIST_SERVER="https://mirrors.tuna.tsinghua.edu.cn/rustup"
+source "$HOME/.cargo/env"
+export RUST_BACKTRACE=1
+export CARGO_NET_GIT_FETCH_WITH_CLI=true
+
+ANDROID_HOME=/Volumes/SOFT/Android/sdk
+export PATH=$ANDROID_HOME/platform-tools:$PATH
+
+PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
+
+eval "$(luarocks path --bin)"
+eval "$(thefuck --alias)"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+eval "$(zoxide init bash)"
+
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
+#export PATH="$HOME/.phpenv/bin:$PATH"
+#eval "$(phpenv init -)"
+
+alias man='man -M /usr/local/share/man/zh_CN'
+alias tpc="curl cip.cc"
+alias pc4="proxychains4 -q -f ~/.proxychains.conf"
+alias proxy="all_proxy=socks5://0.0.0.0:1086"
+#alias proxy="all_proxy=http://0.0.0.0:1087"
+alias unproxy="unset all_proxy"
+alias pigcha="all_proxy=http://127.0.0.1:61422"
+alias xtime="$(which gtime) -f '%Uu %Ss %er %MkB %c %C'"
+alias ash="$(which autossh) -M 0"
+alias awk="$(which gawk)"
+
+export PATH=$GNU_HOME/gnubin:/usr/local/opt/llvm/bin:~/bin:$SDKBOX_HOME/bin:$JENV_HOME/bin:$GOPATH/bin:/usr/local/bin:/usr/local/sbin:$PATH
+
+#`which archey` -c
+
+
