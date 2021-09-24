@@ -27,17 +27,19 @@ export GOPROXY=https://goproxy.cn
 #export CPPFLAGS="-I/usr/local/opt/llvm/include -I/usr/local/opt/mysql-client/include"
 #export PKG_CONFIG_PATH=$(find /usr/local/Cellar -name 'pkgconfig' -type d | grep lib/pkgconfig | tr '\n' ':' | sed s/.$//)
 
+export C_INCLUDE_PATH=/usr/local/opt/openssl/include
+export CPLUS_INCLUDE_PATH=$C_INCLUDE_PATH
+
 export LC_ALL=en_US.UTF-8
 export EDITOR='vim'
 
 #rust config
-export PATH="$HOME/.cargo/bin:$PATH"
-export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/library"
-# refer to https://mirrors.tuna.tsinghua.edu.cn/help/rustup/
-#export RUSTUP_DIST_SERVER="https://mirrors.tuna.tsinghua.edu.cn/rustup"
-source "$HOME/.cargo/env"
-export RUST_BACKTRACE=1
-export CARGO_NET_GIT_FETCH_WITH_CLI=true
+. "$HOME/.cargo/env"
+##export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/library"
+## refer to https://mirrors.tuna.tsinghua.edu.cn/help/rustup/
+##export RUSTUP_DIST_SERVER="https://mirrors.tuna.tsinghua.edu.cn/rustup"
+##export RUST_BACKTRACE=1
+#export CARGO_NET_GIT_FETCH_WITH_CLI=true
 
 ANDROID_HOME=/Volumes/SOFT/Android/sdk
 export PATH=$ANDROID_HOME/platform-tools:$PATH
@@ -56,11 +58,15 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 #export PATH="$HOME/.phpenv/bin:$PATH"
 #eval "$(phpenv init -)"
 
+#clashx proxy config
+#export https_proxy=http://127.0.0.1:7890
+#export http_proxy=http://127.0.0.1:7890
+#export all_proxy=socks5://127.0.0.1:7890
+
 alias man='man -M /usr/local/share/man/zh_CN'
 alias tpc="curl cip.cc"
 alias pc4="proxychains4 -q -f ~/.proxychains.conf"
-alias proxy="all_proxy=socks5://0.0.0.0:1086"
-#alias proxy="all_proxy=http://0.0.0.0:1087"
+alias proxy="all_proxy=socks5://127.0.0.1:7890"
 alias unproxy="unset all_proxy"
 alias pigcha="all_proxy=http://127.0.0.1:61422"
 alias xtime="$(which gtime) -f '%Uu %Ss %er %MkB %c %C'"
@@ -71,4 +77,4 @@ export PATH=$GNU_HOME/gnubin:/usr/local/opt/llvm/bin:~/bin:$SDKBOX_HOME/bin:$JEN
 
 #`which archey` -c
 
-
+export VIMEDITOR='vim'
