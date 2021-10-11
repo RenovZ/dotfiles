@@ -1,0 +1,50 @@
+search runtime1.go
+search atomic_amd64.go
+search mstats.go
+c
+open_with%space
+rename memstats
+rename init_order
+rename mem_stats
+rename private-invoke
+rename mem-stats
+rename init-order/
+h
+git status
+gst
+filter 
+mkdir h
+pwd
+open_with%spaceq
+mkdir iterator
+open_with k
+shell code .
+shell code ..
+shell code tmux-exp
+shell pwd
+shell cargo run
+shell gst
+shell git add .
+search cal
+search calamine
+cd coc-highlight/
+shell yarn install --frozen-lockfile
+shell yarn run clean
+shell yarn run prepare
+shell yarn run build
+search rust-installer
+open_with emacs
+?
+help
+subl .
+open_with vim
+open_with 
+trash
+move 
+delete
+emacs -nw
+cd
+open .
+open
+
+cd .
