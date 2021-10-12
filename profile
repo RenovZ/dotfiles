@@ -15,7 +15,7 @@ eval "$(jenv init -)"
 # Add environment variable SDKBOX_HOME for sdkbox installer
 export SDKBOX_HOME=$HOME/.sdkbox
 
-export GOPATH=/Users/zzq/WorkSpace/Golang
+export GOPATH=~/WorkSpace/Golang
 export GO111MODULE=on
 export GOCACHE=$GOPATH/go-build
 export GOENV=$GOPATH/env

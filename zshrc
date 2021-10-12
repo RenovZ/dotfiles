@@ -122,7 +122,7 @@ eval "$(zoxide init zsh)"
 
 alias emacs='TERM=xterm-24bits emacs'
 
-source ~/.profile
+source ~/.config/sys-config/profile
 
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
