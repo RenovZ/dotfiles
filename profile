@@ -48,6 +48,7 @@ PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 
 eval "$(luarocks path --bin)"
 eval "$(thefuck --alias)"
+eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 eval "$(zoxide init bash)"
@@ -78,3 +79,4 @@ export PATH=$GNU_HOME/gnubin:/usr/local/opt/llvm/bin:~/bin:$SDKBOX_HOME/bin:$JEN
 #`which archey` -c
 
 export VIMEDITOR='vim'
+if [ -e /Users/zzq/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/zzq/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
