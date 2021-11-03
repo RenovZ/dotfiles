@@ -57,10 +57,11 @@ export ZSH=$HOME/.oh-my-zsh
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  node autojump sudo osx web-search brew docker docker-compose history z
+  common-aliases
+  node sudo osx web-search brew docker docker-compose history zoxide vi-mode vim-interaction zsh-navigation-tools
   tig git git-auto-fetch git-escape-magic git-extras git-flow git-flow-avh git-hubflow git-prompt gitfast github gitignore
   vscode xcode emacs vagrant vagrant-prompt
-  tmux tmuxinator httpie npm
+  tmux tmuxinator httpie npm emoji
 )
 
 # User configuration
