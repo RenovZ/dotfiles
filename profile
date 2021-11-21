@@ -59,6 +59,22 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 #export PATH="$HOME/.phpenv/bin:$PATH"
 #eval "$(phpenv init -)"
 
+#export DISPLAY=:0
+#export ICONLOOKUP=1
+#export USE_SCOPE=1
+#export USE_PISTOL=1
+export TERMINAL='iterm'
+#export PREVIEW_MODE=0
+
+#nnn configuration
+#export NNN_OPTS="cEnrx"
+export NNN_TRASH=1
+export NNN_HELP='pwy paris'
+export NNN_FIFO='/tmp/nnn.fifo'
+#export NNN_BMS='i:~/.local/pics;w:~/.local/wiki'
+export NNN_SEL='/tmp/.sel'
+export NNN_PLUG='v:imgview;p:preview-tabbed;f:fzcd;t:preview-tui'
+
 #clashx proxy config
 #export https_proxy=http://127.0.0.1:7890
 #export http_proxy=http://127.0.0.1:7890
@@ -70,13 +86,14 @@ alias pc4="proxychains4 -q -f ~/.proxychains.conf"
 alias proxy="all_proxy=socks5://127.0.0.1:7890"
 alias unproxy="unset all_proxy"
 alias pigcha="all_proxy=http://127.0.0.1:61422"
-alias xtime="$(which gtime) -f '%Uu %Ss %er %MkB %c %C'"
-alias ash="$(which autossh) -M 0"
-alias awk="$(which gawk)"
+#alias xtime="$(which gtime) -f '%Uu %Ss %er %MkB %c %C'"
+#alias ash="$(which autossh) -M 0"
+#alias awk="$(which gawk)"
 
 export PATH=$GNU_HOME/gnubin:/usr/local/opt/llvm/bin:~/bin:$SDKBOX_HOME/bin:$JENV_HOME/bin:$GOPATH/bin:/usr/local/bin:/usr/local/sbin:$PATH
 
 #`which archey` -c
 
-export VIMEDITOR='vim'
+#export VIMEDITOR='vim'
+export EDITOR='vim'
 if [ -e /Users/zzq/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/zzq/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
