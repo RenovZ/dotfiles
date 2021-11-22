@@ -95,5 +95,5 @@ export PATH=$GNU_HOME/gnubin:/usr/local/opt/llvm/bin:~/bin:$SDKBOX_HOME/bin:$JEN
 #`which archey` -c
 
 #export VIMEDITOR='vim'
-export EDITOR='vim'
+export EDITOR='nvim'
 if [ -e /Users/zzq/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/zzq/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
