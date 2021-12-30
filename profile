@@ -19,7 +19,7 @@ export GOPATH=~/WorkSpace/Golang
 export GO111MODULE=on
 export GOCACHE=$GOPATH/go-build
 export GOENV=$GOPATH/env
-export GOPROXY=https://goproxy.cn
+#export GOPROXY=https://goproxy.cn
 #export GOPROXY=https://goproxy.io
 #export GODEBUG=allocfreetrace=1 #,gctrace=1
 
@@ -63,17 +63,18 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 #export ICONLOOKUP=1
 #export USE_SCOPE=1
 #export USE_PISTOL=1
-export TERMINAL='iterm'
+#export TERMINAL='iterm'
 #export PREVIEW_MODE=0
 
 #nnn configuration
+#export NNN_PREVIEWWIDTH=1000
 #export NNN_OPTS="cEnrx"
 export NNN_TRASH=1
 export NNN_HELP='pwy paris'
 export NNN_FIFO='/tmp/nnn.fifo'
 #export NNN_BMS='i:~/.local/pics;w:~/.local/wiki'
 export NNN_SEL='/tmp/.sel'
-export NNN_PLUG='v:imgview;p:preview-tabbed;f:fzcd;t:preview-tui'
+export NNN_PLUG='v:imgview;f:fzcd;t:preview-tui;p:-!less -iR $nnn*'
 
 #clashx proxy config
 #export https_proxy=http://127.0.0.1:7890
