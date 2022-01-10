@@ -82,7 +82,7 @@ antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zaw
 
 #antigen theme denysdovhan/spaceship-prompt
-eval "$(starship init zsh)"
+#eval "$(starship init zsh)"
 antigen theme romkatv/powerlevel10k
 antigen apply
 
