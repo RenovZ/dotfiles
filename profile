@@ -19,7 +19,7 @@ export GOPATH=~/WorkSpace/Golang
 export GO111MODULE=on
 export GOCACHE=$GOPATH/go-build
 export GOENV=$GOPATH/env
-#export GOPROXY=https://goproxy.cn
+export GOPROXY=https://goproxy.cn
 #export GOPROXY=https://goproxy.io
 #export GODEBUG=allocfreetrace=1 #,gctrace=1
 
@@ -90,6 +90,8 @@ alias pigcha="all_proxy=http://127.0.0.1:61422"
 #alias xtime="$(which gtime) -f '%Uu %Ss %er %MkB %c %C'"
 #alias ash="$(which autossh) -M 0"
 #alias awk="$(which gawk)"
+alias ls="gls --color=always"
+alias ll="ls -lGh"
 
 export PATH=$GNU_HOME/gnubin:/usr/local/opt/llvm/bin:~/bin:$SDKBOX_HOME/bin:$JENV_HOME/bin:$GOPATH/bin:/usr/local/bin:/usr/local/sbin:$PATH
 
