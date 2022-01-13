@@ -82,7 +82,6 @@ antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zaw
 
 #antigen theme denysdovhan/spaceship-prompt
-#eval "$(starship init zsh)"
 antigen theme romkatv/powerlevel10k
 antigen apply
 
@@ -121,6 +120,8 @@ export PATH=$BUNDLE_HOME/bin:$PATH
 #export MACOSX_DEPLOYMENT_TARGET=10.15
 
 eval "$(zoxide init zsh)"
+eval "$(starship init zsh)"
+eval "$(mcfly init zsh)"
 
 alias emacs='TERM=xterm-24bits emacs'
 

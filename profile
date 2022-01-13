@@ -51,7 +51,6 @@ eval "$(thefuck --alias)"
 eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
-eval "$(zoxide init bash)"
 
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
@@ -90,8 +89,15 @@ alias pigcha="all_proxy=http://127.0.0.1:61422"
 #alias xtime="$(which gtime) -f '%Uu %Ss %er %MkB %c %C'"
 #alias ash="$(which autossh) -M 0"
 #alias awk="$(which gawk)"
-alias ls="gls --color=always"
-alias ll="ls -lGh"
+alias ls="exa --header --icons --git"
+alias ll="ls -agl"
+alias cat="bat"
+alias du="ncdu"
+alias df="duf"
+alias top="htop"
+alias find="fd"
+alias man="tldr"
+alias ps="procs"
 
 export PATH=$GNU_HOME/gnubin:/usr/local/opt/llvm/bin:~/bin:$SDKBOX_HOME/bin:$JENV_HOME/bin:$GOPATH/bin:/usr/local/bin:/usr/local/sbin:$PATH
 
