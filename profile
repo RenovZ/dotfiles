@@ -18,7 +18,10 @@ eval "$(jenv init -)"
 # Add environment variable SDKBOX_HOME for sdkbox installer
 export SDKBOX_HOME=$HOME/.sdkbox
 
-export GODEBUG=on
+export GOTRACEBACK=all
+export GODDD=on
+# https://blog.haohtml.com/archives/21778
+#export GODEBUG=allocfreetrace=0
 export GOROOT_BOOTSTRAP=/usr/local/go
 export GOPATH=~/WorkSpace/Golang
 export GO111MODULE=on
@@ -26,14 +29,13 @@ export GOCACHE=$GOPATH/go-build
 export GOENV=$GOPATH/env
 export GOPROXY=https://goproxy.cn
 #export GOPROXY=https://goproxy.io
-#export GODEBUG=allocfreetrace=1 #,gctrace=1
 
 #export LDFLAGS="-L/usr/local/opt/llvm/lib -L/usr/local/opt/mysql-client/lib"
 #export CPPFLAGS="-I/usr/local/opt/llvm/include -I/usr/local/opt/mysql-client/include"
 #export PKG_CONFIG_PATH=$(find /usr/local/Cellar -name 'pkgconfig' -type d | grep lib/pkgconfig | tr '\n' ':' | sed s/.$//)
 
-export C_INCLUDE_PATH=/usr/local/opt/openssl/include
-export CPLUS_INCLUDE_PATH=$C_INCLUDE_PATH
+#export C_INCLUDE_PATH=/usr/local/opt/openssl/include
+#export CPLUS_INCLUDE_PATH=$C_INCLUDE_PATH
 
 export LC_ALL=en_US.UTF-8
 export EDITOR='vim'
