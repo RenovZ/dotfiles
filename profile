@@ -5,6 +5,9 @@ done
 
 export GNU_HOME=/usr/local/opt/make/libexec
 
+# c++ configuration
+export VCPKG_ROOT="$HOME/vcpkg"
+
 # java configuration
 #export JAVA_HOME=/usr/local/Cellar/openjdk@11/11.0.9
 export JENV_HOME=~/.jenv
