@@ -18,8 +18,6 @@ eval "$(jenv init -)"
 # Add environment variable SDKBOX_HOME for sdkbox installer
 export SDKBOX_HOME=$HOME/.sdkbox
 
-export GOTRACEBACK=all
-export GODDD=on
 # https://blog.haohtml.com/archives/21778
 #export GODEBUG=allocfreetrace=0
 export GOROOT_BOOTSTRAP=/usr/local/go
