@@ -10,8 +10,6 @@ export VCPKG_ROOT="$HOME/vcpkg"
 
 # java configuration
 #export JAVA_HOME=/usr/local/Cellar/openjdk@11/11.0.9
-export JENV_HOME=~/.jenv
-eval "$(jenv init -)"
 
 [ -f ~/.bashrc_docker ] && . ~/.bashrc_docker
 
@@ -103,9 +101,7 @@ alias find="fd"
 alias man="tldr"
 alias ps="procs"
 
-export PATH=$GNU_HOME/gnubin:/usr/local/opt/llvm/bin:~/bin:$SDKBOX_HOME/bin:$JENV_HOME/bin:$GOPATH/bin:/usr/local/bin:/usr/local/sbin:$PATH
-
-#`which archey` -c
+export PATH=$GNU_HOME/gnubin:/usr/local/opt/llvm/bin:~/bin:$SDKBOX_HOME/bin:$GOPATH/bin:/usr/local/bin:/usr/local/sbin:$PATH
 
 #export VIMEDITOR='vim'
 export EDITOR='nvim'
