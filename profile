@@ -50,7 +50,7 @@ export PATH=$ANDROID_HOME/platform-tools:$PATH
 PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 
 eval "$(luarocks path --bin)"
-eval "$(thefuck --alias)"
+#eval "$(thefuck --alias)"
 eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
