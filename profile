@@ -103,6 +103,9 @@ alias ps="procs"
 
 export PATH=$GNU_HOME/gnubin:/usr/local/opt/llvm/bin:~/bin:$SDKBOX_HOME/bin:$GOPATH/bin:/usr/local/bin:/usr/local/sbin:$PATH
 
+export PATH="$HOME/.basher/bin:$PATH"   ##basher5ea843
+eval "$(basher init - zsh)"             ##basher5ea843
+
+
 #export VIMEDITOR='vim'
 export EDITOR='nvim'
-if [ -e /Users/zzq/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/zzq/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
