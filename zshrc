@@ -190,3 +190,5 @@ elif type compctl &>/dev/null; then
 fi
 ###-end-pm2-completion-###
 if [ -e /Users/zzq/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/zzq/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+export PATH="$HOME/.basher/bin:$PATH"   ##basher5ea843
+eval "$(basher init - zsh)"             ##basher5ea843
