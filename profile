@@ -80,7 +80,7 @@ export NNN_PLUG='v:imgview;f:fzcd;t:preview-tui;p:-!less -iR $nnn*'
 #export http_proxy=http://127.0.0.1:7890
 #export all_proxy=socks5://127.0.0.1:7890
 
-alias vim="nvim"
+#alias vim="nvim"
 
 #alias man='man -M /usr/local/share/man/zh_CN'
 alias tpc="curl cip.cc"
