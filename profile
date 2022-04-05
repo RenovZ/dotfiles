@@ -35,6 +35,7 @@ export GOPROXY=https://goproxy.cn
 
 export LC_ALL=en_US.UTF-8
 export EDITOR='vim'
+# #export VIMEDITOR='vim'
 
 #rust config
 . "$HOME/.cargo/env"
@@ -47,7 +48,7 @@ export EDITOR='vim'
 ANDROID_HOME=/Volumes/SOFT/Android/sdk
 export PATH=$ANDROID_HOME/platform-tools:$PATH
 
-PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
+# PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 
 eval "$(luarocks path --bin)"
 #eval "$(thefuck --alias)"
@@ -55,8 +56,15 @@ eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+eval "$(zoxide init zsh)"
+eval "$(starship init zsh)"
+eval "$(mcfly init zsh)"
+
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 
 #export DISPLAY=:0
 #export ICONLOOKUP=1
@@ -101,11 +109,36 @@ alias find="fd"
 alias man="tldr"
 alias ps="procs"
 
+alias emacs='TERM=xterm-24bits emacs'
+
 export PATH=$GNU_HOME/gnubin:/usr/local/opt/llvm/bin:~/bin:$SDKBOX_HOME/bin:$GOPATH/bin:/usr/local/bin:/usr/local/sbin:$PATH
 
 export PATH="$HOME/.basher/bin:$PATH"   ##basher5ea843
 eval "$(basher init - zsh)"             ##basher5ea843
 
+#export BREW_REPO="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
+#export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
 
-#export VIMEDITOR='vim'
-export EDITOR='nvim'
+# Fix pyenv install python on macos bigsure error
+#https://stackoverflow.com/questions/66766531/installation-of-python-3-8-fails-with-pyenv-on-macos
+#export SDKROOT=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
+#export MACOSX_DEPLOYMENT_TARGET=10.15
+
+
+# zstyle ':completion:*:*:docker:*' option-stacking yes
+# zstyle ':completion:*:*:docker-*:*' option-stacking yes
+
+# # This speeds up pasting w/ autosuggest
+# # https://github.com/zsh-users/zsh-autosuggestions/issues/238
+# pasteinit() {
+#   OLD_SELF_INSERT=${${(s.:.)widgets[self-insert]}[2,3]}
+#   zle -N self-insert url-quote-magic # I wonder if you'd need `.url-quote-magic`?
+# }
+
+# pastefinish() {
+#   zle -N self-insert $OLD_SELF_INSERT
+# }
+# zstyle :bracketed-paste-magic paste-init pasteinit
+# zstyle :bracketed-paste-magic paste-finish pastefinish
+
+if [ -e /Users/zzq/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/zzq/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
