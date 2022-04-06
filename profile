@@ -116,6 +116,11 @@ export PATH=$GNU_HOME/gnubin:/usr/local/opt/llvm/bin:~/bin:$SDKBOX_HOME/bin:$GOP
 export PATH="$HOME/.basher/bin:$PATH"   ##basher5ea843
 eval "$(basher init - zsh)"             ##basher5ea843
 
+export DENO_INSTALL="$HOME/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"
+
+export FZF_DEFAULT_COMMAND='rg --files --hidden -g "!.git" '
+
 #export BREW_REPO="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
 #export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
 
