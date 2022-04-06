@@ -43,7 +43,7 @@ p7zip
 pango
 pass
 percol
-'pgcli --only-binary psycopg2'
+pgcli --only-binary psycopg2
 pipx
 protobuf
 py3cairo
