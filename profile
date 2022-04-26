@@ -34,8 +34,9 @@ export GOPROXY=https://goproxy.cn
 #export CPLUS_INCLUDE_PATH=$C_INCLUDE_PATH
 
 export LC_ALL=en_US.UTF-8
-export EDITOR='vim'
+export EDITOR="vim"
 # #export VIMEDITOR='vim'
+#export READER="zathura"
 
 #rust config
 . "$HOME/.cargo/env"
@@ -73,7 +74,7 @@ export NVM_DIR="$HOME/.nvm"
 #export TERMINAL='iterm'
 #export PREVIEW_MODE=0
 
-#nnn configuration
+#----------- NNN Configuration Start--------------
 #export NNN_PREVIEWWIDTH=1000
 #export NNN_OPTS="cEnrx"
 export NNN_TRASH=1
@@ -82,6 +83,9 @@ export NNN_FIFO='/tmp/nnn.fifo'
 #export NNN_BMS='i:~/.local/pics;w:~/.local/wiki'
 export NNN_SEL='/tmp/.sel'
 export NNN_PLUG='v:imgview;f:fzcd;t:preview-tui;p:-!less -iR $nnn*'
+#export NNN_USE_EDITOR=1
+#export NNN_OPENER=vim-opern
+#----------- NNN Configuration End--------------
 
 #clashx proxy config
 #export https_proxy=http://127.0.0.1:7890
@@ -101,13 +105,13 @@ alias pigcha="all_proxy=http://127.0.0.1:61422"
 #alias awk="$(which gawk)"
 alias ls="exa --header --icons --git"
 alias ll="ls -agl"
-alias cat="bat"
-alias du="ncdu"
-alias df="duf"
-alias top="htop"
-alias find="fd"
-alias man="tldr"
-alias ps="procs"
+#alias cat="bat"
+#alias du="ncdu"
+#alias df="duf"
+#alias top="htop"
+#alias find="fd"
+#alias man="tldr"
+#alias ps="procs"
 
 alias emacs='TERM=xterm-24bits emacs'
 
