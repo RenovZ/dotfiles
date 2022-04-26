@@ -4,15 +4,17 @@
 // See https://hyper.is#cfg for all currently supported options.
 module.exports = {
     config: {
-        hypest: {
-            darkmode: true,
-            vibrancy: true,
-            vibrancyLevel: 0.1,
-            hideControls: true,
-            accentColor: 'cyan',
-            colors: {
-                blue: '#0067FF'
-            },
+        hyperWindowSize: {
+            transform: true,
+            width: 150,
+            height: 30,
+            startX: 140,
+            startY: 140
+        },
+        hyperTransparent: {
+            backgroundColor: '#002b36',
+            opacity: 0.1,
+            vibrancy: 'ultra-dark' // ['', 'dark', 'medium-light', 'ultra-dark']
         },
         // choose either `'stable'` for receiving highly polished,
         // or `'canary'` for less polished but more frequent updates
@@ -147,7 +149,12 @@ module.exports = {
     //   `hyperpower`
     //   `@company/project`
     //   `project#1.0.1`
-    plugins: ["hyper-hypest"],
+    plugins: [
+        "hyper-solarized-dark",
+        "hyperminimal",
+        "hyper-transparent",
+        "hyper-window-size"
+    ],
     // in development, you can create a directory under
     // `~/.hyper_plugins/local/` and include it here
     // to load it and avoid it being `npm install`ed
