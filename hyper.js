@@ -13,7 +13,7 @@ module.exports = {
         },
         hyperTransparent: {
             backgroundColor: '#002b36',
-            opacity: 0.1,
+            opacity: 0.6,
             vibrancy: 'ultra-dark' // ['', 'dark', 'medium-light', 'ultra-dark']
         },
         // choose either `'stable'` for receiving highly polished,
