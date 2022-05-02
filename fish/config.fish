@@ -1,7 +1,3 @@
-# . ~/.config/sys-config/rustrc
-# . ~/.config/sys-config/golangrc
-# . ~/.config/sys-config/exports
-# . ~/.config/sys-config/aliases
 bass source ~/.config/sys-config/profile
 
 zoxide init fish | source
@@ -17,5 +13,3 @@ end
 if status is-interactive
     # Commands to run in interactive sessions can go here
 end
-
-thefuck --alias | source
