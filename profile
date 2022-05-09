@@ -65,3 +65,4 @@ export PATH=~/bin:/usr/local/bin:/usr/local/sbin:$PATH
 # zstyle :bracketed-paste-magic paste-finish pastefinish
 
 if [ -e /Users/zzq/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/zzq/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+. "/Users/zzq/.acme.sh/acme.sh.env"
