@@ -31,7 +31,7 @@ export VCPKG_ROOT="$HOME/vcpkg"
 #----------- NNN Configuration Start--------------
 #export NNN_PREVIEWWIDTH=1000
 #export NNN_OPTS="cEnrx"
-export NNN_TRASH=1
+#export NNN_TRASH=1
 export NNN_HELP='pwy paris'
 export NNN_FIFO='/tmp/nnn.fifo'
 #export NNN_BMS='i:~/.local/pics;w:~/.local/wiki'

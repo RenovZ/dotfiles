@@ -1,5 +1,7 @@
 bass source ~/.config/sys-config/profile
 
+set --erase NNN_TRASH
+
 zoxide init fish | source
 mcfly init fish | source
 
