@@ -42,3 +42,30 @@ export NNN_PLUG='v:imgview;f:fzcd;t:preview-tui;p:-!less -iR $nnn*'
 #----------- NNN Configuration End--------------
 
 export FZF_DEFAULT_COMMAND='rg --files --hidden -g "!.git" '
+
+
+
+ANDROID_HOME=/Volumes/SOFT/Android/sdk
+export PATH=$ANDROID_HOME/platform-tools:$PATH
+
+export GNU_HOME=/usr/local/opt/make/libexec
+export PATH=$GNU_HOME/gnubin:$PATH
+
+# Add environment variable SDKBOX_HOME for sdkbox installer
+export SDKBOX_HOME=$HOME/.sdkbox
+export PATH=$SDKBOX_HOME/bin:$PATH
+
+export PATH="$HOME/.basher/bin:$PATH"   ##basher5ea843
+
+export DENO_HOME="$HOME/.deno"
+export PATH="$DENO_HOME/bin:$PATH"
+
+export PATH=~/bin:/usr/local/bin:/usr/local/sbin:$PATH
+
+#export BREW_REPO="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
+#export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
+
+# Fix pyenv install python on macos bigsure error
+#https://stackoverflow.com/questions/66766531/installation-of-python-3-8-fails-with-pyenv-on-macos
+#export SDKROOT=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
+#export MACOSX_DEPLOYMENT_TARGET=10.15
