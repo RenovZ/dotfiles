@@ -108,11 +108,7 @@ source $BUNDLE_HOME/iterm2_shell_integration.zsh
 export PATH=$BUNDLE_HOME/bin:$PATH
 
 . ~/.config/sys-config/profile
-
-eval "$(zoxide init zsh)"
-eval "$(starship init zsh)"
-eval "$(mcfly init zsh)"
-eval "$(basher init - zsh)"
+. ~/.config/sys-config/devenv
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
