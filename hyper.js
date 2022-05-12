@@ -6,8 +6,8 @@ module.exports = {
     config: {
         hyperWindowSize: {
             transform: true,
-            width: 150,
-            height: 30,
+            width: 120,
+            height: 25,
             startX: 140,
             startY: 140
         },
