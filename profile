@@ -1,6 +1,6 @@
 CUSTOM_SYS_SHELL_HOME=~/.config/sys-config/shell
 for file in $CUSTOM_SYS_SHELL_HOME/*;do
-    source $file
+    . $file
 done
 
 . ~/.config/sys-config/rust.sh
@@ -8,9 +8,13 @@ done
 . ~/.config/sys-config/export.sh
 . ~/.config/sys-config/alias.sh
 
-[ -f ~/.devprofile ] && . ~/.devprofile
+if [ -f ~/.devprofile ]; then
+    . ~/.devprofile
+fi
 
-[ -f ~/.bashrc_docker ] && . ~/.bashrc_docker
+if [ -f ~/.bashrc_docker ]; then
+    . ~/.bashrc_docker
+fi
 
 # zstyle ':completion:*:*:docker:*' option-stacking yes
 # zstyle ':completion:*:*:docker-*:*' option-stacking yes
@@ -27,6 +31,3 @@ done
 # }
 # zstyle :bracketed-paste-magic paste-init pasteinit
 # zstyle :bracketed-paste-magic paste-finish pastefinish
-
-if [ -e /Users/zzq/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/zzq/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
-. "/Users/zzq/.acme.sh/acme.sh.env"
