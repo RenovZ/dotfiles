@@ -5,7 +5,7 @@ export GOPATH=~/WorkSpace/Golang
 export GO111MODULE=on
 export GOCACHE=$GOPATH/go-build
 export GOENV=$GOPATH/env
-export GOPROXY=https://goproxy.cn
-#export GOPROXY=https://goproxy.io
+#export GOPROXY=https://proxy.golang.com.cn,direct
+export GOPROXY=https://goproxy.cn,direct
 
 export PATH=$GOPATH/bin:$PATH
