@@ -61,7 +61,7 @@ export PATH="$HOME/.basher/bin:$PATH"   ##basher5ea843
 export DENO_HOME="$HOME/.deno"
 export PATH="$DENO_HOME/bin:$PATH"
 
-export PATH=~/bin:/usr/local/bin:/opt/local/bin:/usr/local/sbin:/opt/local/sbin:$PATH
+export PATH=~/bin:/opt/local/bin:/usr/local/bin:/opt/local/sbin:/usr/local/sbin:$PATH
 
 #export BREW_REPO="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
 #export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
