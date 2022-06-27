@@ -36,7 +36,7 @@ export NNN_HELP='pwy paris'
 export NNN_FIFO='/tmp/nnn.fifo'
 #export NNN_BMS='i:~/.local/pics;w:~/.local/wiki'
 export NNN_SEL='/tmp/.sel'
-export NNN_PLUG='v:imgview;f:fzcd;t:preview-tui;p:-!less -iR $nnn*'
+export NNN_PLUG='v:imgview;f:fzcd;t:preview-tui;T:preview-tabbed;p:-!less -iR $nnn*'
 #export NNN_USE_EDITOR=1
 #export NNN_OPENER=vim-opern
 #----------- NNN Configuration End--------------
