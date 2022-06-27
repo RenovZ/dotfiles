@@ -5,7 +5,7 @@
   ],
   "rules": [
     {
-      "description": "(Terminal, CKII, EUIV, iTerm, muCommander, PyCharm, VSCodium, WebStorm, AndroidStudio) Function keys work as fn keys",
+      "description": "(Terminal, CKII, EUIV, iTerm, muCommander, PyCharm, VSCode, WebStorm, AndroidStudio) Function keys work as fn keys",
       "manipulators": [
         {
           "type": "basic",
@@ -34,7 +34,7 @@
                 "com.googlecode.iterm2",
                 "com.mucommander.muCommander",
                 "com.jetbrains.pycharm",
-                "com.visualstudio.code.oss",
+                "com.microsoft.VSCode",
                 "com.jetbrains.WebStorm",
                 "com.google.android.studio"
               ]
@@ -68,7 +68,7 @@
                 "com.googlecode.iterm2",
                 "com.mucommander.muCommander",
                 "com.jetbrains.pycharm",
-                "com.visualstudio.code.oss",
+                "com.microsoft.VSCode",
                 "com.jetbrains.WebStorm",
                 "com.google.android.studio"
               ]
@@ -102,7 +102,7 @@
                 "com.googlecode.iterm2",
                 "com.mucommander.muCommander",
                 "com.jetbrains.pycharm",
-                "com.visualstudio.code.oss",
+                "com.microsoft.VSCode",
                 "com.jetbrains.WebStorm",
                 "com.google.android.studio"
               ]
@@ -136,7 +136,7 @@
                 "com.googlecode.iterm2",
                 "com.mucommander.muCommander",
                 "com.jetbrains.pycharm",
-                "com.visualstudio.code.oss",
+                "com.microsoft.VSCode",
                 "com.jetbrains.WebStorm",
                 "com.google.android.studio"
               ]
@@ -170,7 +170,7 @@
                 "com.googlecode.iterm2",
                 "com.mucommander.muCommander",
                 "com.jetbrains.pycharm",
-                "com.visualstudio.code.oss",
+                "com.microsoft.VSCode",
                 "com.jetbrains.WebStorm",
                 "com.google.android.studio"
               ]
@@ -204,7 +204,7 @@
                 "com.googlecode.iterm2",
                 "com.mucommander.muCommander",
                 "com.jetbrains.pycharm",
-                "com.visualstudio.code.oss",
+                "com.microsoft.VSCode",
                 "com.jetbrains.WebStorm",
                 "com.google.android.studio"
               ]
@@ -238,7 +238,7 @@
                 "com.googlecode.iterm2",
                 "com.mucommander.muCommander",
                 "com.jetbrains.pycharm",
-                "com.visualstudio.code.oss",
+                "com.microsoft.VSCode",
                 "com.jetbrains.WebStorm",
                 "com.google.android.studio"
               ]
@@ -272,7 +272,7 @@
                 "com.googlecode.iterm2",
                 "com.mucommander.muCommander",
                 "com.jetbrains.pycharm",
-                "com.visualstudio.code.oss",
+                "com.microsoft.VSCode",
                 "com.jetbrains.WebStorm",
                 "com.google.android.studio"
               ]
@@ -306,7 +306,7 @@
                 "com.googlecode.iterm2",
                 "com.mucommander.muCommander",
                 "com.jetbrains.pycharm",
-                "com.visualstudio.code.oss",
+                "com.microsoft.VSCode",
                 "com.jetbrains.WebStorm",
                 "com.google.android.studio"
               ]
@@ -340,7 +340,7 @@
                 "com.googlecode.iterm2",
                 "com.mucommander.muCommander",
                 "com.jetbrains.pycharm",
-                "com.visualstudio.code.oss",
+                "com.microsoft.VSCode",
                 "com.jetbrains.WebStorm",
                 "com.google.android.studio"
               ]
@@ -374,7 +374,7 @@
                 "com.googlecode.iterm2",
                 "com.mucommander.muCommander",
                 "com.jetbrains.pycharm",
-                "com.visualstudio.code.oss",
+                "com.microsoft.VSCode",
                 "com.jetbrains.WebStorm",
                 "com.google.android.studio"
               ]
@@ -408,7 +408,7 @@
                 "com.googlecode.iterm2",
                 "com.mucommander.muCommander",
                 "com.jetbrains.pycharm",
-                "com.visualstudio.code.oss",
+                "com.microsoft.VSCode",
                 "com.jetbrains.WebStorm",
                 "com.google.android.studio"
               ]

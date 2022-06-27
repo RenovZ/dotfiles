@@ -8,4 +8,5 @@ export GOENV=$GOPATH/env
 #export GOPROXY=https://proxy.golang.com.cn,direct
 export GOPROXY=https://goproxy.cn,direct
 
-export PATH=$GOPATH/bin:$PATH
+export ARKADE_PATH=~/.arkade
+export PATH=$ARKADE_PATH/bin:$GOPATH/bin:$PATH
