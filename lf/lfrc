@@ -1,0 +1,15 @@
+cmd z %{{
+    result="$(zoxide query --exclude "${PWD}" -- "$1")"
+    lf -remote "send ${id} cd '${result}'"
+}}
+
+cmd zi ${{
+    result="$(zoxide query -i -- "$1")"
+    lf -remote "send ${id} cd '${result}'"
+}}
+
+set previewer ~/.config/lf/preview
+set cleaner ~/.config/lf/cleaner
+set ratios 1:2:3
+
+set icons true
