@@ -8,6 +8,11 @@ done
 . ~/.config/sys-config/export.sh
 . ~/.config/sys-config/alias.sh
 
+export FORGIT_INSTALL_DIR=~/Store/forgit
+. "${FORGIT_INSTALL_DIR}/forgit.plugin.zsh"
+export FORGIT_FZF_DEFAULT_OPTS="--cycle --height='100%' --ansi --bind='?:toggle-preview' --bind='alt-w:toggle-preview-wrap' --preview-window='right:60%' +1"
+export PATH=$FORGIT_INSTALL_DIR/bin:$PATH
+
 if [ -f ~/.devprofile ]; then
     . ~/.devprofile
 fi

@@ -1,24 +1,3 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
-hash emojify &>/dev/null && forgit_emojify='|emojify'
-forgit_extract_sha="grep -Eo '[a-f0-9]+' | head -1 | tr -d '[:space:]'" \
-forgit_pager=$(git config core.pager || echo 'bat --color=always --style=numbers ') \
-forgit_show_pager=$(git config pager.show || echo "$forgit_pager") \
-forgit_diff_pager=$(git config pager.diff || echo "$forgit_pager") \
-forgit_ignore_pager=$(hash bat &>/dev/null && echo 'bat -l gitignore --color=always' || echo 'cat') \
-forgit_blame_pager=$(git config pager.blame || echo "$forgit_pager") \
-forgit_log_format='%C(auto)%h%d %s %C(black)%C(bold)%cr%Creset' \
-forgit_fullscreen_context=10 \
-forgit_preview_context=3 \
-FORGIT_FZF_DEFAULT_OPTS="
-$FZF_DEFAULT_OPTS
---ansi
---bind='ctrl-r:toggle-all'
---bind='ctrl-s:toggle-sort'
---bind='?:toggle-preview'
---bind='alt-w:toggle-preview-wrap'
---preview-window='right:60%'
-+1
-$FORGIT_FZF_DEFAULT_OPTS
-" \
-SHELL=/bin/zsh ~/.golang/bin/lf "$@"
+SHELL=/bin/bash ~/.golang/bin/lf "$@"
