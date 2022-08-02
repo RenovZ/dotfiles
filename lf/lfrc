@@ -1,15 +1,272 @@
-cmd z %{{
-    result="$(zoxide query --exclude "${PWD}" -- "$1")"
-    lf -remote "send ${id} cd '${result}'"
-}}
-
-cmd zi ${{
-    result="$(zoxide query -i -- "$1")"
-    lf -remote "send ${id} cd '${result}'"
-}}
-
+# set previewer ~/.config/lf/kitty_previewer
 set previewer ~/.config/lf/preview
-set cleaner ~/.config/lf/cleaner
+set cleaner ~/.config/lf/kitty_cleaner
 set ratios 1:2:3
 
 set icons true
+
+# # zoxide
+# cmd z %{{
+#     result="$(zoxide query --exclude "${PWD}" -- "$1")"
+#     lf -remote "send ${id} cd '${result}'"
+# }}
+
+# cmd zi ${{
+#     result="$(zoxide query -i -- "$1")"
+#     lf -remote "send ${id} cd '${result}'"
+# }}
+
+# git
+cmd git_branch ${{
+    git branch | fzf | xargs git checkout
+    pwd_shell=$(pwd)
+    lf -remote "send $id updir"
+    lf -remote "send $id cd \"$pwd_shell\""
+}}
+cmd git_add ${{
+    clear
+
+    extract="
+        sed 's/^.*]  //' |
+        sed 's/.* -> //' |
+        sed -e 's/^\\\"//' -e 's/\\\"\$//'
+    "
+    preview="
+        file=\$(echo {} | $extract)
+        if (git status -s -- \$file | grep '^??') &>/dev/null; then  # diff with /dev/null for untracked files
+            git diff --color=always --no-index -- /dev/null \$file | $forgit_diff_pager | sed '2 s/added:/untracked:/'
+        else
+            git diff --color=always -- \$file | $forgit_diff_pager
+        fi
+    "
+    opts="
+        $FORGIT_FZF_DEFAULT_OPTS
+        -0 -m --nth 2..,..
+        --preview=\"$preview\"
+        $FORGIT_ADD_FZF_OPTS
+    "
+    changed=$(git config --get-color color.status.changed red)
+    unmerged=$(git config --get-color color.status.unmerged red)
+    untracked=$(git config --get-color color.status.untracked red)
+    files=$(git -c color.status=always -c status.relativePaths=true status -su |
+        grep -F -e "$changed" -e "$unmerged" -e "$untracked" |
+        sed -E 's/^(..[^[:space:]]*)[[:space:]]+(.*)$/[\1]  \2/' |
+        FZF_DEFAULT_OPTS="$opts" fzf |
+        sh -c "$extract")
+
+    [[ -n "$files" ]] && echo "$files"| tr '\n' '\0' |xargs -0 -I% git add % && git status -su || echo "press ENTER" && read ENTER
+}}
+cmd git_push ${{
+    clear
+    remote=$(git --no-pager remote -v | fzf | awk '{print $1}')
+    target_branch=$(git --no-pager branch -vv | fzf | sed "s/^* //" | awk '{print $1}')
+    current_branch=$(git branch --show-current)
+    git push $remote $current_branch:$target_branch
+    echo "press ENTER"
+    read ENTER
+}}
+cmd git_diff ${{
+    clear
+    [[ $# -ne 0 ]] && {
+        if git rev-parse "$1" -- &>/dev/null ; then
+            if [[ $# -gt 1 ]] && git rev-parse "$2" -- &>/dev/null; then
+                commits="$1 $2" && files=("${@:3}")
+            else
+                commits="$1" && files=("${@:2}")
+            fi
+        else
+            files=("$@")
+        fi
+    }
+    repo="$(git rev-parse --show-toplevel)"
+    get_files="cd '$repo' && echo {} | sed 's/.*] *//' | sed 's/  ->  / /'"
+    preview_cmd="$get_files | xargs -I% git diff --color=always -U$forgit_preview_context $commits -- % | $forgit_diff_pager"
+    enter_cmd="$get_files | xargs -I% git diff --color=always -U$forgit_fullscreen_context $commits -- % | $forgit_diff_pager"
+    opts="
+        $FORGIT_FZF_DEFAULT_OPTS
+        +m -0 --bind=\"enter:execute($enter_cmd | LESS='-r' less)\"
+        --preview=\"$preview_cmd\"
+        $FORGIT_DIFF_FZF_OPTS
+        --prompt=\"$commits > \"
+    "
+    eval "git diff --name-status $commits -- ${files[*]} | sed -E 's/^([[:alnum:]]+)[[:space:]]+(.*)$/[\1]\t\2/'" |
+        sed 's/\t/  ->  /2' | expand -t 8 |
+        FZF_DEFAULT_OPTS="$opts" fzf
+}}
+cmd git_pull ${{
+    clear
+    remote=$(git --no-pager remote -v | fzf | awk '{print $1}')
+    branch=$(git --no-pager branch -vv | fzf | sed "s/^* //" | awk '{print $1}')
+    git pull $remote $branch
+    echo "press ENTER"
+    read ENTER
+}}
+cmd git_status ${{clear; git status; echo "press ENTER"; read ENTER}}
+cmd git_log ${{
+    clear
+    files=$(sed -nE 's/.* -- (.*)/\1/p' <<< "$*") # extract files parameters for `git show` command
+    preview_cmd="echo {} | $forgit_extract_sha | xargs -I% git show --color=always -U$forgit_preview_context % -- $files | $forgit_show_pager"
+    enter_cmd="echo {} | $forgit_extract_sha | xargs -I% git show --color=always -U$forgit_fullscreen_context % -- $files | $forgit_show_pager"
+    opts="
+        $FORGIT_FZF_DEFAULT_OPTS
+        +s +m --tiebreak=index
+        --bind=\"enter:execute($enter_cmd | LESS='-r' less)\"
+        --bind=\"ctrl-y:execute-silent(echo {} | $forgit_extract_sha | ${FORGIT_COPY_CMD:-pbcopy})\"
+        --preview=\"$preview_cmd\"
+        $FORGIT_LOG_FZF_OPTS
+    "
+    graph=--graph
+    [[ $FORGIT_LOG_GRAPH_ENABLE == false ]] && graph=
+    log_format=${FORGIT_GLO_FORMAT:-$forgit_log_format}
+    eval "git log $graph --color=always --format='$log_format' $* $forgit_emojify" |
+        FZF_DEFAULT_OPTS="$opts" fzf
+}}
+cmd git_remote ${{clear; git remote -v; echo "press ENTER"; read ENTER}}
+cmd git_check_branch ${{
+    [[ $# -ne 0 ]] && { git checkout -b "$@"; echo "press ENTER"; read ENTER; }
+    cmd="git branch --color=always --all | LC_ALL=C sort -k1.1,1.1 -rs"
+    preview="git log {1} --graph --pretty=format:'$forgit_log_format' --color=always --abbrev-commit --date=relative"
+    opts="
+        $FORGIT_FZF_DEFAULT_OPTS
+        +s +m --tiebreak=index --header-lines=1
+        --preview=\"$preview\"
+        $FORGIT_CHECKOUT_BRANCH_FZF_OPTS
+        "
+    branch="$(eval "$cmd" | FZF_DEFAULT_OPTS="$opts" fzf | awk '{print $1}')"
+    [[ -z "$branch" ]] && return 1
+
+    # track the remote branch if possible
+    if [[ "$branch" == "remotes/origin/"* ]]; then
+        if git branch | grep -qw "${branch#remotes/origin/}"; then
+            # hack to force creating a new branch which tracks the remote if a local branch already exists
+            git checkout -b "track/${branch#remotes/origin/}" --track "$branch"
+        elif ! git checkout --track "$branch" 2>/dev/null; then
+            git checkout "$branch"
+        fi
+    else
+        git checkout "$branch"
+    fi
+}}
+cmd git_check_commit ${{
+    [[ $# -ne 0 ]] && { git checkout "$@"; echo "press ENTER"; read ENTER; }
+    cmd="echo {} | $forgit_extract_sha |xargs -I% git show --color=always % | $forgit_show_pager"
+    opts="
+        $FORGIT_FZF_DEFAULT_OPTS
+        +s +m --tiebreak=index
+        --bind=\"ctrl-y:execute-silent(echo {} | $forgit_extract_sha | ${FORGIT_COPY_CMD:-pbcopy})\"
+        --preview=\"$cmd\"
+        $FORGIT_COMMIT_FZF_OPTS
+    "
+    graph=--graph
+    [[ $FORGIT_LOG_GRAPH_ENABLE == false ]] && graph=
+    eval "git log $graph --color=always --format='$forgit_log_format' $forgit_emojify" |
+        FZF_DEFAULT_OPTS="$opts" fzf | eval "$forgit_extract_sha" | xargs -I% git checkout % --
+}}
+cmd git_blame ${{
+    [[ $# -ne 0 ]] && git blame "$@" && echo "press ENTER" && read ENTER
+    opts="
+        $FORGIT_FZF_DEFAULT_OPTS
+        $FORGIT_BLAME_FZF_OPTS
+    "
+    flags=$(git rev-parse --flags "$@")
+    preview="
+        if (git ls-files {} --error-unmatch) &>/dev/null; then
+            git blame {} --date=short $flags | $forgit_blame_pager
+        else
+            echo File not tracked
+        fi
+    "
+    file=$(FZF_DEFAULT_OPTS="$opts" fzf --preview="$preview")
+    [ ! [ -z "$file" ]] && echo "press ENTER" && read ENTER
+    eval git blame "$file" "$flags"
+}}
+cmd git_stash_show ${{
+    cmd="echo {} |cut -d: -f1 |xargs -I% git stash show --color=always --ext-diff % |$forgit_diff_pager"
+    opts="
+        $FORGIT_FZF_DEFAULT_OPTS
+        +s +m -0 --tiebreak=index --bind=\"enter:execute($cmd | LESS='-r' less)\"
+        --preview=\"$cmd\"
+        $FORGIT_STASH_FZF_OPTS
+    "
+    git stash list | FZF_DEFAULT_OPTS="$opts" fzf
+}}
+cmd git_commit ${{
+    clear
+    git commit "$@"
+}}
+
+map ga :git_add
+map gb :git_branch
+map gp :git_push
+map gd :git_diff
+map gu :git_pull
+map gs :git_status
+map gl :git_log
+map gr :git_remote
+map ge push %git<space>
+map gce :git_commit
+map gcb :git_check_branch
+map gcc :git_check_commit
+map gib :git_blame
+map gis :git_stash_show
+
+# fzf
+cmd fzf $vi $(find . -name "$1" | fzf)
+cmd fzf_jump ${{
+    res="$(fd -t d | fzf --header='Jump to location' | sed 's/\\/\\\\/g;s/"/\\"/g')"
+    if [ -d "$res" ] ; then
+        cmd="cd"
+    elif [ -f "$res" ] ; then
+        cmd="select"
+    else
+        exit 0
+    fi
+    lf -remote "send $id $cmd \"$res\""
+}}
+cmd rg_search ${{
+    res="$( \
+        RG_PREFIX="rg --column --line-number --no-heading --color=always \
+            --smart-case "
+        FZF_DEFAULT_COMMAND="$RG_PREFIX ''" \
+            fzf --bind "change:reload:$RG_PREFIX {q} || true" \
+            --ansi --header 'Search in files' \
+            | cut -d':' -f1
+    )"
+    [ ! -z "$res" ] && lf -remote "send $id select \"$res\""
+}}
+cmd fd_search ${{
+    res="$( \
+        RG_PREFIX="fd --color=always -t f \
+            --ignore-case "
+        FZF_DEFAULT_COMMAND="$RG_PREFIX ''" \
+            fzf --bind "change:reload:$RG_PREFIX {q} || true" \
+            --ansi --header 'Search in files' \
+            --preview "bat --color=always --style=numbers {}" \
+            | cut -d':' -f1
+    )"
+    [ ! -z "$res" ] && lf -remote "send $id select \"$res\""
+}}
+cmd fzf_raw ${{
+    # preview="bat --color=always --style=numbers --line-range=:500 {}"
+    fzf
+}}
+
+map f
+map fj :fzf_jump
+map fs :rg_search
+map fd :fd_search
+map fe $vi $(fzf)
+map fzf :fzf_raw
+
+map . set hidden!
+
+#create new directory or file
+map n
+cmd mkdir %mkdir "$@"
+map nd push %mkdir<space>
+cmd touch %touch "$@"
+map nf push %touch<space>
+
+#delete file or directories
+map x
+map x push :delete<enter>
