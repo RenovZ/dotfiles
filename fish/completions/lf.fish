@@ -1,0 +1,1 @@
+/Users/zzq/Store/lf/etc/lf.fish

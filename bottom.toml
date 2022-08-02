@@ -1,0 +1,29 @@
+# This group of options represents a command-line flag/option.  Flags explicitly
+# added when running (ie: btm -a) will override this config file if an option
+# is also set here.
+
+[flags]
+# Whether to put the CPU legend to the left.
+left_legend = true
+# Whether to set CPU% on a process to be based on the total CPU or just current usage.
+current_usage = true
+# Whether to group processes with the same name together by default.
+group_processes = true
+# Use basic mode
+basic = true
+# Remove space in tables
+hide_table_gap = true
+# Show the battery widgets
+battery = true
+# Show memory values in the processes widget as values by default
+mem_as_value = true
+# Show tree mode by default in the processes widget.
+tree = true
+# Shows an indicator in table widgets tracking where in the list you are.
+#show_table_scroll_position = false
+# Show processes as their commands by default in the process widget.
+process_command = true
+# Displays the network widget with binary prefixes.
+network_use_binary_prefix = true
+# Displays the network widget using bytes.
+network_use_bytes = true

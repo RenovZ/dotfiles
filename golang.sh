@@ -10,3 +10,5 @@ export GOPROXY=https://goproxy.cn,direct
 
 export ARKADE_PATH=~/.arkade
 export PATH=$ARKADE_PATH/bin:$GOPATH/bin:$PATH
+
+source ~/.zprofile
