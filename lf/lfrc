@@ -20,21 +20,36 @@ set icons true
 cmd git_add ${{clear;git-forgit add}}
 cmd git_push ${{
     clear
-    remote=$(git --no-pager remote -v | fzf | awk '{print $1}')
-    target_branch=$(git --no-pager branch -vv | fzf | sed "s/^* //" | awk '{print $1}')
     current_branch=$(git branch --show-current)
-    git push $remote $current_branch:$target_branch
-    echo "press ENTER"
-    read ENTER
+    selected=$(git branch -rv|fzf --header="$current_branch (current branch)
+$(git --no-pager remote -v|awk '{print $1 " " $2}'|sort|uniq)" \
+    --preview="echo {}|awk '{print \$2}'|xargs git show")
+    remote=$(echo $selected|awk -F / '{print $1}')
+    target_branch=$(echo $selected|awk '{print $1}'|awk -F / '{print $2}')
+    if [ ! -z $remote ]; then
+        echo "git push $remote $current_branch:$target_branch"
+        git push $remote $current_branch:$target_branch
+        echo "press ENTER"
+        read ENTER
+    fi
 }}
 cmd git_diff ${{clear;git-forgit diff}}
 cmd git_pull ${{
     clear
-    remote=$(git --no-pager remote -v | fzf | awk '{print $1}')
-    branch=$(git --no-pager branch -vv | fzf | sed "s/^* //" | awk '{print $1}')
-    git pull $remote $branch
-    echo "press ENTER"
-    read ENTER
+    # remote=$(git --no-pager remote -v | fzf | awk '{print $1}')
+    # branch=$(git --no-pager branch -vv | fzf | sed "s/^* //" | awk '{print $1}')
+    current_branch=$(git branch --show-current)
+    selected=$(git branch -rv|fzf --header="$current_branch (current branch)
+$(git --no-pager remote -v|awk '{print $1 " " $2}'|sort|uniq)" \
+    --preview="echo {}|awk '{print \$2}'|xargs git show")
+    remote=$(echo $selected|awk '{print $1}'|awk -F / '{print $1}')
+    branch=$(echo $selected|awk '{print $1}'|awk -F / '{print $2}')
+    if [ ! -z $remote ]; then
+        echo "git pull $remote $branch"
+        git pull $remote $branch
+        echo "press ENTER"
+        read ENTER
+    fi
 }}
 cmd git_status ${{clear; git status; echo "press ENTER"; read ENTER}}
 cmd git_reset_head ${{clear;git-forgit reset_head}}
@@ -79,7 +94,12 @@ map grh :git_reset_head
 # fzf
 cmd fzf $vi $(find . -name "$1" | fzf)
 cmd fzf_jump ${{
-    res="$(fd -t d | fzf --header='Jump to location' | sed 's/\\/\\\\/g;s/"/\\"/g')"
+    res="$(fd --type d \
+        --hidden \
+        --no-ignore \
+        --exclude '.git' \
+        --ignore-case \
+        | fzf --header='Jump to location' | sed 's/\\/\\\\/g;s/"/\\"/g')"
     if [ -d "$res" ] ; then
         cmd="cd"
     elif [ -f "$res" ] ; then
@@ -91,7 +111,13 @@ cmd fzf_jump ${{
 }}
 cmd rg_search ${{
     res="$( \
-        RG_PREFIX="rg --column --line-number --no-heading --color=always \
+        RG_PREFIX="rg --column \
+            --hidden \
+            --line-number \
+            --no-heading \
+            --no-ignore \
+            --glob '!.git/*' \
+            --color=always \
             --smart-case "
         FZF_DEFAULT_COMMAND="$RG_PREFIX ''" \
             fzf --bind "change:reload:$RG_PREFIX {q} || true" \
@@ -102,7 +128,11 @@ cmd rg_search ${{
 }}
 cmd fd_search ${{
     res="$( \
-        RG_PREFIX="fd --color=always -t f \
+        RG_PREFIX="fd --color=always \
+            --hidden \
+            --no-ignore \
+            --type f \
+            --exclude '.git' \
             --ignore-case "
         FZF_DEFAULT_COMMAND="$RG_PREFIX ''" \
             fzf --bind "change:reload:$RG_PREFIX {q} || true" \
