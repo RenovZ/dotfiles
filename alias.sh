@@ -2,10 +2,10 @@
 
 #alias man='man -M /usr/local/share/man/zh_CN'
 alias tpc="curl cip.cc"
-alias pc4="proxychains4 -q -f ~/.proxychains.conf"
-alias proxy="all_proxy=socks5://127.0.0.1:7890"
-alias unproxy="unset all_proxy"
-alias pigcha="all_proxy=http://127.0.0.1:61422"
+# alias pc4="proxychains4 -q -f ~/.proxychains.conf"
+# alias proxy="all_proxy=socks5://127.0.0.1:7890"
+# alias unproxy="unset all_proxy"
+# alias pigcha="all_proxy=http://127.0.0.1:61422"
 #alias xtime="$(which gtime) -f '%Uu %Ss %er %MkB %c %C'"
 #alias ash="$(which autossh) -M 0"
 #alias awk="$(which gawk)"
