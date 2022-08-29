@@ -26,8 +26,6 @@ set SHELL /opt/local/bin/fish
 set proxy_host 127.0.0.1:7890
 set proxy_auth false
 
-set BAT_THEME 'Solarized (dark)'
-
 if status is-interactive
     # Commands to run in interactive sessions can go here
 end
