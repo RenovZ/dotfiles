@@ -5,7 +5,7 @@
   ],
   "rules": [
     {
-      "description": "(Terminal, CKII, EUIV, iTerm, Alacritty, Kitty, WebStorm, AndroidStudio) Function keys work as fn keys",
+      "description": "(Terminal, CKII, EUIV, iTerm, Alacritty, Kitty, VSCode, AndroidStudio) Function keys work as fn keys",
       "manipulators": [
         {
           "type": "basic",
@@ -34,7 +34,7 @@
                 "com.googlecode.iterm2",
                 "io.alacritty",
                 "net.kovidgoyal.kitty",
-                "com.jetbrains.WebStorm",
+                "com.microsoft.VSCode",
                 "com.google.android.studio"
               ]
             }
@@ -67,7 +67,7 @@
                 "com.googlecode.iterm2",
                 "io.alacritty",
                 "net.kovidgoyal.kitty",
-                "com.jetbrains.WebStorm",
+                "com.microsoft.VSCode",
                 "com.google.android.studio"
               ]
             }
@@ -100,7 +100,7 @@
                 "com.googlecode.iterm2",
                 "io.alacritty",
                 "net.kovidgoyal.kitty",
-                "com.jetbrains.WebStorm",
+                "com.microsoft.VSCode",
                 "com.google.android.studio"
               ]
             }
@@ -133,7 +133,7 @@
                 "com.googlecode.iterm2",
                 "io.alacritty",
                 "net.kovidgoyal.kitty",
-                "com.jetbrains.WebStorm",
+                "com.microsoft.VSCode",
                 "com.google.android.studio"
               ]
             }
@@ -166,7 +166,7 @@
                 "com.googlecode.iterm2",
                 "io.alacritty",
                 "net.kovidgoyal.kitty",
-                "com.jetbrains.WebStorm",
+                "com.microsoft.VSCode",
                 "com.google.android.studio"
               ]
             }
@@ -199,7 +199,7 @@
                 "com.googlecode.iterm2",
                 "io.alacritty",
                 "net.kovidgoyal.kitty",
-                "com.jetbrains.WebStorm",
+                "com.microsoft.VSCode",
                 "com.google.android.studio"
               ]
             }
@@ -232,7 +232,7 @@
                 "com.googlecode.iterm2",
                 "io.alacritty",
                 "net.kovidgoyal.kitty",
-                "com.jetbrains.WebStorm",
+                "com.microsoft.VSCode",
                 "com.google.android.studio"
               ]
             }
@@ -265,7 +265,7 @@
                 "com.googlecode.iterm2",
                 "io.alacritty",
                 "net.kovidgoyal.kitty",
-                "com.jetbrains.WebStorm",
+                "com.microsoft.VSCode",
                 "com.google.android.studio"
               ]
             }
@@ -298,7 +298,7 @@
                 "com.googlecode.iterm2",
                 "io.alacritty",
                 "net.kovidgoyal.kitty",
-                "com.jetbrains.WebStorm",
+                "com.microsoft.VSCode",
                 "com.google.android.studio"
               ]
             }
@@ -331,7 +331,7 @@
                 "com.googlecode.iterm2",
                 "io.alacritty",
                 "net.kovidgoyal.kitty",
-                "com.jetbrains.WebStorm",
+                "com.microsoft.VSCode",
                 "com.google.android.studio"
               ]
             }
@@ -364,7 +364,7 @@
                 "com.googlecode.iterm2",
                 "io.alacritty",
                 "net.kovidgoyal.kitty",
-                "com.jetbrains.WebStorm",
+                "com.microsoft.VSCode",
                 "com.google.android.studio"
               ]
             }
@@ -397,7 +397,7 @@
                 "com.googlecode.iterm2",
                 "io.alacritty",
                 "net.kovidgoyal.kitty",
-                "com.jetbrains.WebStorm",
+                "com.microsoft.VSCode",
                 "com.google.android.studio"
               ]
             }

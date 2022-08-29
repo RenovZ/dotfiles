@@ -43,6 +43,7 @@ export NNN_PLUG='v:imgview;f:fzcd;t:preview-tui;T:preview-tabbed;p:-!less -iR $n
 
 #export FZF_DEFAULT_COMMAND='rg --files --hidden -g "!.git"'
 export FZF_DEFAULT_COMMAND='fd --type f -H -E ".git/"'
+export BAT_THEME="Solarized (dark)"
 
 
 
