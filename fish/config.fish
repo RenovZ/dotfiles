@@ -23,8 +23,8 @@ kubectl completion fish | source
 set -Ux VISUAL vim
 set SHELL /opt/local/bin/fish
 
-set proxy_host 127.0.0.1:7890
-set proxy_auth false
+# set proxy_host 127.0.0.1:7890
+# set proxy_auth false
 
 if status is-interactive
     # Commands to run in interactive sessions can go here
