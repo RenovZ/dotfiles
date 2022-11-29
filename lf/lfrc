@@ -1,8 +1,14 @@
 # set previewer ~/.config/lf/kitty_previewer
+# set cleaner ~/.config/lf/kitty_cleaner
 set previewer ~/.config/lf/preview
 set cleaner ~/.config/lf/kitty_cleaner
-set ratios 1:2:3
+cmd on-quit $~/.config/lf/kitty_cleaner
+# set previewer stpv
+# set cleaner stpvimgclr
+# &stpvimg --listen $id
+# cmd on-quit $stpvimg --end $id
 
+set ratios 1:2:3
 set icons true
 #set colors true
 
@@ -167,12 +173,14 @@ map fzf :fzf_raw
 map . set hidden!
 
 #create new directory or file
-map n
+map o
 cmd mkdir %mkdir "$@"
-map nd push %mkdir<space>
+map od push %mkdir<space>
 cmd touch %touch "$@"
-map nf push %touch<space>
+map of push %touch<space>
 
 #delete file or directories
 map x
 map x push :delete<enter>
+
+map i $~/.config/lf/preview $f | less -R
