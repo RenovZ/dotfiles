@@ -3,10 +3,10 @@ for file in $CUSTOM_SYS_SHELL_HOME/*;do
     . $file
 done
 
-. ~/.config/sys-config/rust.sh
-. ~/.config/sys-config/golang.sh
-. ~/.config/sys-config/export.sh
-. ~/.config/sys-config/alias.sh
+. ~/.config/sys-config/rust
+. ~/.config/sys-config/golang
+. ~/.config/sys-config/export
+. ~/.config/sys-config/alias
 
 export FORGIT_INSTALL_DIR=~/Store/forgit
 . "${FORGIT_INSTALL_DIR}/forgit.plugin.zsh"
