@@ -8,13 +8,14 @@ image() {
 	h=$3
 	x=$4
 	y=$5
+	shift
 
-	if [[ "$(file -Lb --mime-type "$file")" =~ ^image ]]; then
+	#if [[ "$(file -Lb --mime-type "$file")" =~ ^image ]]; then
+	if file -Lb --mime-type "$file" | grep -Eq "image"; then
 		kitty +icat --silent --transfer-mode file --place "${w}x${h}@${x}x${y}" "$file"
 		exit 1
 	fi
 
-	shift
 	if command -v pistol >/dev/null 2>&1; then
 		pistol "$file"
 	elif [ -n "$DISPLAY" ] && [ -z "$WAYLAND_DISPLAY" ]; then
