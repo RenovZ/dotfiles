@@ -1,6 +1,6 @@
 CUSTOM_SYS_SHELL_HOME=~/.config/sys-config/shell
-for file in $CUSTOM_SYS_SHELL_HOME/*;do
-    . $file
+for file in $CUSTOM_SYS_SHELL_HOME/*; do
+	. "$file"
 done
 
 . ~/.config/sys-config/rust
@@ -8,17 +8,12 @@ done
 . ~/.config/sys-config/export
 . ~/.config/sys-config/alias
 
-export FORGIT_INSTALL_DIR=~/Store/forgit
-. "${FORGIT_INSTALL_DIR}/forgit.plugin.zsh"
-export FORGIT_FZF_DEFAULT_OPTS="--cycle --height='100%' --ansi --bind='?:toggle-preview' --bind='alt-w:toggle-preview-wrap' --preview-window='right:60%' +1"
-export PATH=$FORGIT_INSTALL_DIR/bin:$PATH
-
 if [ -f ~/.devprofile ]; then
-    . ~/.devprofile
+	. ~/.devprofile
 fi
 
 if [ -f ~/.bashrc_docker ]; then
-    . ~/.bashrc_docker
+	. ~/.bashrc_docker
 fi
 
 # zstyle ':completion:*:*:docker:*' option-stacking yes
@@ -37,5 +32,4 @@ fi
 # zstyle :bracketed-paste-magic paste-init pasteinit
 # zstyle :bracketed-paste-magic paste-finish pastefinish
 . "/Users/zzq/.acme.sh/acme.sh.env"
-___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then . "${___MY_VMOPTIONS_SHELL_FILE}"; fi
 . "$HOME/.cargo/env"
