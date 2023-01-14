@@ -3,3 +3,4 @@
 *.log
 pgcli/log
 pgcli/history
+*.bak

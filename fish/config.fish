@@ -1,11 +1,12 @@
-bass source ~/.config/sys-config/profile
+# bass source ~/.config/sys-config/profile
+# bass -d "source ~/.config/sys-config/profile" > profile.fish
+source ~/.config/sys-config/profile.fish
 
 # pyenv (asdf still uses pyenv under the hood)
 set -gx PYTHON_BUILD_ARIA2_OPTS "-x 10 -k 1M" # Use aria2c when downloading
 source ~/.asdf/asdf.fish
 
 #thefuck --alias | source
-luarocks path --bin | source
 
 zoxide init fish | source
 
@@ -16,11 +17,11 @@ zoxide init fish | source
 #    fzf_key_bindings
 #end
 
-kubectl completion fish | source
 # really slow
-#minikube completion fish | source
+# kubectl completion fish | source
+# minikube completion fish | source
 
-set -Ux VISUAL vim
+set -Ux VISUAL nvim
 set SHELL /opt/local/bin/fish
 
 # set proxy_host 127.0.0.1:7890
