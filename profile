@@ -25,10 +25,6 @@ fi
 
 eval "$(luarocks path --bin)"
 
-# emsdk
-export EMSDK_QUIET=1
-. "$HOME/.asdf/installs/emsdk/3.1.30/emsdk_env.sh"
-
 # Wasmer
 export WASMER_DIR="/Users/zzq/.wasmer"
 [ -s "$WASMER_DIR/wasmer.sh" ] && source "$WASMER_DIR/wasmer.sh"
