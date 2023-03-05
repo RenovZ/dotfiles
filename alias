@@ -19,7 +19,7 @@ alias ll="ls -agl"
 #alias man="tldr"
 #alias ps="procs"
 
-alias emacs='TERM=xterm-24bits emacs'
+# alias emacs='TERM=xterm-24bits emacs'
 
 alias ta='tmux attach -t'
 alias tad='tmux attach -d -t'
