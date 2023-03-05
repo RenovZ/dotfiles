@@ -1,6 +1,6 @@
-# bass source ~/.config/sys-config/profile
+bass source ~/.config/sys-config/profile
 # bass -d "source ~/.config/sys-config/profile" > profile.fish
-source ~/.config/sys-config/profile.fish
+# source ~/.config/sys-config/profile.fish
 
 # pyenv (asdf still uses pyenv under the hood)
 set -gx PYTHON_BUILD_ARIA2_OPTS "-x 10 -k 1M" # Use aria2c when downloading
