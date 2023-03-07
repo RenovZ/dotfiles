@@ -29,3 +29,6 @@ alias tksv='tmux kill-server'
 alias tkss='tmux kill-session -t'
 
 alias acme.sh="~/.acme.sh/acme.sh"
+
+alias n="npm"
+alias x="npx"
