@@ -4,3 +4,4 @@
 pgcli/log
 pgcli/history
 *.bak
+/profile.fish
