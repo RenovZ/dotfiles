@@ -28,5 +28,5 @@ set SHELL /opt/local/bin/fish
 # set proxy_auth false
 
 if status is-interactive
-    # Commands to run in interactive sessions can go here
+  # Commands to run in interactive sessions can go here
 end
