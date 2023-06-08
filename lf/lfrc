@@ -3,10 +3,15 @@
 # set previewer ~/.config/lf/preview
 # set cleaner ~/.config/lf/cleaner
 
-set previewer stpv
-set cleaner stpvimgclr
-&stpvimg --listen $id
-cmd on-quit $stpvimg --end $id
+# set previewer stpv
+# set cleaner stpvimgclr
+# &stpvimg --listen $id
+# cmd on-quit $stpvimg --end $id
+
+set previewer ctpv
+set cleaner ctpvclear
+&ctpv -s $id
+&ctpvquit $id
 
 set ratios 1:2:3
 set icons true
