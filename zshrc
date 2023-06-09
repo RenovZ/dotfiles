@@ -4,8 +4,8 @@ export ZSH=$HOME/.oh-my-zsh
 plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
-. ~/.config/sys-config/profile
 . ~/.asdf/asdf.sh
+. ~/.config/sys-config/profile
 . ~/Store/fzf/shell/key-bindings.zsh
 
 export FORGIT_INSTALL_DIR=~/Store/forgit
