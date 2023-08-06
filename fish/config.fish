@@ -30,3 +30,4 @@ set SHELL /opt/local/bin/fish
 if status is-interactive
   # Commands to run in interactive sessions can go here
 end
+test -e /Users/zzq/.iterm2_shell_integration.fish ; and source /Users/zzq/.iterm2_shell_integration.fish ; or true
