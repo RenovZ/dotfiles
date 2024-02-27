@@ -8,6 +8,9 @@ source $ZSH/oh-my-zsh.sh
 . ~/.config/sys-config/profile
 . ~/Store/fzf/shell/key-bindings.zsh
 
+HOMEBREW_DIR=/opt/homebrew
+export PATH=$HOMEBREW_DIR/bin:$PATH
+
 export FORGIT_INSTALL_DIR=~/Store/forgit
 . "${FORGIT_INSTALL_DIR}/forgit.plugin.zsh"
 export FORGIT_FZF_DEFAULT_OPTS="--cycle --height='100%' --ansi --bind='?:toggle-preview' --bind='alt-w:toggle-preview-wrap' --preview-window='right:60%' +1"
