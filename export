@@ -28,23 +28,21 @@ export VCPKG_ROOT="$HOME/vcpkg"
 #export PREVIEW_MODE=0
 
 #----------- NNN Configuration Start--------------
-#export NNN_PREVIEWWIDTH=1000
-#export NNN_OPTS="cEnrx"
-#export NNN_TRASH=1
-export NNN_HELP='pwy paris'
-export NNN_FIFO='/tmp/nnn.fifo'
-#export NNN_BMS='i:~/.local/pics;w:~/.local/wiki'
-export NNN_SEL='/tmp/.sel'
-export NNN_PLUG='v:imgview;f:fzcd;t:preview-tui;T:preview-tabbed;p:-!less -iR $nnn*'
-#export NNN_USE_EDITOR=1
-#export NNN_OPENER=vim-opern
+##export NNN_PREVIEWWIDTH=1000
+##export NNN_OPTS="cEnrx"
+##export NNN_TRASH=1
+#export NNN_HELP='pwy paris'
+#export NNN_FIFO='/tmp/nnn.fifo'
+##export NNN_BMS='i:~/.local/pics;w:~/.local/wiki'
+#export NNN_SEL='/tmp/.sel'
+#export NNN_PLUG='v:imgview;f:fzcd;t:preview-tui;T:preview-tabbed;p:-!less -iR $nnn*'
+##export NNN_USE_EDITOR=1
+##export NNN_OPENER=vim-opern
 #----------- NNN Configuration End--------------
 
 #export FZF_DEFAULT_COMMAND='rg --files --hidden -g "!.git"'
 export FZF_DEFAULT_COMMAND='fd --type f -H -E ".git/"'
 export BAT_THEME="Solarized (dark)"
-
-
 
 ANDROID_HOME=/Volumes/SOFT/Android/sdk
 export PATH=$ANDROID_HOME/platform-tools:$PATH
@@ -58,13 +56,15 @@ export PATH=$SDKBOX_HOME/bin:$PATH
 
 export PATH="$HOME/.basher/bin:$PATH"   ##basher5ea843
 
-export DENO_HOME="$HOME/.deno"
-export PATH="$DENO_HOME/bin:$PATH"
+#export DENO_HOME="$HOME/.deno"
+#export PATH="$DENO_HOME/bin:$PATH"
 
-export PNPM_HOME=$HOME/.pnpm
-export PATH=$PNPM_HOME:$PATH
+#export PNPM_HOME=$HOME/.pnpm
+#export PATH=$PNPM_HOME:$PATH
 
-export PATH=~/bin:/opt/local/bin:/usr/local/bin:/opt/local/sbin:/usr/local/sbin:$PATH
+export PATH=~/bin:$PATH
+export PATH=/opt/local/bin:/opt/homebrew/bin:/usr/local/bin:$PATH
+export PATH=/opt/local/sbin:/opt/homebrew/sbin:/usr/local/sbin:$PATH
 
 #export BREW_REPO="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
 #export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
