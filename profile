@@ -10,6 +10,7 @@ source ~/.config/sys-config/golang
 source ~/.config/sys-config/export
 source ~/.config/sys-config/alias
 source ~/.config/sys-config/tinygo
+source ~/.config/sys-config/homebrew
 
 if [ -f ~/.devprofile ]; then
 	source ~/.devprofile
@@ -36,4 +37,10 @@ export WASMER_DIR=~/.wasmer
 # [ -f $WASMER_DIR/wasmer.sh ] && source $WASMER_DIR/wasmer.sh
 if [ -s $WASMER_DIR/wasmer.sh ]; then
     source $WASMER_DIR/wasmer.sh
+fi
+
+# emsdk
+EMSDK_HOME=~/emsdk
+if [ -s $EMSDK_HOME/emsdk_env.sh ]; then
+    source $EMSDK_HOME/emsdk_env.sh
 fi

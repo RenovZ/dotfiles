@@ -32,3 +32,4 @@ alias acme.sh="~/.acme.sh/acme.sh"
 
 alias n="npm"
 alias x="npx"
+alias p="pnpm"
