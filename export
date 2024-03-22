@@ -14,7 +14,6 @@ export EDITOR="nvim"
 
 #export FZF_DEFAULT_COMMAND='rg --files --hidden -g "!.git"'
 export FZF_DEFAULT_COMMAND='fd --type f -H -E ".git/"'
-export BAT_THEME="Solarized (dark)"
 
 export ANDROID_SDK_ROOT=~/Android
 export PATH=$ANDROID_SDK_ROOT/tools:$ANDROID_SDK_ROOT/platform-tools:$PATH
