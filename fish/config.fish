@@ -4,11 +4,12 @@ bass source ~/.config/sys-config/profile
 # source ~/.config/sys-config/profile.fish
 
 # pyenv (asdf still uses pyenv under the hood)
-set -gx PYTHON_BUILD_ARIA2_OPTS "-x 10 -k 1M" # Use aria2c when downloading
+# set -gx PYTHON_BUILD_ARIA2_OPTS "-x 10 -k 1M" # Use aria2c when downloading
 
 #thefuck --alias | source
 
 zoxide init fish | source
+fzf --fish | source
 
 # PatrickF1/fzf.fish instead
 #mcfly init fish | source
@@ -21,8 +22,8 @@ zoxide init fish | source
 # kubectl completion fish | source
 # minikube completion fish | source
 
-set -Ux VISUAL nvim
-set SHELL /opt/local/bin/fish
+# set -Ux VISUAL nvim
+# set SHELL /opt/local/bin/fish
 
 # set proxy_host 127.0.0.1:7890
 # set proxy_auth false
