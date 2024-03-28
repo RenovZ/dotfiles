@@ -9,6 +9,10 @@ source $ZSH/oh-my-zsh.sh
 
 eval "$(fzf --zsh)"
 
+source <(kubectl completion zsh)
+autoload -Uz compinit
+compinit
+
 # HOMEBREW_DIR=/opt/homebrew
 # export PATH=$HOMEBREW_DIR/bin:$PATH
 

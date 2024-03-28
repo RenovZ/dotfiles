@@ -10,6 +10,7 @@ bass source ~/.config/sys-config/profile
 
 zoxide init fish | source
 fzf --fish | source
+kubectl completion fish | source
 
 # PatrickF1/fzf.fish instead
 #mcfly init fish | source
