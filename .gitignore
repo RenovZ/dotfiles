@@ -3,4 +3,6 @@
 pgcli/log
 pgcli/history
 *.bak
+zed/.tmp*
+zed/embeddings
 /profile.fish
