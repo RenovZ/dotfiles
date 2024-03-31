@@ -5,9 +5,11 @@ plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
 . ~/.asdf/asdf.sh
-. ~/.config/sys-config/profile
+. ~/.config/sys-config/profile.sh
 
+source <(wezterm shell-completion --shell zsh)
 eval "$(fzf --zsh)"
+eval "$(zoxide init zsh)"
 
 source <(kubectl completion zsh)
 autoload -Uz compinit
@@ -20,5 +22,4 @@ export FORGIT_FZF_DEFAULT_OPTS="--cycle --height='100%' --ansi --bind='?:toggle-
 [ -f $HOMEBREW_PREFIX/share/forgit/forgit.plugin.zsh ] && source $HOMEBREW_PREFIX/share/forgit/forgit.plugin.zsh
 # export PATH=$FORGIT_INSTALL_DIR/bin:$PATH
 
-eval "$(zoxide init zsh)"
 ___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then . "${___MY_VMOPTIONS_SHELL_FILE}"; fi

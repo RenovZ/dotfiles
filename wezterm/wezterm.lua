@@ -10,13 +10,14 @@ if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
-config.window_background_opacity = 0.30
+config.window_background_opacity = 0.90
 config.macos_window_background_blur = 30
 config.hide_tab_bar_if_only_one_tab = true
-config.enable_tab_bar = true
+config.enable_tab_bar = false
 -- config.color_scheme = "ToyChest"
-config.color_scheme = "Solarized (dark) (terminal.sexy)"
+-- config.color_scheme = "Solarized (dark) (terminal.sexy)"
 -- config.color_scheme = "Solarized (light) (terminal.sexy)"
+-- config.color_scheme = "Google (dark) (terminal.sexy)"
 config.font_rules = {
 	{
 		intensity = "Normal",
@@ -28,6 +29,27 @@ config.font_rules = {
 	},
 }
 config.font_size = 14.0
+-- config.cursor_blink_ease_in = "Linear"
+-- config.cursor_blink_ease_out = "Linear"
+
+-- auto color scheme
+function scheme_for_appearance(appearance)
+	if appearance:find("Dark") then
+		return "Builtin Solarized Dark"
+	else
+		return "Builtin Solarized Light"
+	end
+end
+
+wezterm.on("window-config-reloaded", function(window, pane)
+	local overrides = window:get_config_overrides() or {}
+	local appearance = window:get_appearance()
+	local scheme = scheme_for_appearance(appearance)
+	if overrides.color_scheme ~= scheme then
+		overrides.color_scheme = scheme
+		window:set_config_overrides(overrides)
+	end
+end)
 
 -- and finally, return the configuration to wezterm
 return config

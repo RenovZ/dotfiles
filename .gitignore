@@ -1,5 +1,4 @@
 .DS_Store
-/shell/git.sh
 *.log
 pgcli/log
 pgcli/history
