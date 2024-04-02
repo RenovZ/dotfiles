@@ -10,7 +10,7 @@ if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
-config.window_background_opacity = 0.90
+config.window_background_opacity = 0.80
 config.macos_window_background_blur = 30
 config.hide_tab_bar_if_only_one_tab = true
 config.enable_tab_bar = false
@@ -35,9 +35,9 @@ config.font_size = 14.0
 -- auto color scheme
 function scheme_for_appearance(appearance)
 	if appearance:find("Dark") then
-		return "Builtin Solarized Dark"
+		return "Builtin Tango Dark"
 	else
-		return "Builtin Solarized Light"
+		return "Builtin Tango Light"
 	end
 end
 
