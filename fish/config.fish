@@ -1,14 +1,12 @@
 source ~/.asdf/asdf.fish
-bass source ~/.config/sys-config/profile.sh
-# bass -d "source ~/.config/sys-config/profile.sh" > profile.fish
-# source ~/.config/sys-config/profile.fish.sh
+bass source ~/.config/dotfiles/profile.sh
+# bass -d "source ~/.config/dotfiles/profile.sh" > profile.fish
+# source ~/.config/dotfiles/profile.fish.sh
 
 wezterm shell-completion --shell fish | source
 
 # pyenv (asdf still uses pyenv under the hood)
 # set -gx PYTHON_BUILD_ARIA2_OPTS "-x 10 -k 1M" # Use aria2c when downloading
-
-#thefuck --alias | source
 
 zoxide init fish | source
 fzf --fish | source
@@ -21,17 +19,6 @@ kubectl completion fish | source
 #    fzf_key_bindings
 #end
 
-# really slow
-# kubectl completion fish | source
-# minikube completion fish | source
-
-# set -Ux VISUAL nvim
-# set SHELL /opt/local/bin/fish
-
-# set proxy_host 127.0.0.1:7890
-# set proxy_auth false
-
 if status is-interactive
   # Commands to run in interactive sessions can go here
 end
-test -e /Users/zzq/.iterm2_shell_integration.fish ; and source /Users/zzq/.iterm2_shell_integration.fish ; or true
