@@ -1,16 +1,16 @@
-#CUSTOM_SYS_SHELL_HOME=~/.config/sys-config/shell
+#CUSTOM_SYS_SHELL_HOME=~/.config/dotfiles/shell
 #for file in $CUSTOM_SYS_SHELL_HOME/*; do
 #	. "$file"
 #done
 
 # 在bash中，`source`等价于`.`，其中`.`是bash内置的命令
 # 在其他的posix兼容的shell中（如：sh、dash等)，可能不支持`source`，只能使用`.`来执行脚本
-source ~/.config/sys-config/rust.sh
-source ~/.config/sys-config/golang.sh
-source ~/.config/sys-config/export.sh
-source ~/.config/sys-config/alias.sh
-source ~/.config/sys-config/tinygo.sh
-source ~/.config/sys-config/homebrew.sh
+source ~/.config/dotfiles/rust.sh
+source ~/.config/dotfiles/golang.sh
+source ~/.config/dotfiles/export.sh
+source ~/.config/dotfiles/alias.sh
+source ~/.config/dotfiles/tinygo.sh
+source ~/.config/dotfiles/homebrew.sh
 
 if [ -f ~/.devprofile ]; then
 	source ~/.devprofile

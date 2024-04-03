@@ -14,7 +14,7 @@ plugins=(git)
 source $HOME/.oh-my-zsh/oh-my-zsh.sh
 
 . ~/.asdf/asdf.sh
-. ~/.config/sys-config/profile.sh
+. ~/.config/dotfiles/profile.sh
 
 source <(wezterm shell-completion --shell zsh)
 eval "$(fzf --zsh)"
