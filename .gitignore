@@ -7,3 +7,4 @@ zed/.tmp*
 zed/embeddings
 /profile.fish
 fish/fish_variables
+fish/fishd.tmp.*
