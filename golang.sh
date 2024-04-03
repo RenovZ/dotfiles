@@ -9,7 +9,7 @@ export GOENV=$GOPATH/env
 export GOPROXY=https://goproxy.cn,direct
 # export GOGC=500
 
+export PATH=$GOPATH/bin:$PATH
+
 #export ARKADE_PATH=~/.arkade
 #export PATH=$ARKADE_PATH/bin:$GOPATH/bin:$PATH
-
-#source ~/.zprofile
