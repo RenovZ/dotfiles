@@ -6,3 +6,4 @@ pgcli/history
 zed/.tmp*
 zed/embeddings
 /profile.fish
+fish/fish_variables
