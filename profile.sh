@@ -20,12 +20,13 @@ if [ -f ~/.bashrc_docker ]; then
 	source ~/.bashrc_docker
 fi
 
-source ~/.acme.sh/acme.sh.env
+[[ ! -f ~/.acme.sh/acme.sh.env ]] || source ~/.acme.sh/acme.sh.env
 
+[[ ! -f ~/.asdf/asdf.sh ]] || source ~/.asdf/asdf.sh
 # asdf
 # . "$HOME/.asdf/asdf.sh"
 
-eval "$(luarocks path --bin)"
+type luarocks >/dev/null 2>&1 && eval "$(luarocks path --bin)"
 
 # Wasmer
 export WASMER_DIR=~/.wasmer
