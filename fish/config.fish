@@ -1,4 +1,4 @@
-source ~/.asdf/asdf.fish
+#source ~/.asdf/asdf.fish
 bass source ~/.config/dotfiles/profile.sh
 # bass -d "source ~/.config/dotfiles/profile.sh" > profile.fish
 # source ~/.config/dotfiles/profile.fish.sh
@@ -10,7 +10,10 @@ wezterm shell-completion --shell fish | source
 
 zoxide init fish | source
 fzf --fish | source
-kubectl completion fish | source
+
+if command -v kubectl > /dev/null
+  kubectl completion fish | source
+end
 
 # PatrickF1/fzf.fish instead
 #mcfly init fish | source
