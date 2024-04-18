@@ -27,5 +27,6 @@ alias n="npm"
 alias x="npx"
 alias p="pnpm"
 alias k=kubectl
+alias h=helm
 alias v=vim
 alias nv=nvim
