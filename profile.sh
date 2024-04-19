@@ -11,6 +11,7 @@ source ~/.config/dotfiles/export.sh
 source ~/.config/dotfiles/alias.sh
 source ~/.config/dotfiles/tinygo.sh
 source ~/.config/dotfiles/homebrew.sh
+source ~/.config/dotfiles/bat.sh
 
 if [ -f ~/.devprofile ]; then
 	source ~/.devprofile
@@ -45,3 +46,5 @@ EMSDK_HOME=~/emsdk
 if [ -s $EMSDK_HOME/emsdk_env.sh ]; then
 	source $EMSDK_HOME/emsdk_env.sh
 fi
+
+source ~/.config/dotfiles/fzf-git.sh
