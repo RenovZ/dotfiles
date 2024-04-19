@@ -9,16 +9,12 @@ fi
 
 plugins=(git)
 
-#[[ ! -f ~/.asdf/asdf.sh ]] || source ~/.asdf/asdf.sh
-. ~/.config/dotfiles/profile.sh
-
 source $HOME/.oh-my-zsh/oh-my-zsh.sh
 source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme
 [[ ! -d $(brew --prefix)/share/zsh-autosuggestions ]] || source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 [[ ! -d $(brew --prefix)/share/zsh-syntax-highlighting ]] || source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 source <(wezterm shell-completion --shell zsh)
-eval "$(fzf --zsh)"
 eval "$(zoxide init zsh)"
 [ ! type helm > /dev/null 2>&1 ] || source <(helm completion zsh)
 
@@ -36,3 +32,10 @@ ___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_V
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+#[[ ! -f ~/.asdf/asdf.sh ]] || source ~/.asdf/asdf.sh
+eval "$(fzf --zsh)"
+. ~/.config/dotfiles/profile.sh
+
+# To customize prompt, run `p10k configure` or edit ~/.config/dotfiles/p10k.zsh.
+[[ ! -f ~/.config/dotfiles/p10k.zsh ]] || source ~/.config/dotfiles/p10k.zsh
