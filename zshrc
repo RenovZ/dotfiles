@@ -16,7 +16,8 @@ source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme
 
 source <(wezterm shell-completion --shell zsh)
 eval "$(zoxide init zsh)"
-[ ! type helm > /dev/null 2>&1 ] || source <(helm completion zsh)
+[[ ! `type helm > /dev/null 2>&1` ]] || source <(helm completion zsh)
+[[ ! `type orbctl &> /dev/null` ]] || source <(orbctl completion zsh)
 
 if [[ -d $(brew --prefix)/share/zsh-completions ]]; then
 	type kubectl >/dev/null 2>&1 && source <(kubectl completion zsh)

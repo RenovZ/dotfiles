@@ -11,20 +11,12 @@ wezterm shell-completion --shell fish | source
 zoxide init fish | source
 fzf --fish | source
 
-if command -v helm > /dev/null
-  helm completion fish | source
-end
-
-if command -v kubectl > /dev/null
-  kubectl completion fish | source
-end
+not command -v helm > /dev/null || helm completion fish | source
+not command -v kubectl > /dev/null || kubectl completion fish | source
+command -v orbctl > /dev/null && orbctl completion fish | source
 
 # PatrickF1/fzf.fish instead
 #mcfly init fish | source
-#source /opt/local/share/fzf/shell/key-bindings.fish
-#function fish_user_key_bindings
-#    fzf_key_bindings
-#end
 
 if status is-interactive
   # Commands to run in interactive sessions can go here
