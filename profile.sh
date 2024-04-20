@@ -46,5 +46,3 @@ EMSDK_HOME=~/emsdk
 if [ -s $EMSDK_HOME/emsdk_env.sh ]; then
 	source $EMSDK_HOME/emsdk_env.sh
 fi
-
-source ~/.config/dotfiles/fzf-git.sh

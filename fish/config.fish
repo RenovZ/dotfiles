@@ -15,7 +15,6 @@ not command -v helm > /dev/null || helm completion fish | source
 not command -v kubectl > /dev/null || kubectl completion fish | source
 command -v orbctl > /dev/null && orbctl completion fish | source
 
-# PatrickF1/fzf.fish instead
 #mcfly init fish | source
 
 if status is-interactive
