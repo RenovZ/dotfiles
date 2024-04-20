@@ -37,6 +37,7 @@ ___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_V
 #[[ ! -f ~/.asdf/asdf.sh ]] || source ~/.asdf/asdf.sh
 eval "$(fzf --zsh)"
 . ~/.config/dotfiles/profile.sh
+source ~/.config/dotfiles/fzf-git.sh
 
 # To customize prompt, run `p10k configure` or edit ~/.config/dotfiles/p10k.zsh.
 [[ ! -f ~/.config/dotfiles/p10k.zsh ]] || source ~/.config/dotfiles/p10k.zsh
