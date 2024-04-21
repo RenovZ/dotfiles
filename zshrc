@@ -7,7 +7,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-plugins=(git)
+plugins=(git zsh-shift-select)
 
 source $HOME/.oh-my-zsh/oh-my-zsh.sh
 source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme
@@ -38,6 +38,7 @@ ___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_V
 eval "$(fzf --zsh)"
 . ~/.config/dotfiles/profile.sh
 source ~/.config/dotfiles/fzf-git.sh
+source ~/.config/dotfiles/bind.sh
 
 # To customize prompt, run `p10k configure` or edit ~/.config/dotfiles/p10k.zsh.
 [[ ! -f ~/.config/dotfiles/p10k.zsh ]] || source ~/.config/dotfiles/p10k.zsh
