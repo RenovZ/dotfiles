@@ -16,10 +16,10 @@ alias ll="ls -agl"
 
 alias ta='tmux attach -t'
 alias tad='tmux attach -d -t'
-alias ts='tmux new-session -s'
+alias ts='tmux new-session'
 alias tl='tmux list-sessions'
 alias tksv='tmux kill-server'
-alias tkss='tmux kill-session -t'
+alias tks='tmux kill-session -t'
 
 alias acme.sh="~/.acme.sh/acme.sh"
 
@@ -28,5 +28,5 @@ alias x="npx"
 alias p="pnpm"
 alias k=kubectl
 alias h=helm
-alias v=vim
+alias vi=vim
 alias nv=nvim
