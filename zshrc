@@ -39,6 +39,3 @@ eval "$(fzf --zsh)"
 . ~/.config/dotfiles/profile.sh
 source ~/.config/dotfiles/fzf-git.sh
 source ~/.config/dotfiles/bind.sh
-
-# To customize prompt, run `p10k configure` or edit ~/.config/dotfiles/p10k.zsh.
-[[ ! -f ~/.config/dotfiles/p10k.zsh ]] || source ~/.config/dotfiles/p10k.zsh
