@@ -13,8 +13,8 @@ alias tks='tmux kill-session -t'
 
 alias acme.sh="~/.acme.sh/acme.sh"
 
-alias npm="pnpm"
 alias n="pnpm"
+alias x="pnpx"
 alias k=kubectl
 alias h=helm
 alias vim=nvim
