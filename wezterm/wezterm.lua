@@ -10,8 +10,8 @@ if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
-config.window_background_opacity = 0.50
-config.macos_window_background_blur = 20
+config.window_background_opacity = 0.80
+config.macos_window_background_blur = 30
 config.hide_tab_bar_if_only_one_tab = true
 config.enable_tab_bar = false
 -- config.color_scheme = "ToyChest"
