@@ -13,7 +13,7 @@ export GIT_EDITOR="hx"
 #export READER="zathura"
 
 # c++ configuration
-# export VCPKG_ROOT="$HOME/vcpkg"
+export VCPKG_ROOT="$HOME/vcpkg"
 
 #export FZF_DEFAULT_COMMAND='rg --files --hidden -g "!.git"'
 export FZF_DEFAULT_COMMAND='fd --type f -H -E ".git/"'
