@@ -8,6 +8,8 @@
 // from the command palette or from `Zed` application menu.
 {
   "vim_mode": true,
+  "preferred_line_length": 120,
+  "soft_wrap": "preferred_line_length",
   "theme": {
     "light": "One Light",
     "dark": "One Dark"

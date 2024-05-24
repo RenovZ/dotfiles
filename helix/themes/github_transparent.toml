@@ -1,5 +1,5 @@
 # inherits = "zed_onedark"
 # inherits = "zed_onelight"
-# inherits = "github_dark"
-inherits = "github_light"
+inherits = "github_dark"
+# inherits = "github_light"
 "ui.background" = {}
