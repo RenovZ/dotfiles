@@ -46,3 +46,7 @@ export PATH=/opt/local/sbin:/opt/homebrew/sbin:/usr/local/sbin:$PATH
 # emsdk
 export EMSDK_QUIET=1
 export PATH=$EMSDK_HOME:$EMSDK_HOME/upstream/emscripten:$PATH
+
+# llvm
+LLVM_ROOT=$(brew --prefix)/opt/llvm
+export PATH=$LLVM_ROOT/bin:$PATH
