@@ -1,4 +1,4 @@
-theme = "github_transparent"
+theme = "adaptive"
 
 [editor.cursor-shape]
 insert = "bar"

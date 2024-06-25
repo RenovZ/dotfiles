@@ -8,7 +8,7 @@
 // from the command palette or from `Zed` application menu.
 {
   "vim_mode": true,
-  "preferred_line_length": 120,
+  "preferred_line_length": 180,
   "soft_wrap": "preferred_line_length",
   "theme": {
     "light": "One Light",
@@ -23,5 +23,28 @@
     "font_size": 16,
     "font_family": "Hack Nerd Font Mono",
     "line_height": "standard"
+  },
+  "inlay_hints": {
+    "show_type_hints": true,
+    "enabled": true,
+    "edit_debounce_ms": 700,
+    "scroll_debounce_ms": 50,
+    "show_other_hints": true,
+    "show_parameter_hints": true
+  },
+  "lsp": {
+    "gopls": {
+      "initialization_options": {
+        "hints": {
+          "assignVariableTypes": true,
+          "compositeLiteralFields": true,
+          "compositeLiteralTypes": true,
+          "constantValues": true,
+          "functionTypeParameters": true,
+          "parameterNames": true,
+          "rangeVariableTypes": true
+        }
+      }
+    }
   }
 }

@@ -8,3 +8,5 @@ zed/embeddings
 /profile.fish
 fish/fish_variables
 fish/fishd.tmp.*
+helix/themes/adaptive.toml
+zed/prompts
