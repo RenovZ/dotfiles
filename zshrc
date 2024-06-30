@@ -39,5 +39,3 @@ eval "$(fzf --zsh)"
 . ~/.config/dotfiles/profile.sh
 source ~/.config/dotfiles/fzf-git.sh
 source ~/.config/dotfiles/bind.sh
-
-source /Users/zzq/.config/broot/launcher/bash/br
