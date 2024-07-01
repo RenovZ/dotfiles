@@ -6,7 +6,7 @@
 #export CPLUS_INCLUDE_PATH=$C_INCLUDE_PATH
 
 export LC_ALL=en_US.UTF-8
-#export EDITOR="nvim"
+# export EDITOR="nvim"
 export EDITOR="hx"
 export TIG_EDITOR="hx"
 export GIT_EDITOR="hx"
@@ -14,6 +14,7 @@ export GIT_EDITOR="hx"
 
 # c++ configuration
 export VCPKG_ROOT="$HOME/vcpkg"
+export PATH=$VCPKG_ROOT:$PATH
 
 #export FZF_DEFAULT_COMMAND='rg --files --hidden -g "!.git"'
 export FZF_DEFAULT_COMMAND='fd --type f -H -E ".git/"'
@@ -43,10 +44,17 @@ export PATH=/opt/local/sbin:/opt/homebrew/sbin:/usr/local/sbin:$PATH
 #export SDKROOT=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
 #export MACOSX_DEPLOYMENT_TARGET=10.15
 
+# llvm
+LLVM_ROOT=$(brew --prefix)/opt/llvm
+export PATH=$LLVM_ROOT/bin:$PATH
+
 # emsdk
 export EMSDK_QUIET=1
 export PATH=$EMSDK_HOME:$EMSDK_HOME/upstream/emscripten:$PATH
 
-# llvm
-LLVM_ROOT=$(brew --prefix)/opt/llvm
-export PATH=$LLVM_ROOT/bin:$PATH
+# flutter
+export PATH=$HOME/fvm/default/bin:$PATH
+
+# sciter-sdk
+# export SCITER_SDK_ROOT=~/Store/sciter-sdk/bin.osx/
+# export DYLD_LIBRARY_PATH=$SCITER_SDK_ROOT
