@@ -44,6 +44,10 @@
           "parameterNames": true,
           "rangeVariableTypes": true
         }
+      },
+      "analyses": {
+        "unreachable": true,
+        "unusedparams": true
       }
     }
   }
