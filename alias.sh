@@ -13,8 +13,10 @@ alias tks='tmux kill-session -t'
 
 alias acme.sh="~/.acme.sh/acme.sh"
 
-alias n="pnpm"
-alias x="pnpx"
+alias pn="pnpm"
+alias px="pnpx"
 alias k=kubectl
 alias h=helm
 alias vim=nvim
+alias zj="zellij"
+alias lf="yazi" # conflict with ~/.golang/bin/lf
