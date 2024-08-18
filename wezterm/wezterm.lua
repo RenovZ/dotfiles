@@ -1,3 +1,5 @@
+local home = os.getenv("HOME")
+
 -- Pull in the wezterm API
 local wezterm = require("wezterm")
 
@@ -10,27 +12,61 @@ if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
-config.window_background_opacity = 0.80
-config.macos_window_background_blur = 30
+config.automatically_reload_config = true
+config.window_close_confirmation = "NeverPrompt"
+config.window_decorations = "RESIZE"
+config.use_fancy_tab_bar = true
 config.hide_tab_bar_if_only_one_tab = true
 config.enable_tab_bar = false
--- config.color_scheme = "ToyChest"
--- config.color_scheme = "Solarized (dark) (terminal.sexy)"
--- config.color_scheme = "Solarized (light) (terminal.sexy)"
--- config.color_scheme = "Google (dark) (terminal.sexy)"
+
+config.default_cursor_style = "BlinkingUnderline"
+config.cursor_thickness = "2pt"
+-- config.cursor_blink_ease_in = "Linear"
+-- config.cursor_blink_ease_out = "Linear"
+
 config.font_rules = {
 	{
 		intensity = "Normal",
 		italic = true,
 		font = wezterm.font_with_fallback({
 			family = "Hack Nerd Font Mono",
+			weight = "Bold",
 			italic = true,
 		}),
 	},
 }
-config.font_size = 14.0
--- config.cursor_blink_ease_in = "Linear"
--- config.cursor_blink_ease_out = "Linear"
+config.font_size = 20.0
+
+config.window_background_opacity = 0.80
+config.macos_window_background_blur = 30
+config.background = {
+	{
+		source = {
+			File = home.."/.config/wezterm/board.jpg"
+		},
+		hsb = {
+			hue = 1.0,
+			saturation = 1.0,
+			brightness = 1.0,
+		},
+		width = '100%',
+		height = '100%',
+		opacity = 0.2
+	},
+	{
+		source = {
+			Color = '#FFFFFF',
+		},
+		width = '100%',
+		height = '100%',
+		opacity = 0.55
+	}
+}
+
+-- config.color_scheme = "ToyChest"
+-- config.color_scheme = "Solarized (dark) (terminal.sexy)"
+-- config.color_scheme = "Solarized (light) (terminal.sexy)"
+-- config.color_scheme = "Google (dark) (terminal.sexy)"
 
 -- auto color scheme
 function scheme_for_appearance(appearance)
@@ -50,6 +86,15 @@ wezterm.on("window-config-reloaded", function(window, pane)
 		window:set_config_overrides(overrides)
 	end
 end)
+
+-- config.native_macos_fullscreen_mode = true
+config.keys = {
+  {
+    key = 'f',
+    mods = 'CMD|CTRL',
+    action = wezterm.action.ToggleFullScreen,
+  },
+}
 
 -- and finally, return the configuration to wezterm
 return config

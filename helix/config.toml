@@ -10,6 +10,10 @@ render = true
 character = "╎"
 skip-levels = 1
 
+[editor.lsp]
+display-messages = true
+display-inlay-hints = true
+
 # [editor]
 # gutters = ["diff", "diagnostics", "line-numbers", "spacer"]
 
