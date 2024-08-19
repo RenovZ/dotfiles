@@ -39,29 +39,29 @@ config.font_size = 20.0
 
 config.window_background_opacity = 0.80
 config.macos_window_background_blur = 30
-config.background = {
-	{
-		source = {
-			File = home.."/.config/wezterm/board.jpg"
-		},
-		hsb = {
-			hue = 1.0,
-			saturation = 1.0,
-			brightness = 1.0,
-		},
-		width = '100%',
-		height = '100%',
-		opacity = 0.2
-	},
-	{
-		source = {
-			Color = '#FFFFFF',
-		},
-		width = '100%',
-		height = '100%',
-		opacity = 0.55
-	}
-}
+-- config.background = {
+-- 	{
+-- 		source = {
+-- 			File = home.."/.config/wezterm/board.jpg"
+-- 		},
+-- 		hsb = {
+-- 			hue = 1.0,
+-- 			saturation = 1.0,
+-- 			brightness = 1.0,
+-- 		},
+-- 		width = '100%',
+-- 		height = '100%',
+-- 		opacity = 0.1
+-- 	},
+-- 	{
+-- 		source = {
+-- 			Color = '#FFFFFF',
+-- 		},
+-- 		width = '100%',
+-- 		height = '100%',
+-- 		opacity = 0.55
+-- 	}
+-- }
 
 -- config.color_scheme = "ToyChest"
 -- config.color_scheme = "Solarized (dark) (terminal.sexy)"
