@@ -7,7 +7,7 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
-  // "vim_mode": true,
+  "vim_mode": true,
   "preferred_line_length": 180,
   "soft_wrap": "preferred_line_length",
   "theme": {
