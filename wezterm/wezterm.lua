@@ -87,7 +87,7 @@ wezterm.on("window-config-reloaded", function(window, pane)
 	end
 end)
 
--- config.native_macos_fullscreen_mode = true
+config.native_macos_fullscreen_mode = true
 config.keys = {
   {
     key = 'f',
