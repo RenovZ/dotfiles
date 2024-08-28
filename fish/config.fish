@@ -13,6 +13,7 @@ fzf --fish | source
 
 not command -v helm >/dev/null || helm completion fish | source
 not command -v kubectl >/dev/null || kubectl completion fish | source
+not command -v kubebuilder >/dev/null || kubebuilder completion fish | source
 command -v orbctl >/dev/null && orbctl completion fish | source
 
 #mcfly init fish | source

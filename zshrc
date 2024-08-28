@@ -19,12 +19,6 @@ eval "$(zoxide init zsh)"
 [[ ! `type helm > /dev/null 2>&1` ]] || source <(helm completion zsh)
 [[ ! `type orbctl &> /dev/null` ]] || source <(orbctl completion zsh)
 
-if [[ -d $(brew --prefix)/share/zsh-completions ]]; then
-	type kubectl >/dev/null 2>&1 && source <(kubectl completion zsh)
-  autoload -Uz compinit
-	compinit
-fi
-
 export FORGIT_FZF_DEFAULT_OPTS="--cycle --height='100%' --ansi --bind='?:toggle-preview' --bind='alt-w:toggle-preview-wrap' --preview-window='right:60%' +1"
 [ -f $(brew --prefix)/share/forgit/forgit.plugin.zsh ] && source $(brew --prefix)/share/forgit/forgit.plugin.zsh
 # export PATH=$FORGIT_INSTALL_DIR/bin:$PATH
@@ -39,3 +33,10 @@ eval "$(fzf --zsh)"
 . ~/.config/dotfiles/profile.sh
 source ~/.config/dotfiles/fzf-git.sh
 source ~/.config/dotfiles/bind.sh
+
+if [[ -d $(brew --prefix)/share/zsh-completions ]]; then
+	type kubectl >/dev/null 2>&1 && source <(kubectl completion zsh)
+	type kubebuilder >/dev/null 2>&1 && source <(kubebuilder completion zsh)
+	autoload -Uz compinit
+	compinit
+fi
