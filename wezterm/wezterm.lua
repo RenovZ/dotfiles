@@ -37,8 +37,9 @@ config.font_rules = {
 }
 config.font_size = 20.0
 
-config.window_background_opacity = 0.80
+config.window_background_opacity = 0.95
 config.macos_window_background_blur = 30
+
 -- config.background = {
 -- 	{
 -- 		source = {
@@ -51,7 +52,7 @@ config.macos_window_background_blur = 30
 -- 		},
 -- 		width = '100%',
 -- 		height = '100%',
--- 		opacity = 0.1
+-- 		opacity = 0.10
 -- 	},
 -- 	{
 -- 		source = {
@@ -59,7 +60,7 @@ config.macos_window_background_blur = 30
 -- 		},
 -- 		width = '100%',
 -- 		height = '100%',
--- 		opacity = 0.55
+-- 		opacity = 0.75
 -- 	}
 -- }
 
@@ -71,9 +72,15 @@ config.macos_window_background_blur = 30
 -- auto color scheme
 function scheme_for_appearance(appearance)
 	if appearance:find("Dark") then
-		return "Builtin Tango Dark"
+		-- return "Builtin Tango Dark"
+		-- return "Builtin Dark"
+		-- return "Builtin Solarized Dark"
+		return "nord"
 	else
-		return "Builtin Tango Light"
+		-- return "Builtin Tango Light"
+		-- return "Builtin Light"
+		-- return "Builtin Solarized Light"
+		return "nord-light"
 	end
 end
 

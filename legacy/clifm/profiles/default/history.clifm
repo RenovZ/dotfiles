@@ -1,0 +1,345 @@
+edit
+#1690548878
+profiles/default/clifmrc
+#1690548965
+cat profiles/default/clifmrc
+#1690548986
+keybindings.cfm
+#1690548996
+keybindings.clifm
+#1690549029
+fzf --version
+#1690549354
+dh
+#1690549363
+-
+#1690549377
+~
+#1690549385
+-
+#1690549387
+cd -
+#1690549453
+s 3 p
+#1690549460
+?
+#1690549496
+ds
+#1690549519
+ds *
+#1690549562
+plugins/
+#1690549570
+colors/
+#1690549583
+cd ~/Store/clifm/
+#1690549586
+Makefile
+#1690549736
+? basics
+#1690549739
+help basics
+#1690549741
+help
+#1690549748
+help basic
+#1690549762
+help file-details
+#1690549769
+help basics
+#1690549774
+c --help
+#1690549780
+?
+#1690549841
+plugins/
+#1690549853
+profiles/default/clifmrc
+#1690549995
+z magit-server
+#1690550010
+zoxide magit-server
+#1690550018
+zoxide --help
+#1690550039
+zoxide edit
+#1690551854
+pkg/structs/org.go
+#1690551862
+glg
+#1690551951
+profiles/default/clifmrc
+#1690552067
+profiles/default/clifmrc
+#1690552094
+gst
+#1690552111
+git
+#1690552223
+gst
+#1690552226
+git status
+#1690552235
+rm -rf svgs/tmp/
+#1690552241
+git status
+#1690552277
+help git
+#1690552430
+i public/img/logo.png
+#1690552436
+? i
+#1690552439
+?
+#1690552521
+profiles/default/clifmrc
+#1690553570
+lf
+#1690553622
+plugins/
+#1690553630
+ls /usr/local/share/clifm/plugins/
+#1690553658
+/usr/local/share/clifm/plugins/kbgen.c
+#1690553670
+ls
+#1690553680
+ls /usr/local/share/clifm/plugins/
+#1690553702
+ls /usr/local/share/clifm/plugins/ihelp.sh .
+#1690553711
+ls
+#1690553730
+ln /usr/local/share/clifm/plugins/ihelp.sh .
+#1690553744
+ih
+#1690553772
+plugins/
+#1690553780
+ln /usr/local/share/clifm/plugins/img_viewer.sh .
+#1690553825
+i svgs/regular/octagon-exclamation.svg
+#1690553843
+i public/img/logo.png
+#1690553890
+update
+#1690553897
+ls
+#1690553929
+gg README.md
+#1690553952
+i
+#1690553954
+ll
+#1690553960
+r ihelp.sh
+#1690553967
+r img_viewer.sh
+#1690554039
+pkg/structs/deploy.go
+#1690554052
+pkg/structs/org.go
+#1690554077
+git push origin main -f
+#1690556601
+options/locale/locale_zh-CN.ini
+#1690556623
+options/locale/locale_zh-CN.ini vim
+#1690559679
+templates/repo/settings/navbar.html
+#1690559714
+options/locale/locale_zh-CN.ini
+#1690559723
+options/locale/locale_zh-CN.ini vim
+#1690560565
+pkg/deployment/deploy_setting.go
+#1690560599
+pkg/routers/web/dev/template.go
+#1690560669
+pkg/routers/web/repo/deploy_settings.go
+#1690592053
+profiles/default/clifmrc
+#1690592116
+pkg/routers/api/v1/api.go
+#1690592188
+pkg/context/api_deploy.go
+#1690592217
+pkg/routers/api/v1/api.go
+#1690592901
+pkg/structs/deploy.go
+#1690592923
+pkg/structs/bridge.go
+#1690592951
+git status
+#1690592953
+git add .
+#1690592970
+git commit -m "Add dockerfile path field"
+#1690592973
+git push origin main
+#1690592986
+go get -u -v bundle.lo/bundle/bundle-api@main
+#1690605974
+options/locale/locale_zh-CN.ini vim
+#1690608748
+templates/repo/header.html
+#1690608754
+templates/repo/header.html vim
+#1690610376
+options/locale/locale_zh-CN.ini vim
+#1690611992
+pkg/structs/bridge.go
+#1690612011
+glg
+#1690620663
+service/content/content.go
+#1690621415
+go get -u -v bundle.lo/bundle/bundle-api@main
+#1690625127
+mv service/content/cache/ ../../magit-tmp/
+#1690627184
+mv ../../magit-tmp/cache service/content/
+#1690635357
+Makefile
+#1690635367
+make
+#1690635384
+clear
+#1690635391
+ps aux|grep make
+#1690645181
+templates/repo/settings/deploy_settings.html
+#1690645186
+templates/repo/settings/deploy_settings.html vim
+#1690645628
+operator/manager/manager.go
+#1690645696
+pkg/system/setting.go
+#1690645720
+operator/manager/manager.go
+#1690645867
+git status
+#1690645941
+cmd/common/config/config.go
+#1690645976
+profiles/default/clifmrc
+#1690646020
+cmd/common/config/config.go
+#1690646251
+qw
+#1690687571
+lua/custom/
+#1690687576
+plugins.lua
+#1690690510
+Makefile
+#1690690871
+lf
+#1690693385
+store/shared/migrate/mysql/files/004_create_table_builds.sql
+#1690693404
+store/shared/migrate/postgres/files/004_create_table_builds.sql
+#1690693517
+store/shared/migrate/mysql/files/004_create_table_builds.sql
+#1690693542
+go generate ./...
+#1690693558
+lf
+#1690693649
+go run ./cmd/drone-server/
+#1690693702
+gst
+#1690714293
+pkg/routers/api/v1/api.go
+#1690729317
+?
+#1690729327
+hh
+#1690729332
+.env
+#1690730430
+service/content/content.go
+#1690736786
+cmd/drone-server/main.go
+#1690736859
+cmd/wire/inject_router.go
+#1690736880
+cmd/wire/inject_router.go
+#1690736888
+make
+#1690736971
+cmd/server/main.go
+#1690737001
+bundle.json
+#1690737008
+Makefile
+#1690737026
+tig status
+#1690737052
+make
+#1690737182
+cmd/server/main.go
+#1690737195
+bundle.json
+#1690737215
+lf
+#1690737273
+bundle.json
+#1690737288
+Makefile
+#1690737293
+make
+#1690737296
+Makefile
+#1690737303
+make
+#1690763886
+lf
+#1690764235
+code .
+#1690764249
+insider .
+#1690765178
+gst
+#1690765181
+git status
+#1690765184
+lf
+#1690766187
+.drone.yml
+#1690766208
+lf
+#1690769903
+Makefile
+#1690769954
+make
+#1690863157
+pkg/service/init2.go
+#1690863442
+lf
+#1690863627
+go get -u -v bundle.lo/bundle/magit-modules@main
+#1690863748
+lf
+#1690865174
+git status
+#1690865177
+go mod tidy -v
+#1690865182
+rm -rf pkg/version/
+#1690865207
+insider .
+#1690865430
+make
+#1690866194
+insider .
+#1690866940
+make
+#1691417284
+pkg/
+#1691417297
+deployment/tpl/
+#1691417302
+lf
+#1691417312
+z -

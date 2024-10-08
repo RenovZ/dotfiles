@@ -7,7 +7,17 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
-  "vim_mode": true,
+  "assistant": {
+    "default_model": {
+      "provider": "copilot_chat",
+      "model": "gpt-4"
+    },
+    "version": "2"
+  },
+  "features": {
+    "inline_completion_provider": "supermaven"
+  },
+  // "vim_mode": true,
   "preferred_line_length": 180,
   "soft_wrap": "preferred_line_length",
   "theme": {
