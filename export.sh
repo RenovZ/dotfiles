@@ -44,6 +44,9 @@ export PATH=/opt/local/sbin:/opt/homebrew/sbin:/usr/local/sbin:$PATH
 #export SDKROOT=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
 #export MACOSX_DEPLOYMENT_TARGET=10.15
 
+export SDKROOT=$(xcrun --show-sdk-path)
+export CFLAGS="-I$(xcrun --show-sdk-path)/usr/include"
+
 # llvm
 LLVM_ROOT=$(brew --prefix)/opt/llvm
 export PATH=$LLVM_ROOT/bin:$PATH
