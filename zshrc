@@ -7,7 +7,13 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-plugins=(git zsh-shift-select)
+plugins=(
+git
+zsh-shift-select
+docker-compose
+rsync
+fzf
+)
 
 source $HOME/.oh-my-zsh/oh-my-zsh.sh
 source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme
