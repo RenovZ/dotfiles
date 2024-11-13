@@ -3,7 +3,10 @@ command = "clippy"
 
 [[language]]
 name = "rust"
-language-servers = ["rust-analyzer"]
+# language-servers = ["rust-analyzer"]
+
+[language-server.rust-lsp]
+command = "rust-analyzer"
 
 [language-server.gopls]
 command = "gopls"
