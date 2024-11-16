@@ -32,7 +32,7 @@ keybinds {
             SwitchToMode "Normal"
         }
     }
-    shared_except "tmux" "locked" {
+    shared_except "tmux" {
         bind "Ctrl z" { SwitchToMode "Tmux"; }
     }
 }
@@ -141,7 +141,7 @@ default_layout "disable-status-bar"
 // Choose the mode that zellij uses when starting up.
 // Default: normal
 //
-default_mode "tmux"
+// default_mode "normal"
 
 // Toggle enabling the mouse mode.
 // On certain configurations, or terminals this could
