@@ -17,7 +17,7 @@
   "features": {
     "inline_completion_provider": "supermaven"
   },
-  // "vim_mode": true,
+  "vim_mode": true,
   "preferred_line_length": 180,
   "soft_wrap": "preferred_line_length",
   "theme": {
@@ -42,23 +42,46 @@
     "show_other_hints": true,
     "show_parameter_hints": true
   },
-  "lsp": {
-    "gopls": {
-      "initialization_options": {
-        "hints": {
-          "assignVariableTypes": true,
-          "compositeLiteralFields": true,
-          "compositeLiteralTypes": true,
-          "constantValues": true,
-          "functionTypeParameters": true,
-          "parameterNames": true,
-          "rangeVariableTypes": true
-        }
-      },
-      "analyses": {
-        "unreachable": true,
-        "unusedparams": true
+  "formatter": [
+    {
+      "language_server": {
+        "name": "rust-analyzer"
       }
+    },
+    {
+      "external": {
+        "command": "sed",
+        "arguments": ["-e", "s/ *$//"]
+      }
+    }
+  ],
+  "lsp": {
+    "rust-analyzer": {
+      "initialization_options": {
+        "check": {
+          "command": "clippy" // rust-analyzer.check.command (default: "check")
+        }
+      }
+    },
+    "trace": {
+      "server": "verbose"
+    }
+  },
+  "gopls": {
+    "initialization_options": {
+      "hints": {
+        "assignVariableTypes": true,
+        "compositeLiteralFields": true,
+        "compositeLiteralTypes": true,
+        "constantValues": true,
+        "functionTypeParameters": true,
+        "parameterNames": true,
+        "rangeVariableTypes": true
+      }
+    },
+    "analyses": {
+      "unreachable": true,
+      "unusedparams": true
     }
   }
 }
