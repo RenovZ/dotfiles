@@ -61,3 +61,8 @@ export PATH=$HOME/fvm/default/bin:$PATH
 # sciter-sdk
 # export SCITER_SDK_ROOT=~/Store/sciter-sdk/bin.osx/
 # export DYLD_LIBRARY_PATH=$SCITER_SDK_ROOT
+
+# homebrew
+export LIBRARY_PATH="/opt/homebrew/lib:$LIBRARY_PATH"
+export C_INCLUDE_PATH="/opt/homebrew/include:$C_INCLUDE_PATH"
+export PKG_CONFIG_PATH="/opt/homebrew/lib/pkgconfig:$PKG_CONFIG_PATH"
