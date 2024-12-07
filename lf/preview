@@ -110,4 +110,4 @@ case "$(printf "%s\n" "$(readlink -f "$1")" | awk '{print tolower($0)}')" in
 	batorcat "$1"
 	;;
 esac
-return 127 # nonzero retcode required for lf previews to reload
+exit 0
