@@ -4,14 +4,30 @@ set ifs "\n"
 set scrolloff 10
 # set cursorpreviewfmt "\033[7;2m"
 
+# ueberzug
+# set previewer ~/.config/lf/previewer
+# set cleaner ~/.config/lf/cleaner
+set previewer ~/.config/legacy/lf/ueberzug-previewer
+set cleaner ~/.config/legacy/lf/ueberzug-cleaner
+
+# set previewer ~/.config/lf/kitty_previewer
+# set cleaner ~/.config/lf/kitty_cleaner
+
+# stpv
+# set previewer stpv
+# set cleaner stpvimgclr
+# &stpvimg --listen $id
+# cmd on-quit $stpvimg --end $id
+
+# ctpv
+# set previewer ctpv
+# set cleaner ctpvclear
+# &ctpv -s $id
+# &ctpvquit $id
+
 set ratios 1:2:3
 set icons true
 # set colors true
-
-set previewer ctpv
-set cleaner ctpvclear
-&ctpv -s $id
-&ctpvquit $id
 
 # trash-cli
 cmd trash %trash-put -- $fx

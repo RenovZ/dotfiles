@@ -10,19 +10,26 @@ image() {
 	y=$5
 	shift
 
-	#if [[ "$(file -Lb --mime-type "$file")" =~ ^image ]]; then
-	if file -Lb --mime-type "$file" | grep -Eq "image"; then
-		kitty +icat --silent --transfer-mode file --place "${w}x${h}@${x}x${y}" "$file"
-		exit 1
-	fi
-
-	if command -v pistol >/dev/null 2>&1; then
-		pistol "$file"
+	if command -v chafa >/dev/null 2>&1; then
+	    echo "yes use chafa $file, $w, $h, $x, $y" > /tmp/lf.log
+	    chafa "$file" -s "{$x}x"
+	elif command -v kitty >/dev/null 2>&1; then
+	    #if [[ "$(file -Lb --mime-type "$file")" =~ ^image ]]; then
+    	if file -Lb --mime-type "$file" | grep -Eq "image"; then
+    		kitty +icat --silent --transfer-mode file --place "${w}x${h}@${x}x${y}" "$file"
+    		exit 1
+        else
+            echo "Unsupported kitty file type."
+    	fi
 	elif [ -n "$DISPLAY" ] && [ -z "$WAYLAND_DISPLAY" ]; then
+	    echo "yes use chafa $file, $w, $h, $x, $y" > /tmp/lf.log
 		printf '{"action": "add", "identifier": "PREVIEW", "x": "%s", "y": "%s", "width": "%s", "height": "%s", "scaler": "contain", "path": "%s"}\n' "$x" "$y" "$((w - 1))" "$((h - 1))" "$file" >"$FIFO_UEBERZUG"
-		exit 1
+		exit 0
+	elif command -v pistol >/dev/null 2>&1; then
+	    pistol "$file"
 	else
-		chafa "$1" -s "$4x"
+	    echo "Please install chafa or pistol first"
+		exit 1
 	fi
 }
 
@@ -33,13 +40,15 @@ batorcat() {
 		BAT_THEME="Github"
 	fi
 	if command -v bat >/dev/null 2>&1; then
-		bat --color=always --style=numbers "$file" "$@"
+		bat --color=always --style=changes,rule,snip "$file" "$@"
 	elif command -v pistol >/dev/null 2>&1; then
 		pistol "$file"
 	else
 		cat "$file"
 	fi
 }
+
+~/.config/lf/cleaner
 
 # CACHE="$HOME/.cache/lf/thumbnail.$(stat --printf '%n\0%i\0%F\0%s\0%W\0%Y' -- "$(readlink -f "$1")" | sha256sum | awk '{print $1}'))"
 
@@ -50,7 +59,7 @@ case "$(printf "%s\n" "$(readlink -f "$1")" | awk '{print tolower($0)}')" in
 *.tar) tar tf "$1" ;;
 *.zip | *.jar | *.war | *.ear | *.oxt) unzip -l "$1" ;;
 *.rar) unrar l "$1" ;;
-*.md) glow -p -s dark "$1" ;;
+*.md) glow -p -s "$(darklight | tr '[:upper:]' '[:lower:]')" "$1" ;;
 *.7z) 7z l "$1" ;;
 *.[1-8]) man "$1" | col -b ;;
 *.o) nm "$1" ;;
@@ -101,4 +110,4 @@ case "$(printf "%s\n" "$(readlink -f "$1")" | awk '{print tolower($0)}')" in
 	batorcat "$1"
 	;;
 esac
-exit 0
+return 127 # nonzero retcode required for lf previews to reload
