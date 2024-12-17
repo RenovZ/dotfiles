@@ -6,10 +6,9 @@
 #export CPLUS_INCLUDE_PATH=$C_INCLUDE_PATH
 
 #export LC_ALL=en_US.UTF-8
-# export EDITOR="nvim"
-export EDITOR="hx"
-export TIG_EDITOR="hx"
-export GIT_EDITOR="hx"
+export EDITOR="vim"
+export TIG_EDITOR="vim"
+export GIT_EDITOR="vim"
 #export READER="zathura"
 
 # c++ configuration
