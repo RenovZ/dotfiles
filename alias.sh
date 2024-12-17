@@ -1,7 +1,7 @@
 alias tpc="curl cip.cc"
 #alias pc4="proxychains4 -q -f ~/.proxychains.conf"
 #alias xtime="$(which gtime) -f '%Uu %Ss %er %MkB %c %C'"
-alias ls="exa --header --icons --git"
+alias ls="eza --header --icons --git"
 alias ll="ls -agl"
 
 alias ta='tmux attach -t'
