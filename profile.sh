@@ -5,15 +5,10 @@
 
 # 在bash中，`source`等价于`.`，其中`.`是bash内置的命令
 # 在其他的posix兼容的shell中（如：sh、dash等)，可能不支持`source`，只能使用`.`来执行脚本
-source ~/.config/dotfiles/rust.sh
-source ~/.config/dotfiles/golang.sh
 source ~/.config/dotfiles/export.sh
 source ~/.config/dotfiles/alias.sh
 source ~/.config/dotfiles/tinygo.sh
-source ~/.config/dotfiles/homebrew.sh
 source ~/.config/dotfiles/bat.sh
-
-ulimit -n 65535
 
 if [ -f ~/.devprofile ]; then
 	source ~/.devprofile
