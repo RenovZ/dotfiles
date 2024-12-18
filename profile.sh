@@ -10,7 +10,6 @@ source ~/.config/dotfiles/golang.sh
 source ~/.config/dotfiles/export.sh
 source ~/.config/dotfiles/alias.sh
 source ~/.config/dotfiles/tinygo.sh
-source ~/.config/dotfiles/homebrew.sh
 source ~/.config/dotfiles/bat.sh
 
 ulimit -n 65535

@@ -4,12 +4,12 @@ alias tpc="curl cip.cc"
 alias ls="eza --header --icons --git"
 alias ll="ls -agl"
 
-alias ta='tmux attach -t'
-alias tad='tmux attach -d -t'
-alias ts='tmux new-session'
-alias tl='tmux list-sessions'
-alias tksv='tmux kill-server'
-alias tks='tmux kill-session -t'
+# alias ta='tmux attach -t'
+# alias tad='tmux attach -d -t'
+# alias ts='tmux new-session'
+# alias tl='tmux list-sessions'
+# alias tksv='tmux kill-server'
+# alias tks='tmux kill-session -t'
 
 alias acme.sh="~/.acme.sh/acme.sh"
 
