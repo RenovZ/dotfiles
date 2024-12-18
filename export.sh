@@ -22,9 +22,6 @@ export FZF_DEFAULT_COMMAND='fd --type f -H -E ".git/"'
 export ANDROID_SDK_ROOT=~/Android
 export PATH=$ANDROID_SDK_ROOT/tools:$ANDROID_SDK_ROOT/platform-tools:$PATH
 
-export GNU_HOME=/usr/local/opt/make/libexec
-export PATH=$GNU_HOME/gnubin:$PATH
-
 # Add environment variable SDKBOX_HOME for sdkbox installer
 export SDKBOX_HOME=$HOME/.sdkbox
 export PATH=$SDKBOX_HOME/bin:$PATH
