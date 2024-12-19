@@ -20,8 +20,7 @@ source $HOME/.oh-my-zsh/oh-my-zsh.sh
 # [[ ! -d $(brew --prefix)/share/zsh-autosuggestions ]] || source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # [[ ! -d $(brew --prefix)/share/zsh-syntax-highlighting ]] || source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-source <(wezterm shell-completion --shell zsh)
-eval "$(zoxide init zsh)"
+# source <(wezterm shell-completion --shell zsh)
 [[ ! `type helm > /dev/null 2>&1` ]] || source <(helm completion zsh)
 [[ ! `type orbctl &> /dev/null` ]] || source <(orbctl completion zsh)
 
@@ -31,13 +30,14 @@ export FORGIT_FZF_DEFAULT_OPTS="--cycle --height='100%' --ansi --bind='?:toggle-
 
 # ___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then . "${___MY_VMOPTIONS_SHELL_FILE}"; fi
 
-eval "$(oh-my-posh init zsh)"
-
 #[[ ! -f ~/.asdf/asdf.sh ]] || source ~/.asdf/asdf.sh
 eval "$(fzf --zsh)"
 . ~/.config/dotfiles/profile.sh
 source ~/.config/dotfiles/fzf-git.sh
 source ~/.config/dotfiles/bind.sh
+
+eval "$(oh-my-posh init zsh)"
+eval "$(zoxide init zsh)"
 
 # if [[ -d $(brew --prefix)/share/zsh-completions ]]; then
 # 	type kubectl >/dev/null 2>&1 && source <(kubectl completion zsh)
