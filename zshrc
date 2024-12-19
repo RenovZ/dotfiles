@@ -37,7 +37,7 @@ source ~/.config/dotfiles/bind.sh
 
 eval "$(oh-my-posh init zsh --config ~/.config/dotfiles/ohmyposh/ys.omp.json)"
 eval "$(zoxide init zsh)"
-eval "$(fzf --zsh)"
+source <(fzf --zsh)
 
 # if [[ -d $(brew --prefix)/share/zsh-completions ]]; then
 # 	type kubectl >/dev/null 2>&1 && source <(kubectl completion zsh)
@@ -45,3 +45,4 @@ eval "$(fzf --zsh)"
 # 	autoload -Uz compinit
 # 	compinit
 # fi
+
