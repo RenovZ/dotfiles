@@ -13,7 +13,7 @@ source ~/.config/dotfiles/tinygo.sh
 source ~/.config/dotfiles/homebrew.sh
 source ~/.config/dotfiles/bat.sh
 
-ulimit -n 65535
+# ulimit -n 65535
 
 if [ -f ~/.devprofile ]; then
 	source ~/.devprofile

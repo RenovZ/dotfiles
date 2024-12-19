@@ -16,9 +16,9 @@ fzf
 )
 
 source $HOME/.oh-my-zsh/oh-my-zsh.sh
-source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme
-[[ ! -d $(brew --prefix)/share/zsh-autosuggestions ]] || source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-[[ ! -d $(brew --prefix)/share/zsh-syntax-highlighting ]] || source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme
+# [[ ! -d $(brew --prefix)/share/zsh-autosuggestions ]] || source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+# [[ ! -d $(brew --prefix)/share/zsh-syntax-highlighting ]] || source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 source <(wezterm shell-completion --shell zsh)
 eval "$(zoxide init zsh)"
@@ -26,13 +26,12 @@ eval "$(zoxide init zsh)"
 [[ ! `type orbctl &> /dev/null` ]] || source <(orbctl completion zsh)
 
 export FORGIT_FZF_DEFAULT_OPTS="--cycle --height='100%' --ansi --bind='?:toggle-preview' --bind='alt-w:toggle-preview-wrap' --preview-window='right:60%' +1"
-[ -f $(brew --prefix)/share/forgit/forgit.plugin.zsh ] && source $(brew --prefix)/share/forgit/forgit.plugin.zsh
+# [ -f $(brew --prefix)/share/forgit/forgit.plugin.zsh ] && source $(brew --prefix)/share/forgit/forgit.plugin.zsh
 # export PATH=$FORGIT_INSTALL_DIR/bin:$PATH
 
-___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then . "${___MY_VMOPTIONS_SHELL_FILE}"; fi
+# ___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then . "${___MY_VMOPTIONS_SHELL_FILE}"; fi
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+eval "$(oh-my-posh init zsh)"
 
 #[[ ! -f ~/.asdf/asdf.sh ]] || source ~/.asdf/asdf.sh
 eval "$(fzf --zsh)"
@@ -40,9 +39,9 @@ eval "$(fzf --zsh)"
 source ~/.config/dotfiles/fzf-git.sh
 source ~/.config/dotfiles/bind.sh
 
-if [[ -d $(brew --prefix)/share/zsh-completions ]]; then
-	type kubectl >/dev/null 2>&1 && source <(kubectl completion zsh)
-	type kubebuilder >/dev/null 2>&1 && source <(kubebuilder completion zsh)
-	autoload -Uz compinit
-	compinit
-fi
+# if [[ -d $(brew --prefix)/share/zsh-completions ]]; then
+# 	type kubectl >/dev/null 2>&1 && source <(kubectl completion zsh)
+# 	type kubebuilder >/dev/null 2>&1 && source <(kubebuilder completion zsh)
+# 	autoload -Uz compinit
+# 	compinit
+# fi
