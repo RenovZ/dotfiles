@@ -31,13 +31,13 @@ export FORGIT_FZF_DEFAULT_OPTS="--cycle --height='100%' --ansi --bind='?:toggle-
 # ___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then . "${___MY_VMOPTIONS_SHELL_FILE}"; fi
 
 #[[ ! -f ~/.asdf/asdf.sh ]] || source ~/.asdf/asdf.sh
-eval "$(fzf --zsh)"
 . ~/.config/dotfiles/profile.sh
 source ~/.config/dotfiles/fzf-git.sh
 source ~/.config/dotfiles/bind.sh
 
-eval "$(oh-my-posh init zsh)"
+eval "$(oh-my-posh init zsh --config ~/.config/dotfiles/ohmyposh/ys.omp.json)"
 eval "$(zoxide init zsh)"
+eval "$(fzf --zsh)"
 
 # if [[ -d $(brew --prefix)/share/zsh-completions ]]; then
 # 	type kubectl >/dev/null 2>&1 && source <(kubectl completion zsh)
