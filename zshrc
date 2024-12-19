@@ -16,9 +16,23 @@ fzf
 )
 
 source $HOME/.oh-my-zsh/oh-my-zsh.sh
-# source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme
-# [[ ! -d $(brew --prefix)/share/zsh-autosuggestions ]] || source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-# [[ ! -d $(brew --prefix)/share/zsh-syntax-highlighting ]] || source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $HOME/.config/dotfiles/antigen.zsh
+
+antigen use oh-my-zsh
+
+antigen bundle git
+antigen bundle zsh-shift-select
+antigen bundle docker-compose
+antigen bundle rsync
+antigen bundle fzf
+
+antigen theme romkatv/powerlevel10k
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle zsh-users/zsh-syntax-highlighting
+
+antigen apply
+
+# eval "$(oh-my-posh init zsh --config ~/.config/dotfiles/ohmyposh/ys.omp.json)"
 
 # source <(wezterm shell-completion --shell zsh)
 [[ ! `type helm > /dev/null 2>&1` ]] || source <(helm completion zsh)
@@ -35,7 +49,6 @@ export FORGIT_FZF_DEFAULT_OPTS="--cycle --height='100%' --ansi --bind='?:toggle-
 source ~/.config/dotfiles/fzf-git.sh
 source ~/.config/dotfiles/bind.sh
 
-eval "$(oh-my-posh init zsh --config ~/.config/dotfiles/ohmyposh/ys.omp.json)"
 eval "$(zoxide init zsh)"
 source <(fzf --zsh)
 
@@ -46,3 +59,5 @@ source <(fzf --zsh)
 # 	compinit
 # fi
 
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.config/dotfiles/p10k.zsh ]] || source ~/.config/dotfiles/p10k.zsh
