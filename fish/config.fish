@@ -7,7 +7,7 @@ bass source ~/.config/dotfiles/profile.sh
 # set -gx PYTHON_BUILD_ARIA2_OPTS "-x 10 -k 1M" # Use aria2c when downloading
 
 zoxide init fish | source
-# fzf --fish | source
+fzf --fish | source
 
 # not command -v helm >/dev/null || helm completion fish | source
 # not command -v kubectl >/dev/null || kubectl completion fish | source
