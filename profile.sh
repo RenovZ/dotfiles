@@ -24,7 +24,7 @@ fi
 # asdf
 # . "$HOME/.asdf/asdf.sh"
 
-type luarocks >/dev/null 2>&1 && eval "$(luarocks path --bin)"
+# type luarocks >/dev/null 2>&1 && eval "$(luarocks path --bin)"
 
 # Wasmer
 export WASMER_DIR=~/.wasmer
