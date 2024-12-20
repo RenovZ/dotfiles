@@ -3,7 +3,8 @@
     "bindings": {
       "ctrl-x": "editor::Cut",
       "ctrl-c": "editor::Copy",
-      "ctrl-v": "editor::Paste"
+      "ctrl-v": "editor::Paste",
+      "ctrl-w": "pane::CloseActiveItem"
     }
   }
 ]
