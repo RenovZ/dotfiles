@@ -2,7 +2,7 @@ Set-Alias tpc "curl cip.cc"
 #Set-Alias pc4 "proxychains4 -q -f ~/.proxychains.conf"
 #Set-Alias xtime "$(which gtime) -f '%Uu %Ss %er %MkB %c %C'"
 
-Remove the default alias for ls if it exists
+# Remove the default alias for ls if it exists
 if (Get-Alias ls -ErrorAction SilentlyContinue) {
     Remove-Item Alias:ls
 }
