@@ -2,15 +2,16 @@ Set-Alias tpc "curl cip.cc"
 #Set-Alias pc4 "proxychains4 -q -f ~/.proxychains.conf"
 #Set-Alias xtime "$(which gtime) -f '%Uu %Ss %er %MkB %c %C'"
 
-function ls {
-    eza --header --icons --git @args
-}
-function ll {
-    eza --header --icons --git -agl @args
+Remove the default alias for ls if it exists
+if (Get-Alias ls -ErrorAction SilentlyContinue) {
+    Remove-Item Alias:ls
 }
 
-# Set-Alias ls "eza --header --icons --git"
-# Set-Alias ll "ls -agl"
+# Define the custom ls function
+function ls { eza --header --icons --git @args }
+
+# Define the custom ll function
+function ll { ls -agl @args }
 
 # Set-Alias ta 'tmux attach -t'
 # Set-Alias tad 'tmux attach -d -t'
@@ -19,7 +20,7 @@ function ll {
 # Set-Alias tksv 'tmux kill-server'
 # Set-Alias tks 'tmux kill-session -t'
 
-Set-Alias acme.sh "~/.acme.sh/acme.sh"
+# Set-Alias acme.sh "~/.acme.sh/acme.sh"
 
 Set-Alias pn "pnpm"
 Set-Alias px "pnpx"
