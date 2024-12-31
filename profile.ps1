@@ -33,9 +33,9 @@ if (Test-Path $HOME\.asdf\asdf.ps1) {
 }
 
 # type luarocks >/dev/null 2>&1 && eval "$(luarocks path --bin)"
-if (Get-Command luarocks -ErrorAction SilentlyContinue) {
-    Invoke-Expression (& { (luarocks path --bin | Out-String) })
-}
+# if (Get-Command luarocks -ErrorAction SilentlyContinue) {
+#     Invoke-Expression (&luarocks path --bin)
+# }
 
 # Wasmer
 $env:WASMER_DIR = "$HOME\.wasmer"
