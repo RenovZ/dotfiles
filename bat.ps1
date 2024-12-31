@@ -1,0 +1,1 @@
+$env:BAT_STYLE = "changes,rule,snip"
