@@ -1,7 +1,20 @@
-#CUSTOM_SYS_SHELL_HOME=~/.config/dotfiles/shell
-#for file in $CUSTOM_SYS_SHELL_HOME/*; do
-#	. "$file"
-#done
+# Import-Module posh-git
+Import-Module git-aliases -DisableNameChecking
+
+Import-Module psfzf -DisableNameChecking
+Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r'
+
+# Source oh-my-posh (equivalent to oh-my-zsh)
+# Import-Module oh-my-posh
+
+# Source wezterm shell completion
+Invoke-Expression (& { (wezterm shell-completion --shell power-shell | Out-String) })
+
+# Initialize zoxide
+Invoke-Expression (& { (zoxide init powershell | Out-String) })
+
+Invoke-Expression (&starship init powershell)
+
 
 # 在bash中，`source`等价于`.`，其中`.`是bash内置的命令
 # 在其他的posix兼容的shell中（如：sh、dash等)，可能不支持`source`，只能使用`.`来执行脚本
