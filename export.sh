@@ -12,12 +12,11 @@ export TIG_EDITOR="hx"
 export GIT_EDITOR="hx"
 #export READER="zathura"
 
-# c++ configuration
-export VCPKG_ROOT="$HOME/vcpkg"
-export PATH=$VCPKG_ROOT:$PATH
-
 #export FZF_DEFAULT_COMMAND='rg --files --hidden -g "!.git"'
 export FZF_DEFAULT_COMMAND='fd --type f -H -E ".git/"'
+
+export PATH=/opt/local/bin:/opt/homebrew/bin:/usr/local/bin:$PATH
+export PATH=/opt/local/sbin:/opt/homebrew/sbin:/usr/local/sbin:$PATH
 
 export ANDROID_SDK_ROOT=~/Android
 export PATH=$ANDROID_SDK_ROOT/tools:$ANDROID_SDK_ROOT/platform-tools:$PATH
@@ -25,19 +24,18 @@ export PATH=$ANDROID_SDK_ROOT/tools:$ANDROID_SDK_ROOT/platform-tools:$PATH
 export GNU_HOME=/usr/local/opt/make/libexec
 export PATH=$GNU_HOME/gnubin:$PATH
 
+# c++ configuration
+export VCPKG_ROOT="$HOME/vcpkg"
+export PATH=$VCPKG_ROOT:$PATH
+
 # Add environment variable SDKBOX_HOME for sdkbox installer
 export SDKBOX_HOME=$HOME/.sdkbox
 export PATH=$SDKBOX_HOME/bin:$PATH
 
-#export DENO_HOME="$HOME/.deno"
-#export PATH="$DENO_HOME/bin:$PATH"
-
-export PNPM_HOME=$HOME/.pnpm
-export PATH=$PNPM_HOME:$PATH
-
 export PATH=~/bin:$PATH
-export PATH=/opt/local/bin:/opt/homebrew/bin:/usr/local/bin:$PATH
-export PATH=/opt/local/sbin:/opt/homebrew/sbin:/usr/local/sbin:$PATH
+
+# asdf
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 
 # Fix pyenv install python on macos bigsure error
 #https://stackoverflow.com/questions/66766531/installation-of-python-3-8-fails-with-pyenv-on-macos

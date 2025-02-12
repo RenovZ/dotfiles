@@ -25,10 +25,6 @@ fi
 
 [[ ! -f ~/.acme.sh/acme.sh.env ]] || source ~/.acme.sh/acme.sh.env
 
-[[ ! -f ~/.asdf/asdf.sh ]] || source ~/.asdf/asdf.sh
-# asdf
-# . "$HOME/.asdf/asdf.sh"
-
 type luarocks >/dev/null 2>&1 && eval "$(luarocks path --bin)"
 
 # Wasmer

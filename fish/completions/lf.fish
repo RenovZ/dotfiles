@@ -1,1 +1,1 @@
-/Users/zzq/Store/lf/etc/lf.fish
+/usr/local/share/lf/fish/vendor_completions.d/lf.fish
