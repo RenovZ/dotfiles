@@ -16,9 +16,20 @@ fzf
 )
 
 source $HOME/.oh-my-zsh/oh-my-zsh.sh
+
+if [ "$(uname -m)" = "arm64" ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+else
+  eval "$(/usr/local/bin/brew shellenv)"
+fi
+
 source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme
 [[ ! -d $(brew --prefix)/share/zsh-autosuggestions ]] || source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 [[ ! -d $(brew --prefix)/share/zsh-syntax-highlighting ]] || source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+. ~/.config/dotfiles/profile.sh
+source ~/.config/dotfiles/fzf-git.sh
+source ~/.config/dotfiles/bind.sh
 
 source <(wezterm shell-completion --shell zsh)
 eval "$(zoxide init zsh)"
@@ -36,9 +47,6 @@ ___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_V
 
 #[[ ! -f ~/.asdf/asdf.sh ]] || source ~/.asdf/asdf.sh
 eval "$(fzf --zsh)"
-. ~/.config/dotfiles/profile.sh
-source ~/.config/dotfiles/fzf-git.sh
-source ~/.config/dotfiles/bind.sh
 
 if [[ -d $(brew --prefix)/share/zsh-completions ]]; then
 	type kubectl >/dev/null 2>&1 && source <(kubectl completion zsh)
