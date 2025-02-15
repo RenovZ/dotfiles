@@ -7,9 +7,9 @@
 
 # export LC_ALL=en_US.UTF-8
 # export EDITOR="nvim"
-# export EDITOR="hx"
-# export TIG_EDITOR="hx"
-# export GIT_EDITOR="hx"
+export EDITOR="hx"
+export TIG_EDITOR="hx"
+export GIT_EDITOR="hx"
 #export READER="zathura"
 
 # c++ configuration
