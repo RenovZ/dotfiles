@@ -16,7 +16,7 @@
     "version": "2"
   },
   "features": {
-    "inline_completion_provider": "supermaven"
+    "edit_prediction_provider": "zed"
   },
   "vim_mode": true,
   "preferred_line_length": 180,
@@ -28,7 +28,7 @@
   "ui_font_size": 16,
   "line_height": "comfortable",
   "ui_font_family": "Hack Nerd Font",
-  "buffer_font_size": 18,
+  "buffer_font_size": 18.0,
   "buffer_line_height": "standard",
   "terminal": {
     "font_size": 16,
