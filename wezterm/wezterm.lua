@@ -96,11 +96,11 @@ end)
 
 -- config.native_macos_fullscreen_mode = true
 config.keys = {
-  {
-    key = 'f',
-    mods = 'CMD|CTRL',
-    action = wezterm.action.ToggleFullScreen,
-  },
+	{
+		key = "f",
+		mods = "CMD|CTRL",
+		action = wezterm.action.ToggleFullScreen,
+	},
 }
 
 -- and finally, return the configuration to wezterm
