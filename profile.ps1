@@ -5,15 +5,15 @@ Import-Module psfzf -DisableNameChecking
 Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r'
 
 # Source oh-my-posh (equivalent to oh-my-zsh)
-# Import-Module oh-my-posh
+# oh-my-posh init powershell --config 'https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/refs/heads/main/themes/agnoster.omp.json' | Invoke-Expression
+
+Invoke-Expression (&starship init powershell)
 
 # Source wezterm shell completion
 Invoke-Expression (& { (wezterm shell-completion --shell power-shell | Out-String) })
 
 # Initialize zoxide
 Invoke-Expression (& { (zoxide init powershell | Out-String) })
-
-Invoke-Expression (&starship init powershell)
 
 
 # 在bash中，`source`等价于`.`，其中`.`是bash内置的命令
