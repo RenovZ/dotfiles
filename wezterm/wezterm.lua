@@ -37,8 +37,8 @@ config.font_rules = {
 }
 config.font_size = 20.0
 
-config.window_background_opacity = 0.80
-config.macos_window_background_blur = 30
+-- config.window_background_opacity = 0.90
+-- config.macos_window_background_blur = 30
 
 -- config.background = {
 -- 	{
