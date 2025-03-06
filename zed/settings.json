@@ -52,7 +52,10 @@
     {
       "external": {
         "command": "sed",
-        "arguments": ["-e", "s/ *$//"]
+        "arguments": [
+          "-e",
+          "s/ *$//"
+        ]
       }
     }
   ],
