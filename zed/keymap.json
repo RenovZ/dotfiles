@@ -1,10 +1,74 @@
 [
   {
     "bindings": {
-      "ctrl-x": "editor::Cut",
-      "ctrl-c": "editor::Copy",
-      "ctrl-v": "editor::Paste",
-      "ctrl-w": "pane::CloseActiveItem"
+      "alt-click": "editor::GoToDefinition"
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      // "alt-click": "editor::GoToDefinition",
+      "alt-t": "editor::GoToTypeDefinition",
+      "alt-i": "editor::GoToImplementation",
+      "alt-d": "editor::GoToDiagnostic",
+      "alt-{": "editor::Fold",
+      "alt-}": "editor::UnfoldLines",
+      "alt-shift-r": "editor::FindAllReferences",
+      // "alt-x": "editor::Cut",
+      // "alt-c": "editor::Copy",
+      // "alt-v": "editor::Paste",
+      // "alt-z": "editor::Undo",
+      "alt-backspace": "editor::DeleteToPreviousWordStart",
+      "ctrl-a": ["editor::MoveToBeginningOfLine", { "stop_at_soft_wraps": true, "stop_at_indent": true }],
+      "ctrl-e": ["editor::MoveToEndOfLine", { "stop_at_soft_wraps": true }],
+      "alt-a": "editor::SelectAll",
+      "ctrl-shift-l": "editor::SelectLine",
+      "alt-l": "editor::SelectLine",
+      "alt-/": ["editor::ToggleComments", { "advance_downwards": false }]
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "alt-p": "file_finder::Toggle",
+      "alt-e": "file_finder::Toggle",
+      "alt-shift-p": "command_palette::Toggle"
+    }
+  },
+  {
+    "context": "BufferSearchBar",
+    "bindings": {
+      "enter": "search::SelectNextMatch",
+      "shift-enter": "search::SelectPreviousMatch",
+      "alt-enter": "search::SelectAllMatches",
+      "find": "search::FocusSearch",
+      "alt-f": "search::FocusSearch",
+      "alt-h": "search::ToggleReplace",
+      "alt-l": "search::ToggleSelection"
+    }
+  },
+  {
+    "context": "Editor && mode == full",
+    "bindings": {
+      "alt->": "assistant::QuoteSelection",
+      "alt-<": "assistant::InsertIntoEditor"
+    }
+  },
+  {
+    "context": "Pane",
+    "bindings": {
+      "ctrl-alt--": "pane::GoBack",
+      "ctrl-alt-+": "pane::GoForward",
+      "alt-w": ["pane::CloseActiveItem", {"close_pinned": false}]
+    }
+  },
+  {
+    "context": "FileFinder || (FileFinder > Picker > Editor) || (FileFinder > Picker > menu)",
+    "bindings": {
+      "alt-j": "pane::SplitDown",
+      "alt-k": "pane::SplitUp",
+      "alt-h": "pane::SplitLeft",
+      "alt-l": "pane::SplitRight"
     }
   }
 ]
