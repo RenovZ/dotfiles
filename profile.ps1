@@ -1,4 +1,8 @@
-# Import-Module posh-git
+Set-PSReadLineOption -PredictionSource HistoryAndPlugin
+
+Import-Module Terminal-Icons
+
+Import-Module posh-git
 Import-Module git-aliases -DisableNameChecking
 
 Import-Module psfzf -DisableNameChecking
