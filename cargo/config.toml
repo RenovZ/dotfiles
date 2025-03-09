@@ -1,3 +1,7 @@
+[env]
+VCPKGRS_DYNAMIC = "1"
+VCPKG_ROOT = "c:\\Users\\win\\vcpkg"
+
 [source.crates-io]
 replace-with = 'rsproxy-sparse'
 [source.rsproxy]
