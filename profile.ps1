@@ -1,3 +1,5 @@
+Import-Module $env:ChocolateyInstall\helpers\chocolateyProfile.psm1
+
 Set-PSReadLineOption -PredictionSource HistoryAndPlugin
 
 Import-Module Terminal-Icons

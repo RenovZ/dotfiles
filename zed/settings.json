@@ -19,7 +19,7 @@
     "edit_prediction_provider": "zed"
   },
   "base_keymap": "VSCode",
-  "vim_mode": true,
+  // "vim_mode": true,
   "preferred_line_length": 280,
   "soft_wrap": "preferred_line_length",
   "theme": {

@@ -1,23 +1,18 @@
 [
   {
-    "bindings": {
-      "alt-click": "editor::GoToDefinition"
-    }
-  },
-  {
     "context": "Editor",
     "bindings": {
       // "alt-click": "editor::GoToDefinition",
+      "alt-x": "editor::Cut",
+      "alt-c": "editor::Copy",
+      "alt-v": "editor::Paste",
+      "alt-z": "editor::Undo",
       "alt-t": "editor::GoToTypeDefinition",
       "alt-i": "editor::GoToImplementation",
       "alt-d": "editor::GoToDiagnostic",
       "alt-{": "editor::Fold",
       "alt-}": "editor::UnfoldLines",
       "alt-shift-r": "editor::FindAllReferences",
-      // "alt-x": "editor::Cut",
-      // "alt-c": "editor::Copy",
-      // "alt-v": "editor::Paste",
-      // "alt-z": "editor::Undo",
       "alt-backspace": "editor::DeleteToPreviousWordStart",
       "ctrl-a": ["editor::MoveToBeginningOfLine", { "stop_at_soft_wraps": true, "stop_at_indent": true }],
       "ctrl-e": ["editor::MoveToEndOfLine", { "stop_at_soft_wraps": true }],
@@ -59,7 +54,7 @@
     "bindings": {
       "ctrl-alt--": "pane::GoBack",
       "ctrl-alt-+": "pane::GoForward",
-      "alt-w": ["pane::CloseActiveItem", {"close_pinned": false}]
+      "alt-w": "pane::CloseActiveItem"
     }
   },
   {
