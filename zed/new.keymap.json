@@ -1,20 +1,12 @@
 [
   {
-    "bindings": {
-      "ctrl-x": "editor::Cut",
-      "ctrl-c": "editor::Copy",
-      "ctrl-v": "editor::Paste",
-      "ctrl-w": "pane::CloseActiveItem"
-    }
-  },
-  {
     "context": "Editor",
     "bindings": {
       // "alt-click": "editor::GoToDefinition",
-      // "alt-x": "editor::Cut",
-      // "alt-c": "editor::Copy",
-      // "alt-v": "editor::Paste",
-      // "alt-z": "editor::Undo",
+      "alt-x": "editor::Cut",
+      "alt-c": "editor::Copy",
+      "alt-v": "editor::Paste",
+      "alt-z": "editor::Undo",
       "alt-t": "editor::GoToTypeDefinition",
       "alt-i": "editor::GoToImplementation",
       "alt-d": "editor::GoToDiagnostic",
@@ -39,11 +31,30 @@
     }
   },
   {
+    "context": "BufferSearchBar",
+    "bindings": {
+      "enter": "search::SelectNextMatch",
+      "shift-enter": "search::SelectPreviousMatch",
+      "alt-enter": "search::SelectAllMatches",
+      "find": "search::FocusSearch",
+      "alt-f": "search::FocusSearch",
+      "alt-h": "search::ToggleReplace",
+      "alt-l": "search::ToggleSelection"
+    }
+  },
+  {
+    "context": "Editor && mode == full",
+    "bindings": {
+      "alt->": "assistant::QuoteSelection",
+      "alt-<": "assistant::InsertIntoEditor"
+    }
+  },
+  {
     "context": "Pane",
     "bindings": {
       "ctrl-alt--": "pane::GoBack",
-      "ctrl-alt-+": "pane::GoForward"
-      // "alt-w": "pane::CloseActiveItem"
+      "ctrl-alt-+": "pane::GoForward",
+      "alt-w": "pane::CloseActiveItem"
     }
   },
   {
