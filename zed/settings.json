@@ -19,7 +19,7 @@
     "edit_prediction_provider": "zed"
   },
   "base_keymap": "VSCode",
-  // "vim_mode": true,
+  "vim_mode": true,
   "preferred_line_length": 280,
   "soft_wrap": "preferred_line_length",
   "theme": {
@@ -66,6 +66,19 @@
         "check": {
           "command": "clippy" // rust-analyzer.check.command (default: "check")
         }
+      }
+    },
+    "clangd": {
+      "binary": {
+        "path": "C:/Program Files/LLVM/bin/clangd.exe",
+        "arguments": [
+          "--function-arg-placeholders=1",
+          "--background-index", // 启用全局索引，加快代码跳转速度
+          "--compile-commands-dir=.", // 指定编译数据库（如果有 compile_commands.json）
+          "--clang-tidy", // 启用 Clang-Tidy
+          "--cross-file-rename", // 支持跨文件重命名
+          "--completion-style=detailed"
+        ]
       }
     },
     "trace": {
