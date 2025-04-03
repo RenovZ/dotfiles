@@ -97,15 +97,38 @@ wezterm.on("window-config-reloaded", function(window, pane)
 end)
 
 -- config.native_macos_fullscreen_mode = true
+
+-- https://wezterm.org/config/default-keys.html
 config.keys = {
     {
         key = "f",
-        mods = "CMD|CTRL",
+        mods = "ALT|CTRL",
         action = wezterm.action.ToggleFullScreen,
     },
 }
 
 config.default_prog = { "C:\\Program Files\\PowerShell\\7\\pwsh.exe" }
+config.launch_menu = {
+    {
+        args = { 'top' },
+    },
+    {
+        label = 'Windows PowerShell',
+        args = { '%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe' },
+    },
+    {
+        label = '命令提示符',
+        args = { '%SystemRoot%\\System32\\cmd.exe' },
+    },
+    {
+        label = 'PowerShell',
+        args = { 'C:\\Program Files\\PowerShell\\7\\pwsh.exe' },
+    },
+    {
+        label = 'Azure Cloud Shell',
+        args = { '%SystemRoot%\\System32\\cmd.exe' },
+    },
+}
 
 -- and finally, return the configuration to wezterm
 return config
