@@ -8,6 +8,12 @@
     }
   },
   {
+    "context": "Editor && edit_prediction",
+    "bindings": {
+      "ctrl-f12": "editor::AcceptEditPrediction"
+    }
+  },
+  {
     "context": "Editor",
     "bindings": {
       // "alt-click": "editor::GoToDefinition",
@@ -15,6 +21,7 @@
       // "alt-c": "editor::Copy",
       // "alt-v": "editor::Paste",
       // "alt-z": "editor::Undo",
+      "ctrl-r": "editor::Rename",
       "alt-t": "editor::GoToTypeDefinition",
       "alt-i": "editor::GoToImplementation",
       "alt-d": "editor::GoToDiagnostic",
