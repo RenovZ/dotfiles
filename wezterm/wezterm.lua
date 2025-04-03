@@ -71,19 +71,19 @@ config.win32_system_backdrop       = "Acrylic"
 
 -- auto color scheme
 function scheme_for_appearance(appearance)
-    -- if appearance:find("Dark") then
-    --     -- return "Builtin Tango Dark"
-    --     -- return "Builtin Dark"
-    --     -- return "Builtin Solarized Dark"
-    --     -- return "nord"
-    -- else
-    --     -- return "Builtin Tango Light"
-    --     -- return "Builtin Light"
-    --     -- return "Builtin Solarized Light"
-    --     -- return "nord-light"
-    -- end
-
-    return "primary"
+    if appearance:find("Dark") then
+        -- return "Builtin Tango Dark"
+        -- return "Builtin Dark"
+        -- return "Builtin Solarized Dark"
+        -- return "nord"
+        return "Windows 10 (base16)"
+    else
+        -- return "Builtin Tango Light"
+        -- return "Builtin Light"
+        -- return "Builtin Solarized Light"
+        -- return "nord-light"
+        return "Windows 95 Light (base16)"
+    end
 end
 
 wezterm.on("window-config-reloaded", function(window, pane)
