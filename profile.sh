@@ -12,6 +12,7 @@ source ~/.config/dotfiles/alias.sh
 source ~/.config/dotfiles/tinygo.sh
 source ~/.config/dotfiles/homebrew.sh
 source ~/.config/dotfiles/bat.sh
+source ~/.config/dotfiles/asdf.sh
 
 # ulimit -n 65535
 
@@ -25,7 +26,7 @@ fi
 
 [[ ! -f ~/.acme.sh/acme.sh.env ]] || source ~/.acme.sh/acme.sh.env
 
-[[ ! -f ~/.asdf/asdf.sh ]] || source ~/.asdf/asdf.sh
+# [[ ! -f ~/.asdf/asdf.sh ]] || source ~/.asdf/asdf.sh
 # asdf
 # . "$HOME/.asdf/asdf.sh"
 
