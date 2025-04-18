@@ -35,9 +35,9 @@ config.font_rules                  = {
         }),
     },
 }
-config.font_size                   = 14.0
+config.font_size                   = 12.0
 
-config.window_background_opacity   = 0.8
+config.window_background_opacity   = 0.7
 config.win32_system_backdrop       = "Acrylic"
 
 -- config.background = {
