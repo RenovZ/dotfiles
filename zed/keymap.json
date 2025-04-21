@@ -40,8 +40,8 @@
   {
     "context": "Workspace",
     "bindings": {
+      "alt-t": "project_symbols::Toggle",
       "alt-p": "file_finder::Toggle",
-      "alt-e": "file_finder::Toggle",
       "alt-shift-p": "command_palette::Toggle"
     }
   },
