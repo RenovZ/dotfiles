@@ -1,3 +1,7 @@
+font-size = 20
+
+window-padding-x = 4
+window-theme = auto
 background-opacity = 0.8
 background-blur = true
 
