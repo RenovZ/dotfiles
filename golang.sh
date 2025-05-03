@@ -8,5 +8,6 @@ export GOENV=$GOPATH/env
 export GOPROXY=https://goproxy.cn,direct
 export GOFLAGS="-mod=readonly"
 # export GOGC=500
+export GOTELEMETRYDIR=$GOPATH/telemetry
 
 export PATH=$GOPATH/bin:$PATH
