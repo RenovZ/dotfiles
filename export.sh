@@ -6,10 +6,10 @@
 #export CPLUS_INCLUDE_PATH=$C_INCLUDE_PATH
 
 export LC_ALL=en_US.UTF-8
-# export EDITOR="nvim"
-export EDITOR="hx"
-export TIG_EDITOR="hx"
-export GIT_EDITOR="hx"
+export EDITOR=hx
+export VISUAL=hx
+export TIG_EDITOR=hx
+export GIT_EDITOR=hx
 #export READER="zathura"
 
 #export FZF_DEFAULT_COMMAND='rg --files --hidden -g "!.git"'
