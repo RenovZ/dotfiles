@@ -25,7 +25,7 @@ function set_light
     set -U fish_pager_color_progress brwhite --background=cyan
     set -U fish_pager_color_completion normal
     set -U fish_pager_color_description B3A06D
-    set -U fish_pager_color_selected_background --background=FF9940
+    set -U fish_pager_color_selected_background --background=878787
     set -U fish_color_option
     set -U fish_pager_color_secondary_description
     set -U fish_color_host_remote
