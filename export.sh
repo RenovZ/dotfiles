@@ -61,9 +61,9 @@ export PATH=$HOME/fvm/default/bin:$PATH
 # export DYLD_LIBRARY_PATH=$SCITER_SDK_ROOT
 
 # homebrew
-export LIBRARY_PATH="/opt/homebrew/lib:$LIBRARY_PATH"
-export C_INCLUDE_PATH="/opt/homebrew/include:$C_INCLUDE_PATH"
-export PKG_CONFIG_PATH="/opt/homebrew/lib/pkgconfig:$PKG_CONFIG_PATH"
+# export LIBRARY_PATH="/usr/local/lib:/opt/homebrew/lib:$LIBRARY_PATH"
+# export C_INCLUDE_PATH="/usr/local/include:/opt/homebrew/include:$C_INCLUDE_PATH"
+# export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:/opt/homebrew/lib/pkgconfig:$PKG_CONFIG_PATH"
 
 # pnpm
 export PNPM_HOME=~/.pnpm
