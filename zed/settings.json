@@ -7,6 +7,7 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  "format_on_save": "language_server",
   "rust-analyzer.cargo.buildScripts.enable": true,
   "assistant": {
     "default_model": {
@@ -52,7 +53,10 @@
     {
       "external": {
         "command": "sed",
-        "arguments": ["-e", "s/ *$//"]
+        "arguments": [
+          "-e",
+          "s/ *$//"
+        ]
       }
     }
   ],
