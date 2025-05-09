@@ -66,4 +66,4 @@ export PATH=$HOME/fvm/default/bin:$PATH
 # export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:/opt/homebrew/lib/pkgconfig:$PKG_CONFIG_PATH"
 
 # pnpm
-export PNPM_HOME=~/.pnpm
+export PATH=$HOME/.pnpm:$PATH

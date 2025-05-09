@@ -4,8 +4,6 @@ set ifs "\n"
 set scrolloff 10
 # set cursorpreviewfmt "\033[7;2m"
 
-set editor "hx"
-
 set ratios 1:2:3
 set icons true
 # set colors true
@@ -35,7 +33,7 @@ cmd zi ${{
     lf -remote "send $id cd \"$result\""
 }}
 
-# # exa
+# exa
 cmd on-select &{{
     lf -remote "send $id set statfmt \"$(exa -ld --color=always "$f")\""
 }}
