@@ -67,3 +67,6 @@ export PATH=$HOME/fvm/default/bin:$PATH
 
 # pnpm
 export PATH=$HOME/.pnpm:$PATH
+
+# mysql
+# export PATH=/usr/local/opt/mysql-client@8.4/bin:$PATH
