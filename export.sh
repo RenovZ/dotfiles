@@ -70,3 +70,6 @@ export PATH=$HOME/.pnpm:$PATH
 
 # mysql
 # export PATH=/usr/local/opt/mysql-client@8.4/bin:$PATH
+
+# Added by Radicle.
+export PATH=$HOME.radicle/bin:$PATH

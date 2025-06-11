@@ -1,10 +1,11 @@
 font-size = 20
 
-window-padding-x = 4
+# window-padding-x = 4
 window-theme = auto
 background-opacity = 0.8
 background-blur = true
 
-macos-titlebar-style = hidden
+# macos-titlebar-style = hidden
 macos-option-as-alt = true
 macos-non-native-fullscreen = true
+# theme = Builtin Light

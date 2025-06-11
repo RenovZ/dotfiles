@@ -70,7 +70,7 @@ config.macos_window_background_blur = 50
 -- config.color_scheme = "Google (dark) (terminal.sexy)"
 
 -- auto color scheme
-function scheme_for_appearance(appearance)
+local function scheme_for_appearance(appearance)
 	if appearance:find("Dark") then
 		-- return "Builtin Tango Dark"
 		-- return "Builtin Dark"
@@ -94,7 +94,7 @@ wezterm.on("window-config-reloaded", function(window, pane)
 	end
 end)
 
--- config.native_macos_fullscreen_mode = true
+config.native_macos_fullscreen_mode = true
 config.keys = {
 	{
 		key = "f",

@@ -7,7 +7,15 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
-  // "format_on_save": "language_server",
+  "format_on_save": "language_server",
+  "agent": {
+    "model_parameters": [],
+    "default_model": {
+      "provider": "copilot_chat",
+      "model": "gpt-4o"
+    },
+    "version": "2"
+  },
   "rust-analyzer.cargo.buildScripts.enable": true,
   // "agent": {
   //   "default_model": {
@@ -20,7 +28,7 @@
     "edit_prediction_provider": "zed"
   },
   "vim_mode": true,
-  "preferred_line_length": 120,
+  "preferred_line_length": 100,
   "soft_wrap": "preferred_line_length",
   "theme": {
     "light": "One Light",
@@ -29,12 +37,23 @@
   "ui_font_size": 16,
   "line_height": "comfortable",
   "ui_font_family": "Hack Nerd Font",
+  "ui_font_weight": 400,
   "buffer_font_size": 18.0,
-  "buffer_line_height": "standard",
+  "buffer_font_weight": 400,
+  "buffer_line_height": {
+    "custom": 1.4
+  },
+  "minimap": {
+    "show": "auto",
+    "thumb": "always",
+    "thumb_border": "left_open",
+    "current_line_highlight": "all"
+  },
   "terminal": {
     "font_size": 16,
     "font_family": "Hack Nerd Font Mono",
-    "line_height": "standard"
+    "line_height": "standard",
+    "font_weight": 600
   },
   "inlay_hints": {
     "show_type_hints": true,
