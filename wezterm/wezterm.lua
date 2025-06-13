@@ -37,7 +37,7 @@ config.font_rules = {
 }
 config.font_size = 20.0
 
-config.window_background_opacity = 0.90
+config.window_background_opacity = 0.70
 config.macos_window_background_blur = 50
 
 -- config.background = {
@@ -80,7 +80,8 @@ local function scheme_for_appearance(appearance)
 		-- return "Builtin Tango Light"
 		-- return "Builtin Light"
 		-- return "Builtin Solarized Light"
-		return "nord-light"
+		-- return "nord-light"
+		return "nord"
 	end
 end
 
