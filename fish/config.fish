@@ -3,6 +3,7 @@ bass source ~/.config/dotfiles/profile.sh
 # source ~/.config/dotfiles/profile.fish.sh
 
 source ~/.config/fish/asdf.fish
+source ~/.local/bin/env.fish
 
 wezterm shell-completion --shell fish | source
 zoxide init fish | source
@@ -25,3 +26,10 @@ source ~/.orbstack/shell/init2.fish 2>/dev/null || :
 
 # Added by Radicle.
 export PATH="$PATH:/Users/zzq/.radicle/bin"
+
+# pnpm
+set -gx PNPM_HOME "/Users/cgxxv/Library/pnpm"
+if not string match -q -- $PNPM_HOME $PATH
+  set -gx PATH "$PNPM_HOME" $PATH
+end
+# pnpm end

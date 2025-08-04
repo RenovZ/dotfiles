@@ -20,6 +20,7 @@ source $HOME/.oh-my-zsh/oh-my-zsh.sh
 source ~/.config/dotfiles/profile.sh
 source ~/.config/dotfiles/fzf-git.sh
 source ~/.config/dotfiles/bind.sh
+source ~/.local/bin/env
 
 source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme
 [[ ! -d $(brew --prefix)/share/zsh-autosuggestions ]] || source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -48,3 +49,5 @@ if [[ -d $(brew --prefix)/share/zsh-completions ]]; then
 	autoload -Uz compinit
 	compinit
 fi
+
+. "$HOME/.local/bin/env"

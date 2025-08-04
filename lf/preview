@@ -11,18 +11,18 @@ image() {
 	shift
 
 	if command -v chafa >/dev/null 2>&1; then
-	    echo "yes use chafa $file, $w, $h, $x, $y" > /tmp/lf.log
-	    chafa "$file" -s "{$x}x"
+	    # echo "yes use chafa $file, $w, $h, $x, $y" > /tmp/lf.log
+		chafa "$file" -s "{$x}x"
 	elif command -v kitty >/dev/null 2>&1; then
-	    #if [[ "$(file -Lb --mime-type "$file")" =~ ^image ]]; then
-    	if file -Lb --mime-type "$file" | grep -Eq "image"; then
-    		kitty +icat --silent --transfer-mode file --place "${w}x${h}@${x}x${y}" "$file"
-    		exit 1
-        else
-            echo "Unsupported kitty file type."
-    	fi
+	  #if [[ "$(file -Lb --mime-type "$file")" =~ ^image ]]; then
+    if file -Lb --mime-type "$file" | grep -Eq "image"; then
+		kitty +icat --silent --transfer-mode file --place "${w}x${h}@${x}x${y}" "$file"
+		exit 1
+    else
+        echo "Unsupported kitty file type."
+    fi
 	elif [ -n "$DISPLAY" ] && [ -z "$WAYLAND_DISPLAY" ]; then
-	    echo "yes use chafa $file, $w, $h, $x, $y" > /tmp/lf.log
+	    # echo "yes use chafa $file, $w, $h, $x, $y" > /tmp/lf.log
 		printf '{"action": "add", "identifier": "PREVIEW", "x": "%s", "y": "%s", "width": "%s", "height": "%s", "scaler": "contain", "path": "%s"}\n' "$x" "$y" "$((w - 1))" "$((h - 1))" "$file" >"$FIFO_UEBERZUG"
 		exit 0
 	elif command -v pistol >/dev/null 2>&1; then

@@ -35,9 +35,9 @@ config.font_rules = {
 		}),
 	},
 }
-config.font_size = 20.0
+config.font_size = 14.0
 
-config.window_background_opacity = 0.70
+config.window_background_opacity = 0.88
 config.macos_window_background_blur = 50
 
 -- config.background = {
@@ -75,13 +75,17 @@ local function scheme_for_appearance(appearance)
 		-- return "Builtin Tango Dark"
 		-- return "Builtin Dark"
 		-- return "Builtin Solarized Dark"
-		return "nord"
+		-- return "nord"
+		-- return 'Catppuccin Mocha'
+		return "Ubuntu"
 	else
 		-- return "Builtin Tango Light"
 		-- return "Builtin Light"
 		-- return "Builtin Solarized Light"
 		-- return "nord-light"
 		return "nord"
+		-- return "Catppuccin Latte"
+		-- return "Ubuntu"
 	end
 end
 
@@ -95,7 +99,7 @@ wezterm.on("window-config-reloaded", function(window, pane)
 	end
 end)
 
-config.native_macos_fullscreen_mode = true
+-- config.native_macos_fullscreen_mode = true
 config.keys = {
 	{
 		key = "f",

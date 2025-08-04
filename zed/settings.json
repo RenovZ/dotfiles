@@ -11,12 +11,11 @@
   "agent": {
     "model_parameters": [],
     "default_model": {
-      "provider": "copilot_chat",
-      "model": "gpt-4o"
+      "provider": "zed.dev",
+      "model": "claude-sonnet-4"
     },
-    "version": "2"
   },
-  "rust-analyzer.cargo.buildScripts.enable": true,
+  // "rust-analyzer.cargo.buildScripts.enable": true,
   // "agent": {
   //   "default_model": {
   //     "provider": "copilot_chat",
@@ -27,18 +26,19 @@
   "features": {
     "edit_prediction_provider": "zed"
   },
-  "vim_mode": true,
-  "preferred_line_length": 100,
+  // "vim_mode": true,
+  "preferred_line_length": 120,
   "soft_wrap": "preferred_line_length",
   "theme": {
     "light": "One Light",
     "dark": "One Dark"
   },
-  "ui_font_size": 16,
-  "line_height": "comfortable",
+  "ui_font_size": 14,
+  // "line_height": "comfortable",
   "ui_font_family": "Hack Nerd Font",
   "ui_font_weight": 400,
-  "buffer_font_size": 18.0,
+  "buffer_font_size": 14,
+  "buffer_font_family": "Hack Nerd Font",
   "buffer_font_weight": 400,
   "buffer_line_height": {
     "custom": 1.4
@@ -99,26 +99,6 @@
           "--completion-style=detailed"
         ]
       }
-    },
-    "trace": {
-      "server": "verbose"
-    }
-  },
-  "gopls": {
-    "initialization_options": {
-      "hints": {
-        "assignVariableTypes": true,
-        "compositeLiteralFields": true,
-        "compositeLiteralTypes": true,
-        "constantValues": true,
-        "functionTypeParameters": true,
-        "parameterNames": true,
-        "rangeVariableTypes": true
-      }
-    },
-    "analyses": {
-      "unreachable": true,
-      "unusedparams": true
     }
   }
 }
