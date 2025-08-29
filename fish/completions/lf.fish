@@ -1,1 +1,1 @@
-/usr/local/share/lf/fish/vendor_completions.d/lf.fish
+/opt/homebrew/share/fish/vendor_completions.d/lf.fish

@@ -1,1 +1,1 @@
-/usr/local/share/asdf/fish/vendor_completions.d/asdf.fish
+/opt/homebrew/share/fish/vendor_completions.d/asdf.fish

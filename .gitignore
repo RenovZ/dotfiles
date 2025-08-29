@@ -8,5 +8,9 @@ zed/embeddings
 /profile.fish
 fish/fish_variables
 fish/fishd.tmp.*
+fish/completions/gitleaks.fish
+fish/completions/gh.fish
 helix/themes/adaptive.toml
 zed/prompts
+zed/.tmp*
+zed/embeddings

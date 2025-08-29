@@ -2,4 +2,5 @@
 # inherits = "solarized_dark"
 inherits = "nord"
 # inherits = "github_dark"
-"ui.background" = {}
+# inherits = "catppuccin_mocha"
+"ui.background" = "none"

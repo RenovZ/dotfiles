@@ -1,5 +1,6 @@
 # inherits = "zed_onelight"
 # inherits = "solarized_light"
-inherits = "nord_light"
+# inherits = "nord_light"
+# inherits = "nord"
 # inherits = "github_light"
-"ui.background" = {}
+"ui.background" = "none"

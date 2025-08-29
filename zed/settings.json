@@ -7,8 +7,15 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
-  // "format_on_save": "language_server",
-  "rust-analyzer.cargo.buildScripts.enable": true,
+  "format_on_save": "language_server",
+  "agent": {
+    "model_parameters": [],
+    "default_model": {
+      "provider": "zed.dev",
+      "model": "claude-sonnet-4"
+    },
+  },
+  // "rust-analyzer.cargo.buildScripts.enable": true,
   // "agent": {
   //   "default_model": {
   //     "provider": "copilot_chat",
@@ -26,15 +33,27 @@
     "light": "One Light",
     "dark": "One Dark"
   },
-  "ui_font_size": 16,
-  "line_height": "comfortable",
+  "ui_font_size": 14,
+  // "line_height": "comfortable",
   "ui_font_family": "Hack Nerd Font",
-  "buffer_font_size": 18.0,
-  "buffer_line_height": "standard",
+  "ui_font_weight": 400,
+  "buffer_font_size": 14,
+  "buffer_font_family": "Hack Nerd Font",
+  "buffer_font_weight": 400,
+  "buffer_line_height": {
+    "custom": 1.4
+  },
+  "minimap": {
+    "show": "auto",
+    "thumb": "always",
+    "thumb_border": "left_open",
+    "current_line_highlight": "all"
+  },
   "terminal": {
-    "font_size": 16,
+    "font_size": 14,
     "font_family": "Hack Nerd Font Mono",
-    "line_height": "standard"
+    "line_height": "standard",
+    "font_weight": 600
   },
   "inlay_hints": {
     "show_type_hints": true,
@@ -80,26 +99,6 @@
           "--completion-style=detailed"
         ]
       }
-    },
-    "trace": {
-      "server": "verbose"
-    }
-  },
-  "gopls": {
-    "initialization_options": {
-      "hints": {
-        "assignVariableTypes": true,
-        "compositeLiteralFields": true,
-        "compositeLiteralTypes": true,
-        "constantValues": true,
-        "functionTypeParameters": true,
-        "parameterNames": true,
-        "rangeVariableTypes": true
-      }
-    },
-    "analyses": {
-      "unreachable": true,
-      "unusedparams": true
     }
   }
 }

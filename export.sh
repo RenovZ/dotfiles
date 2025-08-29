@@ -66,7 +66,11 @@ export PATH=$HOME/fvm/default/bin:$PATH
 # export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:/opt/homebrew/lib/pkgconfig:$PKG_CONFIG_PATH"
 
 # pnpm
-export PATH=$HOME/.pnpm:$PATH
+export PNPM_PATH=$HOME/.pnpm
+export PATH=$PNPM_PATH:$PATH
 
 # mysql
 # export PATH=/usr/local/opt/mysql-client@8.4/bin:$PATH
+
+# Added by Radicle.
+export PATH=$HOME.radicle/bin:$PATH
