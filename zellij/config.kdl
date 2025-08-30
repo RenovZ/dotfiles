@@ -19,7 +19,7 @@ keybinds {
         bind "l" { MoveFocus "Right"; SwitchToMode "Normal"; }
         bind "j" { MoveFocus "Down"; SwitchToMode "Normal"; }
         bind "k" { MoveFocus "Up"; SwitchToMode "Normal"; }
-        bind "o" { FocusNextPane; }
+        // bind "o" { FocusNextPane; }
         bind "d" { Detach; }
         bind "Space" { NextSwapLayout; }
         bind "x" { CloseFocus; SwitchToMode "Normal"; }
@@ -31,6 +31,7 @@ keybinds {
             };
             SwitchToMode "Normal"
         }
+        bind "Ctrl r" { SwitchToMode "Resize"; }
     }
     shared_except "tmux" {
         bind "Ctrl z" { SwitchToMode "Tmux"; }

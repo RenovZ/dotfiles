@@ -2,6 +2,7 @@ theme = "adaptive"
 
 [editor]
 true-color = true
+editor-config = true
 
 [editor.cursor-shape]
 insert = "bar"

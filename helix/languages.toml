@@ -1,12 +1,10 @@
-[language-server.rust-analyzer.config.check]
-command = "clippy"
+[language-server.rust-analyzer]
+command = "rust-analyzer"
+config = { check = { command = "clippy" } }
 
 [[language]]
 name = "rust"
-# language-servers = ["rust-analyzer"]
-
-[language-server.rust-lsp]
-command = "rust-analyzer"
+language-servers = ["rust-analyzer"]
 
 [language-server.gopls]
 command = "gopls"
@@ -23,8 +21,12 @@ language-servers = ["gopls"]
 
 [[language]]
 name = "svelte"
-language-servers = [ "svelteserver", "typescript-language-server", "tailwindcss-ls" ]
-formatter = { command = "pnpx", args = [ "prettier", "--parser", "svelte" ] }
+language-servers = [
+    "svelteserver",
+    "typescript-language-server",
+    "tailwindcss-ls",
+]
+formatter = { command = "pnpx", args = ["prettier", "--parser", "svelte"] }
 # formatter = { command = "dprint", args = [ "fmt", "--stdin", "svelte" ] }
 comment-token = "<!--"
 auto-format = true
@@ -35,8 +37,8 @@ args = ["--stdio"]
 # config = { userLanguages = { rust = "html", "*.rs" = "html" } }
 
 [language-server]
-deno = { command = "deno", args = [ "lsp" ]}
-emmet-ls = { command = "emmet-ls", args = [ "--stdio" ]}
+deno = { command = "deno", args = ["lsp"] }
+emmet-ls = { command = "emmet-ls", args = ["--stdio"] }
 
 [language-server.eslint]
 command = "vscode-eslint-language-server"
@@ -69,48 +71,48 @@ provideFormatter = true
 
 [[language]]
 name = "typescript"
-language-servers = [ "typescript-language-server", "eslint", "emmet-ls" ]
-formatter = { command = "pnpx", args = [ "prettier", "--parser", "typescript" ] }
+language-servers = ["typescript-language-server", "eslint", "emmet-ls"]
+formatter = { command = "pnpx", args = ["prettier", "--parser", "typescript"] }
 # formatter = { command = "dprint", args = [ "fmt", "--stdin", "ts" ] }
 auto-format = true
 
 [[language]]
 name = "tsx"
-language-servers = [ "deno", "eslint", "emmet-ls" ]
-formatter = { command = "pnpx", args = [ "prettier", "--parser", "typescript" ] }
+language-servers = ["deno", "eslint", "emmet-ls"]
+formatter = { command = "pnpx", args = ["prettier", "--parser", "typescript"] }
 # formatter = { command = "dprint", args = [ "fmt", "--stdin", "tsx" ] }
 auto-format = true
 
 [[language]]
 name = "javascript"
-language-servers = [ "typescript-language-server", "eslint", "emmet-ls" ]
-formatter = { command = "pnpx", args = [ "prettier", "--parser", "javascript" ] }
+language-servers = ["typescript-language-server", "eslint", "emmet-ls"]
+formatter = { command = "pnpx", args = ["prettier", "--parser", "javascript"] }
 # formatter = { command = "dprint", args = [ "fmt", "--stdin", "js" ] }
 auto-format = true
 
 [[language]]
 name = "jsx"
-language-servers = [ "typescript-language-server", "eslint", "emmet-ls" ]
-formatter = { command = "pnpx", args = [ "prettier", "--parser", "typescript" ] }
+language-servers = ["typescript-language-server", "eslint", "emmet-ls"]
+formatter = { command = "pnpx", args = ["prettier", "--parser", "typescript"] }
 # formatter = { command = "dprint", args = [ "fmt", "--stdin", "jsx" ] }
 auto-format = true
 
 [[language]]
 name = "json"
-formatter = { command = "pnpx", args = [ "prettier", "--parser", "json" ] }
+formatter = { command = "pnpx", args = ["prettier", "--parser", "json"] }
 # formatter = { command = "dprint", args = [ "fmt", "--stdin", "json" ] }
 auto-format = true
 
 [[language]]
 name = "html"
-language-servers = [ "vscode-html-language-server", "emmet-ls" ]
-formatter = { command = "pnpx", args = [ "prettier", "--parser", "html" ] }
+language-servers = ["vscode-html-language-server", "emmet-ls"]
+formatter = { command = "pnpx", args = ["prettier", "--parser", "html"] }
 # formatter = { command = "dprint", args = [ "fmt", "--stdin", "html" ] }
 auto-format = true
 
 [[language]]
 name = "css"
-language-servers = [ "vscode-css-language-server", "emmet-ls" ]
-formatter = { command = "pnpx", args = [ "prettier", "--parser", "css" ] }
+language-servers = ["vscode-css-language-server", "emmet-ls"]
+formatter = { command = "pnpx", args = ["prettier", "--parser", "css"] }
 # formatter = { command = "dprint", args = [ "fmt", "--stdin", "css" ] }
 auto-format = true

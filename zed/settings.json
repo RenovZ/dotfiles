@@ -11,8 +11,8 @@
   "agent": {
     "model_parameters": [],
     "default_model": {
-      "provider": "zed.dev",
-      "model": "claude-sonnet-4"
+      "provider": "copilot_chat",
+      "model": "gpt-4.1"
     },
   },
   // "rust-analyzer.cargo.buildScripts.enable": true,
