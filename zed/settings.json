@@ -26,7 +26,7 @@
   "features": {
     "edit_prediction_provider": "zed"
   },
-  "vim_mode": true,
+  // "vim_mode": true,
   "preferred_line_length": 120,
   "soft_wrap": "preferred_line_length",
   "theme": {
