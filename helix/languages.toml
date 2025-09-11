@@ -20,6 +20,18 @@ comment-token = "//"
 language-servers = ["gopls"]
 
 [[language]]
+name = "python"
+language-servers = ["pyright", "ruff"]
+
+[language-server.ruff]
+command = "ruff"
+args = ["server"]
+
+[language-server.pyright]
+command = "pyright-langserver"
+args = ["--stdio"]
+
+[[language]]
 name = "svelte"
 language-servers = [
     "svelteserver",

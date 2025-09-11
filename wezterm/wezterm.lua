@@ -83,9 +83,9 @@ local function scheme_for_appearance(appearance)
 		-- return "Builtin Light"
 		-- return "Builtin Solarized Light"
 		-- return "nord-light"
-		return "nord"
+		-- return "nord"
 		-- return "Catppuccin Latte"
-		-- return "Ubuntu"
+		return "Ubuntu"
 	end
 end
 

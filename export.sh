@@ -15,6 +15,8 @@ export GIT_EDITOR=hx
 #export FZF_DEFAULT_COMMAND='rg --files --hidden -g "!.git"'
 export FZF_DEFAULT_COMMAND='fd --type f -H -E ".git/"'
 
+export PATH=~/.local/bin:$PATH
+
 export PATH=/opt/local/bin:/opt/homebrew/bin:/usr/local/bin:$PATH
 export PATH=/opt/local/sbin:/opt/homebrew/sbin:/usr/local/sbin:$PATH
 
@@ -71,6 +73,3 @@ export PATH=$PNPM_PATH:$PATH
 
 # mysql
 # export PATH=/usr/local/opt/mysql-client@8.4/bin:$PATH
-
-# Added by Radicle.
-export PATH=$HOME.radicle/bin:$PATH
