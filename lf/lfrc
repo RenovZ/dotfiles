@@ -132,7 +132,7 @@ cmd fzf_jump ${{
 # cmd rg_search $~/.config/lf/rg_search.sh
 cmd rg_search ${{
     res="$( \
-        RG_PREFIX="rg --column \
+        RG_PREFIX="rg -U --column \
             --hidden \
             --line-number \
             --no-heading \
@@ -141,7 +141,7 @@ cmd rg_search ${{
             --color=always \
             --smart-case "
         preview="
-            echo $SHELL >> /tmp/lf.log
+            # echo $SHELL >> /tmp/lf.log
             filepath=\$(echo {}|awk -F ':' '{print \$1}')
             currentline=\$(echo {}|awk -F : '{print \$2}')
             startline=\$([ \$currentline -ge 20 ] && expr \$currentline - 20 || expr 0)

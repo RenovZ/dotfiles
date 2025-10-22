@@ -1,3 +1,9 @@
+# [build]
+# rustc-wrapper = "/opt/homebrew/bin/sccache"
+
+# [registry]
+# default = "crates-io"
+
 [source.crates-io]
 replace-with = 'rsproxy-sparse'
 [source.rsproxy]

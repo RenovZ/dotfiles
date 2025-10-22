@@ -6,6 +6,7 @@ export CGO_CXXFLAGS="-O2 -g -I$(brew --prefix)/include"
 export CGO_FFLAGS="-O2 -g -I$(brew --prefix)/include"
 export CGO_LDFLAGS="-O2 -g -L$(brew --prefix)/lib"
 export GOPATH=~/.golang
+export GOBIN=$GOPATH/bin
 export GO111MODULE=on
 export GOCACHE=$GOPATH/go-build
 export GOENV=$GOPATH/env

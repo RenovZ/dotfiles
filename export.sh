@@ -68,8 +68,8 @@ export PATH=$HOME/fvm/default/bin:$PATH
 # export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:/opt/homebrew/lib/pkgconfig:$PKG_CONFIG_PATH"
 
 # pnpm
-export PNPM_PATH=$HOME/.pnpm
-export PATH=$PNPM_PATH:$PATH
+export PNPM_HOME=$HOME/.pnpm
+export PATH=$PNPM_HOME:$PATH
 
 # mysql
 # export PATH=/usr/local/opt/mysql-client@8.4/bin:$PATH

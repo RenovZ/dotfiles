@@ -1,6 +1,6 @@
 [language-server.rust-analyzer]
 command = "rust-analyzer"
-config = { check = { command = "clippy" } }
+config = { check = { command = "check" } }
 
 [[language]]
 name = "rust"
@@ -21,7 +21,7 @@ language-servers = ["gopls"]
 
 [[language]]
 name = "python"
-language-servers = ["pyright", "ruff"]
+language-servers = ["basedpyright", "!pyright", "ruff"]
 
 [language-server.ruff]
 command = "ruff"

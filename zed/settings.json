@@ -7,37 +7,28 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
-  "format_on_save": "language_server",
+  // "format_on_save": "language_server",
   "agent": {
     "model_parameters": [],
     "default_model": {
       "provider": "copilot_chat",
       "model": "gpt-4.1"
-    },
+    }
   },
-  // "rust-analyzer.cargo.buildScripts.enable": true,
-  // "agent": {
-  //   "default_model": {
-  //     "provider": "copilot_chat",
-  //     "model": "gpt-4o"
-  //   },
-  //   "version": "2"
-  // },
   "features": {
     "edit_prediction_provider": "zed"
   },
   // "vim_mode": true,
-  "preferred_line_length": 120,
+  "preferred_line_length": 160,
   "soft_wrap": "preferred_line_length",
   "theme": {
     "light": "One Light",
     "dark": "One Dark"
   },
-  "ui_font_size": 14,
-  // "line_height": "comfortable",
-  "ui_font_family": "Hack Nerd Font",
+  "ui_font_size": 16,
+  "ui_font_family": "Monaco",
   "ui_font_weight": 400,
-  "buffer_font_size": 14,
+  "buffer_font_size": 16,
   "buffer_font_family": "Hack Nerd Font",
   "buffer_font_weight": 400,
   "buffer_line_height": {
@@ -72,15 +63,23 @@
     {
       "external": {
         "command": "sed",
-        "arguments": [
-          "-e",
-          "s/ *$//"
-        ]
+        "arguments": ["-e", "s/ *$//"]
       }
     }
   ],
+  "languages": {
+    "Python": {
+      "language_servers": [
+        "basedpyright",
+        // disable the other python language servers
+        "!pyright",
+        "!pylsp"
+      ]
+    }
+  },
   "lsp": {
     "rust-analyzer": {
+      "enable_lsp_tasks": true,
       "initialization_options": {
         "check": {
           "command": "clippy" // rust-analyzer.check.command (default: "check")
