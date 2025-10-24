@@ -24,8 +24,8 @@ display-inlay-hints = true
 enable = true # wraps text
  
 [keys.insert]
-f = { j = "normal_mode" } # Maps "fj" to exit insert mode
-j = { f = "normal_mode" } # Maps "jf" to exit insert mode
+# f = { j = "normal_mode" } # Maps "fj" to exit insert mode
+# j = { f = "normal_mode" } # Maps "jf" to exit insert mode
 esc = ["collapse_selection", "normal_mode"] # Escape deselects and enters normal mode every time. 
 
 [keys.normal]
