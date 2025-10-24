@@ -1,8 +1,10 @@
 theme = "adaptive"
 
 [editor]
+scrolloff = 10
 true-color = true
 editor-config = true
+bufferline = "multiple"
 
 [editor.cursor-shape]
 insert = "bar"
@@ -18,14 +20,23 @@ skip-levels = 1
 display-messages = true
 display-inlay-hints = true
 
-# [editor]
-# gutters = ["diff", "diagnostics", "line-numbers", "spacer"]
+[editor.soft-wrap]
+enable = true # wraps text
+ 
+[keys.insert]
+f = { j = "normal_mode" } # Maps "fj" to exit insert mode
+j = { f = "normal_mode" } # Maps "jf" to exit insert mode
+esc = ["collapse_selection", "normal_mode"] # Escape deselects and enters normal mode every time. 
 
-# [editor.statusline]
-# left = ["mode", "spinner"]
-# center = ["file-name"]
-# right = ["diagnostics", "selections", "position", "file-encoding", "file-line-ending", "file-type"]
-# separator = "│"
-# mode.normal = "NORMAL"
-# mode.insert = "INSERT"
-# mode.select = "SELECT"
+[keys.normal]
+esc = ["collapse_selection", "keep_primary_selection", "normal_mode"] # Escape deselects and enters normal mode every time. 
+X = "extend_line_above" # Press X to extend selection one line up. 
+"}" = "goto_next_paragraph"
+"{" = "goto_prev_paragraph"
+tab = "goto_next_buffer"
+S-tab = "goto_previous_buffer"
+
+[keys.select]
+"}" = "goto_next_paragraph"
+"{" = "goto_prev_paragraph"
+
