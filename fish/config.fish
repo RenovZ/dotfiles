@@ -4,7 +4,7 @@ bass source ~/.config/dotfiles/profile.sh
 
 source ~/.config/fish/asdf.fish
 
-wezterm shell-completion --shell fish | source
+not command -v wezterm >/dev/null || wezterm shell-completion --shell fish | source
 zoxide init fish | source
 fzf --fish | source
 

@@ -26,7 +26,7 @@ source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme
 [[ ! -d $(brew --prefix)/share/zsh-autosuggestions ]] || source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 [[ ! -d $(brew --prefix)/share/zsh-syntax-highlighting ]] || source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-source <(wezterm shell-completion --shell zsh)
+[[ ! `type wezterm > /dev/null 2>&1` ]] || source <(wezterm shell-completion --shell zsh)
 eval "$(zoxide init zsh)"
 [[ ! `type helm > /dev/null 2>&1` ]] || source <(helm completion zsh)
 [[ ! `type orbctl &> /dev/null` ]] || source <(orbctl completion zsh)
