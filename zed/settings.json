@@ -7,7 +7,42 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  "agent": {
+    "default_model": {
+      "provider": "ollama",
+      "model": "gpt-oss:latest"
+    }
+  },
+  "language_models": {
+    "ollama": {
+      "api_url": "http://localhost:11434",
+      "available_models": [
+        {
+          "name": "gpt-oss:120b-cloud",
+          "display_name": "gpt-oss:120b-cloud (65GB) 128K",
+          "max_tokens": 131072,
+        },
+        {
+          "name": "gpt-oss:latest",
+          "display_name": "gpt-oss:latest (14GB) 128K",
+          "max_tokens": 131072,
+        },
+        {
+          "name": "deepseek-v3.1:671b-cloud",
+          "display_name": "deepseek-v3.1:671b-cloud (404GB) 160K",
+          "max_tokens": 163840,
+        },
+        {
+          "name": "qwen3-coder:480b-cloud",
+          "display_name": "qwen3-coder:480b-cloud (290GB) 256K",
+          "max_tokens": 262144,
+        }
+      ]
+    }
+  },
   // "format_on_save": "language_server",
+  "agent_buffer_font_size": 16.0,
+  "agent_ui_font_size": 16.0,
   "collaboration_panel": {
     "button": true
   },
@@ -38,13 +73,6 @@
     "diagnostics": false,
     "metrics": false
   },
-  "agent": {
-    "model_parameters": [],
-    "default_model": {
-      "provider": "copilot_chat",
-      "model": "gpt-5-mini"
-    }
-  },
   "features": {
     "edit_prediction_provider": "zed"
   },
@@ -55,7 +83,7 @@
     "light": "One Light",
     "dark": "One Dark"
   },
-  "ui_font_size": 16,
+  "ui_font_size": 16.0,
   "ui_font_family": "Monaco",
   "ui_font_weight": 400,
   "buffer_font_size": 16,
