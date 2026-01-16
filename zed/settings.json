@@ -7,10 +7,11 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  "vim_mode": false,
   "agent": {
     "default_model": {
-      "provider": "ollama",
-      "model": "gpt-oss:latest"
+      "provider": "copilot_chat",
+      "model": "gpt-5-mini"
     }
   },
   "language_models": {
@@ -51,7 +52,7 @@
   },
   "debugger": {
     "timeout": 2000,
-    "dock": "right"
+    "dock": "bottom"
   },
   "preview_tabs": {
     "enable_preview_from_file_finder": false
