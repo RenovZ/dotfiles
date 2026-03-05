@@ -21,15 +21,15 @@ language-servers = ["gopls"]
 
 [[language]]
 name = "python"
-language-servers = ["basedpyright", "!pyright", "ruff"]
+language-servers = ["ruff", "ty"]
+formatter = { command = "ruff", args = ["format", "-"] }
 
 [language-server.ruff]
 command = "ruff"
 args = ["server"]
 
-[language-server.pyright]
-command = "pyright-langserver"
-args = ["--stdio"]
+[language-server.ty]
+command = "ty"
 
 [[language]]
 name = "svelte"
