@@ -30,6 +30,7 @@ source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme
 eval "$(zoxide init zsh)"
 [[ ! `type helm > /dev/null 2>&1` ]] || source <(helm completion zsh)
 [[ ! `type orbctl &> /dev/null` ]] || source <(orbctl completion zsh)
+# [[ ! `type direnv &> /dev/null` ]] || direnv allow
 
 export FORGIT_FZF_DEFAULT_OPTS="--cycle --height='100%' --ansi --bind='?:toggle-preview' --bind='alt-w:toggle-preview-wrap' --preview-window='right:60%' +1"
 [ -f $(brew --prefix)/share/forgit/forgit.plugin.zsh ] && source $(brew --prefix)/share/forgit/forgit.plugin.zsh

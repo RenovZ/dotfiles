@@ -7,6 +7,9 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  "edit_predictions": {
+    "provider": "zed"
+  },
   "vim_mode": false,
   "agent": {
     "default_model": {
@@ -74,11 +77,8 @@
     "diagnostics": false,
     "metrics": false
   },
-  "features": {
-    "edit_prediction_provider": "zed"
-  },
   // "vim_mode": true,
-  "preferred_line_length": 160,
+  "preferred_line_length": 120,
   "soft_wrap": "preferred_line_length",
   "theme": {
     "light": "One Light",
@@ -159,6 +159,9 @@
     "rust-analyzer": {
       "enable_lsp_tasks": true,
       "initialization_options": {
+        "references": {
+          "excludeImports": true
+        },
         "check": {
           "command": "clippy" // rust-analyzer.check.command (default: "check")
         }
