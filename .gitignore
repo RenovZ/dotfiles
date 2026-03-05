@@ -6,7 +6,7 @@ pgcli/history
 zed/.tmp*
 zed/embeddings
 /profile.fish
-fish/fish_variables
+fish/fish_variables*
 fish/fishd.tmp.*
 fish/completions/gitleaks.fish
 fish/completions/gh.fish

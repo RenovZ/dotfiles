@@ -17,7 +17,7 @@ config.window_close_confirmation = "NeverPrompt"
 config.window_decorations = "RESIZE"
 config.use_fancy_tab_bar = true
 config.hide_tab_bar_if_only_one_tab = true
-config.enable_tab_bar = false
+config.enable_tab_bar = true
 
 config.default_cursor_style = "BlinkingUnderline"
 config.cursor_thickness = "2pt"
@@ -38,7 +38,7 @@ config.font_rules = {
 config.font_size = 14.0
 
 config.window_background_opacity = 0.88
-config.macos_window_background_blur = 50
+config.macos_window_background_blur = 10
 
 -- config.background = {
 -- 	{
