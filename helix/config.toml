@@ -1,5 +1,4 @@
-# theme = "adaptive"
-theme = "light"
+theme = "adaptive"
 
 [editor]
 scrolloff = 10
@@ -23,15 +22,15 @@ display-inlay-hints = true
 
 [editor.soft-wrap]
 enable = true # wraps text
- 
+
 [keys.insert]
 # f = { j = "normal_mode" } # Maps "fj" to exit insert mode
 # j = { f = "normal_mode" } # Maps "jf" to exit insert mode
-esc = ["collapse_selection", "normal_mode"] # Escape deselects and enters normal mode every time. 
+esc = ["collapse_selection", "normal_mode"] # Escape deselects and enters normal mode every time.
 
 [keys.normal]
-esc = ["collapse_selection", "keep_primary_selection", "normal_mode"] # Escape deselects and enters normal mode every time. 
-X = "extend_line_above" # Press X to extend selection one line up. 
+esc = ["collapse_selection", "keep_primary_selection", "normal_mode"] # Escape deselects and enters normal mode every time.
+X = "extend_line_above" # Press X to extend selection one line up.
 "}" = "goto_next_paragraph"
 "{" = "goto_prev_paragraph"
 tab = "goto_next_buffer"
@@ -40,4 +39,3 @@ S-tab = "goto_previous_buffer"
 [keys.select]
 "}" = "goto_next_paragraph"
 "{" = "goto_prev_paragraph"
-

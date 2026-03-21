@@ -1,14 +1,13 @@
 #!/usr/bin/env bash
 set -e -u -o pipefail
 
-HELIX_CONFIG="$HOME/.config/helix/config.toml"
-DARK="dark"
-LIGHT="light"
+THEMES_DIR="$HOME/.config/helix/themes"
+THEME_LINK="$THEMES_DIR/adaptive.toml"
 
 if [[ "$1" == "light" ]]; then
-  sed -i '' -E "s/^theme.*/theme = \"$LIGHT\"/" "$HELIX_CONFIG"
+  ln -sf "$THEMES_DIR/light.toml" "$THEME_LINK"
 else
-  sed -i '' -E "s/^theme.*/theme = \"$DARK\"/" "$HELIX_CONFIG"
+  ln -sf "$THEMES_DIR/dark.toml" "$THEME_LINK"
 fi
 
 pkill -USR1 hx || true

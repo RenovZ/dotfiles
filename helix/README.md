@@ -2,24 +2,32 @@
 
 自动根据 macOS 系统主题切换 Helix 编辑器主题。
 
-## 当前方案
+## 实现方案
 
-使用 `dark-notify` + `LaunchAgent` 监听 macOS 主题变化。
+使用 `adaptive.toml` 符号链接 + `dark-notify` + `LaunchAgent`。
 
 ### 工作原理
 
-1. `dark-notify` 监听 macOS 系统主题变化
-2. 主题切换时执行 `toggle-theme.sh` 脚本
-3. 脚本修改 `config.toml` 中的 `theme` 配置
-4. 发送 `SIGUSR1` 信号通知 helix 重载配置
+1. `adaptive.toml` 是符号链接，指向 `light.toml` 或 `dark.toml`
+2. `dark-notify` 监听 macOS 系统主题变化
+3. 主题切换时执行 `toggle-theme.sh` 脚本
+4. 脚本切换符号链接指向对应主题
+5. 发送 `SIGUSR1` 信号通知 helix 重载配置
 
 ### 文件说明
 
 | 文件 | 说明 |
 |------|------|
-| `config.toml` | Helix 主配置 |
-| `toggle-theme.sh` | 主题切换脚本 |
-| `themes/` | 主题目录 |
+| `config.toml` | Helix 主配置，使用 `theme = "adaptive"` |
+| `toggle-theme.sh` | 主题切换脚本，切换符号链接 |
+| `themes/adaptive.toml` | 符号链接，指向 light.toml 或 dark.toml |
+| `themes/light.toml` | 浅色主题 |
+| `themes/dark.toml` | 深色主题 |
+
+### 主题继承
+
+- `light.toml` 继承 `nord_light`
+- `dark.toml` 继承 `nord`
 
 ### LaunchAgent
 
