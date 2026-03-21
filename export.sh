@@ -73,3 +73,8 @@ export PATH=$PNPM_HOME:$PATH
 
 # mysql
 # export PATH=/usr/local/opt/mysql-client@8.4/bin:$PATH
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH=$BUN_INSTALL/bin:$PATH
+

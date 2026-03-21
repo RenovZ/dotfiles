@@ -1,4 +1,5 @@
-theme = "adaptive"
+# theme = "adaptive"
+theme = "light"
 
 [editor]
 scrolloff = 10

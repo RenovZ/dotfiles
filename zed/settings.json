@@ -7,6 +7,11 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  "agent_servers": {
+    "opencode": {
+      "type": "registry"
+    }
+  },
   "edit_predictions": {
     "provider": "zed"
   },
@@ -135,11 +140,20 @@
   "languages": {
     "Python": {
       "language_servers": [
-        "basedpyright",
+        "ty",
         // disable the other python language servers
-        "!pyright",
+        "!basedpyright",
         "!pylsp"
-      ]
+      ],
+      "code_actions_on_format": {
+        "source.organizeImports.ruff": true
+      },
+      "formatter": {
+        "language_server": {
+          "name": "ruff"
+        }
+      },
+      "format_on_save": "on"
     }
   },
   "lsp": {
