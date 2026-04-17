@@ -2,6 +2,7 @@
 #set shellopts '-eu'
 #set ifs "\n"
 set scrolloff 10
+set sixel true
 
 set ratios 1:2:3
 set icons true

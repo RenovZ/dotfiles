@@ -8,8 +8,11 @@
 // from the command palette or from `Zed` application menu.
 {
   "agent_servers": {
-    "opencode": {
+    "codex-acp": {
       "type": "registry"
+    },
+    "opencode": {
+      "type": "registry",
     }
   },
   "edit_predictions": {

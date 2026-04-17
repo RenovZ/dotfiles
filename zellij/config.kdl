@@ -35,6 +35,9 @@ keybinds {
     shared_except "tmux" {
         bind "Ctrl z" { SwitchToMode "Tmux"; }
     }
+    scroll {
+        bind "y" { Copy; SwitchToMode "Normal"; }
+    }
 }
 
 plugins {

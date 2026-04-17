@@ -14,3 +14,4 @@ helix/themes/adaptive.toml
 zed/prompts
 zed/.tmp*
 zed/embeddings
+AGENTS.md
