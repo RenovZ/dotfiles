@@ -15,26 +15,23 @@ rsync
 fzf
 )
 
-source $HOME/.oh-my-zsh/oh-my-zsh.sh
+[[ ! -f $HOME/.oh-my-zsh/oh-my-zsh.sh ]] || source $HOME/.oh-my-zsh/oh-my-zsh.sh
 
 source ~/.config/dotfiles/profile.sh
-source ~/.config/dotfiles/fzf-git.sh
+source ~/.config/dotfiles/vendor/fzf-git.sh/fzf-git.sh
 source ~/.config/dotfiles/bind.sh
 # source ~/.local/bin/env
 
-source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme
+[[ ! -f $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme ]] || source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme
 [[ ! -d $(brew --prefix)/share/zsh-autosuggestions ]] || source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 [[ ! -d $(brew --prefix)/share/zsh-syntax-highlighting ]] || source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-[[ ! `type wezterm > /dev/null 2>&1` ]] || source <(wezterm shell-completion --shell zsh)
-eval "$(zoxide init zsh)"
-[[ ! `type helm > /dev/null 2>&1` ]] || source <(helm completion zsh)
+[[ ! `type wezterm &> /dev/null` ]] || source <(wezterm shell-completion --shell zsh)
+[[ ! `type helm &> /dev/null` ]] || source <(helm completion zsh)
 [[ ! `type orbctl &> /dev/null` ]] || source <(orbctl completion zsh)
-# [[ ! `type direnv &> /dev/null` ]] || direnv allow
 
-export FORGIT_FZF_DEFAULT_OPTS="--cycle --height='100%' --ansi --bind='?:toggle-preview' --bind='alt-w:toggle-preview-wrap' --preview-window='right:60%' +1"
-[ -f $(brew --prefix)/share/forgit/forgit.plugin.zsh ] && source $(brew --prefix)/share/forgit/forgit.plugin.zsh
-# export PATH=$FORGIT_INSTALL_DIR/bin:$PATH
+type zoxide &> /dev/null && eval "$(zoxide init zsh)"
+# type direnv &> /dev/null && eval "$(direnv hook zsh)"
 
 ___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then . "${___MY_VMOPTIONS_SHELL_FILE}"; fi
 
