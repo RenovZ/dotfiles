@@ -3,8 +3,8 @@
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+if [[ -r "${XDG_CACHE_HOME:-~/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-~/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
 plugins=(
@@ -15,7 +15,7 @@ rsync
 fzf
 )
 
-[[ ! -f $HOME/.oh-my-zsh/oh-my-zsh.sh ]] || source $HOME/.oh-my-zsh/oh-my-zsh.sh
+[[ ! -f ~/.oh-my-zsh/oh-my-zsh.sh ]] || source ~/.oh-my-zsh/oh-my-zsh.sh
 
 source ~/.config/dotfiles/profile.sh
 source ~/.config/dotfiles/vendor/fzf-git.sh/fzf-git.sh
