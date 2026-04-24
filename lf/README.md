@@ -97,6 +97,9 @@ go install github.com/gokcehan/lf@latest
 # macOS
 brew install chafa eza fzf fd ripgrep bat zoxide glow
 
+# 可选（提升体验）
+brew install poppler ffmpegthumbnailer exiftool w3m
+
 # Ubuntu/Debian
 sudo apt install chafa eza fzf fd-find ripgrep bat zoxide glow \
     w3m catdoc odt2txt unrar p7zip-full gnumeric poppler-utils

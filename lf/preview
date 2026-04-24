@@ -1,113 +1,283 @@
 #!/bin/sh
 
-clear
-
-image() {
-	file=$1
-	w=$2
-	h=$3
-	x=$4
-	y=$5
-	shift
-
-	if command -v chafa >/dev/null 2>&1; then
-	    # echo "yes use chafa $file, $w, $h, $x, $y" > /tmp/lf.log
-		chafa "$file" -s "{$x}x"
-	elif command -v kitty >/dev/null 2>&1; then
-	  #if [[ "$(file -Lb --mime-type "$file")" =~ ^image ]]; then
-    if file -Lb --mime-type "$file" | grep -Eq "image"; then
-		kitty +icat --silent --transfer-mode file --place "${w}x${h}@${x}x${y}" "$file"
-		exit 1
-    else
-        echo "Unsupported kitty file type."
-    fi
-	elif [ -n "$DISPLAY" ] && [ -z "$WAYLAND_DISPLAY" ]; then
-	    # echo "yes use chafa $file, $w, $h, $x, $y" > /tmp/lf.log
-		printf '{"action": "add", "identifier": "PREVIEW", "x": "%s", "y": "%s", "width": "%s", "height": "%s", "scaler": "contain", "path": "%s"}\n' "$x" "$y" "$((w - 1))" "$((h - 1))" "$file" >"$FIFO_UEBERZUG"
-		exit 0
-	elif command -v pistol >/dev/null 2>&1; then
-	    pistol "$file"
-	else
-	    echo "Please install chafa or pistol first"
-		exit 1
-	fi
-}
-
-batorcat() {
-	file="$1"
-	shift
-	if [ -z "$BAT_THEME" ]; then
-		BAT_THEME="Github"
-	fi
-	if command -v bat >/dev/null 2>&1; then
-		bat --color=always --style=changes,rule,snip "$file" "$@"
-	elif command -v pistol >/dev/null 2>&1; then
-		pistol "$file"
-	else
-		cat "$file"
-	fi
-}
-
+# Clean up previous preview first
 ~/.config/lf/cleaner
 
-# CACHE="$HOME/.cache/lf/thumbnail.$(stat --printf '%n\0%i\0%F\0%s\0%W\0%Y' -- "$(readlink -f "$1")" | sha256sum | awk '{print $1}'))"
+file="$1"
+w="${2:-0}"
+h="${3:-0}"
+x="${4:-0}"
+y="${5:-0}"
 
-case "$(printf "%s\n" "$(readlink -f "$1")" | awk '{print tolower($0)}')" in
-*.tgz | *.tar.gz) tar tzf "$1" ;;
-*.tar.bz2 | *.tbz2) tar tjf "$1" ;;
-*.tar.txz | *.txz) xz --list "$1" ;;
-*.tar) tar tf "$1" ;;
-*.zip | *.jar | *.war | *.ear | *.oxt) unzip -l "$1" ;;
-*.rar) unrar l "$1" ;;
-*.md) glow -p -s "$(darklight | tr '[:upper:]' '[:lower:]')" "$1" ;;
-*.7z) 7z l "$1" ;;
-*.[1-8]) man "$1" | col -b ;;
-*.o) nm "$1" ;;
-*.torrent) transmission-show "$1" ;;
-*.iso) iso-info --no-header -l "$1" ;;
-*.odt | *.ods | *.odp | *.sxw) odt2txt "$1" ;;
-*.doc) catdoc "$1" ;;
-*.docx) docx2txt "$1" - ;;
-*.xml | *.html) w3m -dump "$1" ;;
-*.xls | *.xlsx)
-	ssconvert --export-type=Gnumeric_stf:stf_csv "$1" "fd://1" | batorcat --language=csv
-	;;
-*.wav | *.mp3 | *.flac | *.m4a | *.wma | *.ape | *.ac3 | *.og[agx] | *.spx | *.opus | *.as[fx] | *.mka)
-	exiftool "$1"
-	;;
-*.pdf)
-	# [ ! -f "${CACHE}.jpg" ] &&
-	#     pdftoppm -jpeg -f 1 -singlefile "$1" "$CACHE"
-	image "$1" "$2" "$3" "$4" "$5"
-	;;
-*.epub)
-	# [ ! -f "$CACHE" ] &&
-	#     epub-thumbnailer "$1" "$CACHE" 1024
-	image "$1" "$2" "$3" "$4" "$5"
-	;;
-*.cbz | *.cbr | *.cbt)
-	# [ ! -f "$CACHE" ] &&
-	#     comicthumb "$1" "$CACHE" 1024
-	image "$1" "$2" "$3" "$4" "$5"
-	;;
-*.avi | *.mp4 | *.wmv | *.dat | *.3gp | *.ogv | *.mkv | *.mpg | *.mpeg | *.vob | *.fl[icv] | *.m2v | *.mov | *.webm | *.ts | *.mts | *.m4v | *.r[am] | *.qt | *.divx)
-	# [ ! -f "${CACHE}.jpg" ] &&
-	#     ffmpegthumbnailer -i "$1" -o "${CACHE}.jpg" -s 0 -q 5
-	image "$1" "$2" "$3" "$4" "$5"
-	;;
-*.bmp | *.jpg | *.jpeg | *.png | *.xpm | *.webp | *.gif | *.jfif)
-	image "$1" "$2" "$3" "$4" "$5"
-	;;
-*.svg)
-	# [ ! -f "${CACHE}.jpg" ] &&
-	#     convert "$1" "${CACHE}.jpg"
-	image "$1" "$2" "$3" "$4" "$5"
-	;;
-*.ino)
-	batorcat --language=cpp "$1"
-	;;
-*)
-	batorcat "$1"
-	;;
+[ -z "$file" ] && exit 0
+
+# If it's a directory, list contents
+if [ -d "$file" ]; then
+	eza -la --color=always --icons=always "$file" 2>/dev/null || \
+		ls -la --color=always "$file" 2>/dev/null || \
+		ls -la "$file"
+	exit 0
+fi
+
+# Temporary file cleanup
+tmp_files=""
+cleanup() {
+	[ -n "$tmp_files" ] && rm -f $tmp_files
+}
+trap cleanup EXIT
+
+# Text preview with bat fallback to cat
+text_preview() {
+	if command -v bat >/dev/null 2>&1; then
+		bat --color=always --style=plain --pager=never "$@"
+	else
+		cat "$@"
+	fi
+}
+
+# Image preview with terminal graphics protocol support
+image_preview() {
+	img="$1"
+
+	# Kitty terminal (native icat protocol)
+	if [ -n "$KITTY_WINDOW_ID" ]; then
+		if command -v kitten >/dev/null 2>&1; then
+			kitten icat --silent --transfer-mode=file --place="${w}x${h}@${x}x${y}" "$img"
+			exit 1
+		elif command -v kitty >/dev/null 2>&1; then
+			kitty +icat --silent --transfer-mode=file --place="${w}x${h}@${x}x${y}" "$img"
+			exit 1
+		fi
+	fi
+
+	# General terminals via chafa (auto-detects best format: sixel/iterm/symbols)
+	if command -v chafa >/dev/null 2>&1; then
+		# Only pass size if both dimensions are valid (>0)
+		if [ "$w" -gt 0 ] && [ "$h" -gt 0 ]; then
+			chafa -s "${w}x${h}" --symbols all "$img"
+		else
+			chafa --symbols all "$img"
+		fi
+		return
+	fi
+
+	# Very basic fallback
+	if command -v catimg >/dev/null 2>&1; then
+		catimg -w "${w}" "$img"
+	else
+		echo "No image previewer available. Install chafa or use Kitty terminal."
+		file -b "$img"
+	fi
+}
+
+# Lowercase filename for case-insensitive matching
+lc_file=$(printf '%s' "$file" | tr '[:upper:]' '[:lower:]')
+
+case "$lc_file" in
+	*.tar|*.tar.gz|*.tgz|*.tar.bz2|*.tbz2|*.tar.xz|*.txz|*.tar.zst)
+		tar tf "$file" 2>/dev/null || echo "Cannot list archive contents"
+		;;
+	*.zip|*.jar|*.war|*.ear|*.oxt|*.apk|*.ipa)
+		unzip -l "$file" 2>/dev/null || echo "Cannot list zip contents"
+		;;
+	*.rar)
+		unrar l "$file" 2>/dev/null || echo "Install unrar to preview RAR files"
+		;;
+	*.7z)
+		7z l "$file" 2>/dev/null || echo "Install p7zip to preview 7z files"
+		;;
+	*.md)
+		if command -v glow >/dev/null 2>&1; then
+			if command -v darklight >/dev/null 2>&1; then
+				theme=$(darklight 2>/dev/null | tr '[:upper:]' '[:lower:]')
+				[ -z "$theme" ] && theme="dark"
+				glow -s "$theme" "$file"
+			else
+				glow "$file"
+			fi
+		else
+			text_preview "$file"
+		fi
+		;;
+	*.pdf)
+		if command -v pdftoppm >/dev/null 2>&1; then
+			tmp=$(mktemp /tmp/lf-pdf-XXXXXX).jpg
+			tmp_files="$tmp_files $tmp"
+			if pdftoppm -jpeg -f 1 -singlefile "$file" "${tmp%.jpg}" 2>/dev/null; then
+				image_preview "$tmp"
+			else
+				echo "Failed to render PDF preview"
+			fi
+		else
+			echo "PDF preview requires poppler-utils (pdftoppm)"
+		fi
+		;;
+	*.epub)
+		if command -v epub-thumbnailer >/dev/null 2>&1; then
+			tmp=$(mktemp /tmp/lf-epub-XXXXXX).jpg
+			tmp_files="$tmp_files $tmp"
+			if epub-thumbnailer "$file" "$tmp" 1024 2>/dev/null; then
+				image_preview "$tmp"
+			else
+				echo "Failed to render EPUB preview"
+			fi
+		else
+			echo "Install epub-thumbnailer for EPUB preview"
+		fi
+		;;
+	*.cbz|*.cbr|*.cbt)
+		if command -v comicthumb >/dev/null 2>&1; then
+			tmp=$(mktemp /tmp/lf-comic-XXXXXX).jpg
+			tmp_files="$tmp_files $tmp"
+			if comicthumb "$file" "$tmp" 1024 2>/dev/null; then
+				image_preview "$tmp"
+			else
+				echo "Failed to render comic preview"
+			fi
+		else
+			echo "Install comicthumb for comic preview"
+		fi
+		;;
+	*.avi|*.mp4|*.wmv|*.dat|*.3gp|*.ogv|*.mkv|*.mpg|*.mpeg|*.vob|*.flv|*.mov|*.webm|*.ts|*.mts|*.m4v|*.qt|*.divx|*.asf|*.rm|*.rmvb)
+		if command -v ffmpegthumbnailer >/dev/null 2>&1; then
+			tmp=$(mktemp /tmp/lf-video-XXXXXX).jpg
+			tmp_files="$tmp_files $tmp"
+			if ffmpegthumbnailer -i "$file" -o "$tmp" -s 0 -q 5 2>/dev/null; then
+				image_preview "$tmp"
+			else
+				echo "Failed to generate video thumbnail"
+			fi
+		elif command -v ffmpeg >/dev/null 2>&1; then
+			tmp=$(mktemp /tmp/lf-video-XXXXXX).jpg
+			tmp_files="$tmp_files $tmp"
+			if ffmpeg -i "$file" -ss 00:00:01 -vframes 1 "$tmp" -y 2>/dev/null; then
+				image_preview "$tmp"
+			else
+				echo "Failed to generate video thumbnail"
+			fi
+		else
+			echo "Video preview requires ffmpegthumbnailer or ffmpeg"
+		fi
+		;;
+	*.bmp|*.jpg|*.jpeg|*.png|*.xpm|*.webp|*.gif|*.jfif|*.ico|*.tiff|*.tif|*.heic|*.avif)
+		image_preview "$file"
+		;;
+	*.svg)
+		if command -v convert >/dev/null 2>&1; then
+			tmp=$(mktemp /tmp/lf-svg-XXXXXX).png
+			tmp_files="$tmp_files $tmp"
+			if convert "$file" "$tmp" 2>/dev/null; then
+				image_preview "$tmp"
+			else
+				echo "Failed to convert SVG"
+			fi
+		elif command -v rsvg-convert >/dev/null 2>&1; then
+			tmp=$(mktemp /tmp/lf-svg-XXXXXX).png
+			tmp_files="$tmp_files $tmp"
+			if rsvg-convert "$file" -o "$tmp" 2>/dev/null; then
+				image_preview "$tmp"
+			else
+				echo "Failed to convert SVG"
+			fi
+		else
+			text_preview "$file"
+		fi
+		;;
+	*.wav|*.mp3|*.flac|*.m4a|*.wma|*.ape|*.ac3|*.ogg|*.oga|*.ogx|*.spx|*.opus|*.asf|*.mka|*.aac|*.wma|*.dsd|*.dff|*.dsf)
+		if command -v exiftool >/dev/null 2>&1; then
+			exiftool "$file"
+		elif command -v id3v2 >/dev/null 2>&1; then
+			id3v2 -l "$file"
+		else
+			file -b "$file"
+		fi
+		;;
+	*.doc)
+		catdoc "$file" 2>/dev/null || text_preview "$file"
+		;;
+	*.docx)
+		if command -v docx2txt >/dev/null 2>&1; then
+			docx2txt "$file" - 2>/dev/null
+		else
+			text_preview "$file"
+		fi
+		;;
+	*.odt|*.ods|*.odp|*.sxw)
+		odt2txt "$file" 2>/dev/null || text_preview "$file"
+		;;
+	*.xls|*.xlsx|*.csv)
+		if command -v ssconvert >/dev/null 2>&1; then
+			ssconvert --export-type=Gnumeric_stf:stf_csv "$file" "fd://1" 2>/dev/null | text_preview --language=csv
+		elif command -v xlsx2csv >/dev/null 2>&1; then
+			xlsx2csv "$file" 2>/dev/null | text_preview --language=csv
+		else
+			text_preview "$file"
+		fi
+		;;
+	*.html|*.htm|*.xml|*.xhtml)
+		if command -v w3m >/dev/null 2>&1; then
+			w3m -dump "$file"
+		elif command -v lynx >/dev/null 2>&1; then
+			lynx -dump "$file"
+		elif command -v html2text >/dev/null 2>&1; then
+			html2text "$file" 2>/dev/null
+		else
+			text_preview "$file"
+		fi
+		;;
+	*.[1-8])
+		man "$file" | col -b
+		;;
+	*.o|*.obj)
+		nm "$file" 2>/dev/null || file -b "$file"
+		;;
+	*.torrent)
+		transmission-show "$file" 2>/dev/null || file -b "$file"
+		;;
+	*.iso)
+		iso-info --no-header -l "$file" 2>/dev/null || file -b "$file"
+		;;
+	*.json)
+		text_preview --language=json "$file"
+		;;
+	*.yaml|*.yml)
+		text_preview --language=yaml "$file"
+		;;
+	*.toml)
+		text_preview --language=toml "$file"
+		;;
+	*.ino|*.pde)
+		text_preview --language=cpp "$file"
+		;;
+	*.sh|*.bash|*.zsh|*.fish)
+		text_preview --language=bash "$file"
+		;;
+	*.py|*.pyw)
+		text_preview --language=python "$file"
+		;;
+	*.rs)
+		text_preview --language=rust "$file"
+		;;
+	*.go)
+		text_preview --language=go "$file"
+		;;
+	*.js|*.jsx|*.mjs|*.cjs)
+		text_preview --language=javascript "$file"
+		;;
+	*.ts|*.tsx)
+		text_preview --language=typescript "$file"
+		;;
+	*.sql)
+		text_preview --language=sql "$file"
+		;;
+	*)
+		# Try to detect if binary
+		if file -b "$file" | grep -qi "executable\|binary\|data"; then
+			file -b "$file"
+		else
+			text_preview "$file"
+		fi
+		;;
 esac
+
 exit 0
