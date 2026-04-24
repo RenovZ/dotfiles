@@ -7,6 +7,13 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  "cli_default_open_behavior": "existing_window",
+  "project_panel": {
+    "dock": "left"
+  },
+  "git_panel": {
+    "dock": "left"
+  },
   "agent_servers": {
     "codex-acp": {
       "type": "registry"
@@ -20,6 +27,7 @@
   },
   "vim_mode": false,
   "agent": {
+    "dock": "right",
     "default_model": {
       "provider": "copilot_chat",
       "model": "gpt-5-mini"
@@ -52,13 +60,11 @@
       ]
     }
   },
-  // "format_on_save": "language_server",
+  // "format_on_save": "on",
   "agent_buffer_font_size": 16.0,
   "agent_ui_font_size": 16.0,
   "collaboration_panel": {
-    "button": true
-  },
-  "notification_panel": {
+    "dock": "right",
     "button": true
   },
   "debugger": {
@@ -80,7 +86,7 @@
   "outline_panel": {
     "dock": "right"
   },
-  "helix_mode": false,
+  // "helix_mode": true,
   "telemetry": {
     "diagnostics": false,
     "metrics": false
@@ -128,11 +134,7 @@
   "formatter": [
     { "language_server": { "name": "svelte-language-server" } },
     { "language_server": { "name": "gopls" } },
-    {
-      "language_server": {
-        "name": "rust-analyzer"
-      }
-    },
+    { "language_server": { "name": "rust-analyzer" } },
     {
       "external": {
         "command": "sed",
@@ -186,13 +188,12 @@
     },
     "clangd": {
       "binary": {
-        // "path": "C:/Program Files/LLVM/bin/clangd.exe",
         "arguments": [
           "--function-arg-placeholders=1",
-          "--background-index", // 启用全局索引，加快代码跳转速度
-          "--compile-commands-dir=.", // 指定编译数据库（如果有 compile_commands.json）
-          "--clang-tidy", // 启用 Clang-Tidy
-          "--cross-file-rename", // 支持跨文件重命名
+          "--background-index",
+          "--compile-commands-dir=.",
+          "--clang-tidy",
+          "--cross-file-rename",
           "--completion-style=detailed"
         ]
       }
