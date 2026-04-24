@@ -11,12 +11,12 @@ local function scheme_for_appearance(appearance)
 		-- return "Ubuntu"
 	else
 		-- return "Builtin Tango Light"
-		return "Builtin Light"
+		-- return "Builtin Light"
 		-- return "Builtin Solarized Light"
 		-- return "nord-light"
 		-- return "nord"
 		-- return "Catppuccin Latte"
-		-- return "Ubuntu"
+		return "Ubuntu"
 	end
 end
 
@@ -34,16 +34,15 @@ return {
     automatically_reload_config = true,
     window_close_confirmation = "NeverPrompt",
     window_decorations = "RESIZE",
-    window_background_opacity = 0.80,
+    window_background_opacity = 0.88,
     macos_window_background_blur = 10,
     -- native_macos_fullscreen_mode = true,
 
-    -- enable_tab_bar = true,
-    use_fancy_tab_bar = false,
-    hide_tab_bar_if_only_one_tab = true,
+    use_fancy_tab_bar = true,
+    -- hide_tab_bar_if_only_one_tab = true,
 
     font = wezterm.font_with_fallback({
-        { family = "Hack Nerd Font Mono" },
+        { family = "Hack Nerd Font Mono", weight = "Bold" },
     }),
     font_size = 14.0,
 
@@ -63,5 +62,7 @@ return {
     		mods = "CMD|CTRL",
     		action = wezterm.action.ToggleFullScreen,
     	},
-    }
+    },
+
+    default_prog = { "/bin/zsh", "-l" },
 }
