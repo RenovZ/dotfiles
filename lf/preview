@@ -138,7 +138,7 @@ case "$lc_file" in
 			echo "Install comicthumb for comic preview"
 		fi
 		;;
-	*.avi|*.mp4|*.wmv|*.dat|*.3gp|*.ogv|*.mkv|*.mpg|*.mpeg|*.vob|*.flv|*.mov|*.webm|*.ts|*.mts|*.m4v|*.qt|*.divx|*.asf|*.rm|*.rmvb)
+	*.avi|*.mp4|*.wmv|*.dat|*.3gp|*.ogv|*.mkv|*.mpg|*.mpeg|*.vob|*.flv|*.mov|*.webm|*.mts|*.m4v|*.qt|*.divx|*.asf|*.rm|*.rmvb)
 		if command -v ffmpegthumbnailer >/dev/null 2>&1; then
 			tmp=$(mktemp /tmp/lf-video-XXXXXX).jpg
 			tmp_files="$tmp_files $tmp"
@@ -237,38 +237,8 @@ case "$lc_file" in
 	*.iso)
 		iso-info --no-header -l "$file" 2>/dev/null || file -b "$file"
 		;;
-	*.json)
-		text_preview --language=json "$file"
-		;;
-	*.yaml|*.yml)
-		text_preview --language=yaml "$file"
-		;;
-	*.toml)
-		text_preview --language=toml "$file"
-		;;
 	*.ino|*.pde)
 		text_preview --language=cpp "$file"
-		;;
-	*.sh|*.bash|*.zsh|*.fish)
-		text_preview --language=bash "$file"
-		;;
-	*.py|*.pyw)
-		text_preview --language=python "$file"
-		;;
-	*.rs)
-		text_preview --language=rust "$file"
-		;;
-	*.go)
-		text_preview --language=go "$file"
-		;;
-	*.js|*.jsx|*.mjs|*.cjs)
-		text_preview --language=javascript "$file"
-		;;
-	*.ts|*.tsx)
-		text_preview --language=typescript "$file"
-		;;
-	*.sql)
-		text_preview --language=sql "$file"
 		;;
 	*)
 		# Try to detect if binary
