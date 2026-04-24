@@ -1,28 +1,38 @@
+# ============================================================
+# Language Servers
+# ============================================================
+
 [language-server.rust-analyzer]
 command = "rust-analyzer"
 config = { check = { command = "check" } }
 
-[[language]]
-name = "rust"
-language-servers = ["rust-analyzer"]
-
 [language-server.gopls]
 command = "gopls"
-config = { "gofumpt" = true, "local" = "goimports", "semanticTokens" = true, "staticcheck" = true, "verboseOutput" = true, "analyses" = { "fieldalignment" = true, "nilness" = true, unusedparams = true, unusedwrite = true, useany = true }, usePlaceholders = true, completeUnimported = true, hints = { "assignVariableType" = true, "compositeLiteralFields" = true, "compositeLiteralTypes" = true, "constantValues" = true, "functionTypeParameters" = true, "parameterNames" = true, "rangeVariableTypes" = true } }
 
-[[language]]
-name = "go"
-roots = ["go.work", "go.mod"]
-auto-format = true
-formatter = { command = "goimports" }
-comment-token = "//"
-# indent = { tab-width = 2, unit = "\t" }
-language-servers = ["gopls"]
+[language-server.gopls.config]
+gofumpt = true
+local = "goimports"
+semanticTokens = true
+staticcheck = true
+verboseOutput = true
+usePlaceholders = true
+completeUnimported = true
 
-[[language]]
-name = "python"
-language-servers = ["ruff", "ty"]
-formatter = { command = "ruff", args = ["format", "-"] }
+[language-server.gopls.config.analyses]
+fieldalignment = true
+nilness = true
+unusedparams = true
+unusedwrite = true
+useany = true
+
+[language-server.gopls.config.hints]
+assignVariableType = true
+compositeLiteralFields = true
+compositeLiteralTypes = true
+constantValues = true
+functionTypeParameters = true
+parameterNames = true
+rangeVariableTypes = true
 
 [language-server.ruff]
 command = "ruff"
@@ -31,26 +41,21 @@ args = ["server"]
 [language-server.ty]
 command = "ty"
 
-[[language]]
-name = "svelte"
-language-servers = [
-    "svelteserver",
-    "typescript-language-server",
-    "tailwindcss-ls",
-]
-formatter = { command = "pnpx", args = ["prettier", "--parser", "svelte"] }
-# formatter = { command = "dprint", args = [ "fmt", "--stdin", "svelte" ] }
-comment-token = "<!--"
-auto-format = true
+[language-server.vtsls]
+command = "vtsls"
+args = ["--stdio"]
+
+[language-server.svelteserver]
+command = "svelteserver"
+args = ["--stdio"]
 
 [language-server.tailwindcss-ls]
 command = "tailwindcss-language-server"
 args = ["--stdio"]
-# config = { userLanguages = { rust = "html", "*.rs" = "html" } }
 
-[language-server]
-deno = { command = "deno", args = ["lsp"] }
-emmet-ls = { command = "emmet-ls", args = ["--stdio"] }
+[language-server.deno]
+command = "deno"
+args = ["lsp"]
 
 [language-server.eslint]
 command = "vscode-eslint-language-server"
@@ -71,9 +76,25 @@ problems = { shortenToSingleLine = false }
 disableRuleComment = { enable = true, location = "separateLine" }
 showDocumentation = { enable = false }
 
+[language-server.emmet-lsp]
+command = "emmet-language-server"
+args = ["--stdio"]
+
+[language-server.vscode-html-language-server]
+command = "vscode-html-language-server"
+args = ["--stdio"]
+
+[language-server.vscode-json-language-server]
+command = "vscode-json-language-server"
+args = ["--stdio"]
+
 [language-server.vscode-json-language-server.config]
 json = { validate = { enable = true }, format = { enable = true } }
 provideFormatter = true
+
+[language-server.vscode-css-language-server]
+command = "vscode-css-language-server"
+args = ["--stdio"]
 
 [language-server.vscode-css-language-server.config]
 css = { validate = { enable = true } }
@@ -81,50 +102,84 @@ scss = { validate = { enable = true } }
 less = { validate = { enable = true } }
 provideFormatter = true
 
+# ============================================================
+# Languages
+# ============================================================
+
+[[language]]
+name = "rust"
+language-servers = ["rust-analyzer"]
+
+[[language]]
+name = "go"
+roots = ["go.work", "go.mod"]
+auto-format = true
+formatter = { command = "goimports" }
+comment-token = "//"
+language-servers = ["gopls"]
+
+[[language]]
+name = "python"
+language-servers = ["ruff", "ty"]
+formatter = { command = "ruff", args = ["format", "-"] }
+
+[[language]]
+name = "svelte"
+language-servers = [
+  "svelteserver",
+  "vtsls",
+  "tailwindcss-ls",
+]
+formatter = { command = "bunx", args = ["prettier", "--parser", "svelte"] }
+# formatter = { command = "dprint", args = ["fmt", "--stdin", "svelte"] }
+comment-token = "<!--"
+auto-format = true
+
 [[language]]
 name = "typescript"
-language-servers = ["typescript-language-server", "eslint", "emmet-ls"]
-formatter = { command = "pnpx", args = ["prettier", "--parser", "typescript"] }
-# formatter = { command = "dprint", args = [ "fmt", "--stdin", "ts" ] }
+language-servers = ["vtsls", "eslint", "emmet-lsp"]
+formatter = { command = "bunx", args = ["prettier", "--parser", "typescript"] }
+# formatter = { command = "dprint", args = ["fmt", "--stdin", "ts"] }
 auto-format = true
 
 [[language]]
 name = "tsx"
-language-servers = ["deno", "eslint", "emmet-ls"]
-formatter = { command = "pnpx", args = ["prettier", "--parser", "typescript"] }
-# formatter = { command = "dprint", args = [ "fmt", "--stdin", "tsx" ] }
+language-servers = ["vtsls", "eslint", "emmet-lsp"]
+formatter = { command = "bunx", args = ["prettier", "--parser", "typescript"] }
+# formatter = { command = "dprint", args = ["fmt", "--stdin", "tsx"] }
 auto-format = true
 
 [[language]]
 name = "javascript"
-language-servers = ["typescript-language-server", "eslint", "emmet-ls"]
-formatter = { command = "pnpx", args = ["prettier", "--parser", "javascript"] }
-# formatter = { command = "dprint", args = [ "fmt", "--stdin", "js" ] }
+language-servers = ["vtsls", "eslint", "emmet-lsp"]
+formatter = { command = "bunx", args = ["prettier", "--parser", "javascript"] }
+# formatter = { command = "dprint", args = ["fmt", "--stdin", "js"] }
 auto-format = true
 
 [[language]]
 name = "jsx"
-language-servers = ["typescript-language-server", "eslint", "emmet-ls"]
-formatter = { command = "pnpx", args = ["prettier", "--parser", "typescript"] }
-# formatter = { command = "dprint", args = [ "fmt", "--stdin", "jsx" ] }
+language-servers = ["vtsls", "eslint", "emmet-lsp"]
+formatter = { command = "bunx", args = ["prettier", "--parser", "typescript"] }
+# formatter = { command = "dprint", args = ["fmt", "--stdin", "jsx"] }
 auto-format = true
 
 [[language]]
 name = "json"
-formatter = { command = "pnpx", args = ["prettier", "--parser", "json"] }
-# formatter = { command = "dprint", args = [ "fmt", "--stdin", "json" ] }
+language-servers = ["vscode-json-language-server"]
+formatter = { command = "bunx", args = ["prettier", "--parser", "json"] }
+# formatter = { command = "dprint", args = ["fmt", "--stdin", "json"] }
 auto-format = true
 
 [[language]]
 name = "html"
-language-servers = ["vscode-html-language-server", "emmet-ls"]
-formatter = { command = "pnpx", args = ["prettier", "--parser", "html"] }
-# formatter = { command = "dprint", args = [ "fmt", "--stdin", "html" ] }
+language-servers = ["vscode-html-language-server", "emmet-lsp"]
+formatter = { command = "bunx", args = ["prettier", "--parser", "html"] }
+# formatter = { command = "dprint", args = ["fmt", "--stdin", "html"] }
 auto-format = true
 
 [[language]]
 name = "css"
-language-servers = ["vscode-css-language-server", "emmet-ls"]
-formatter = { command = "pnpx", args = ["prettier", "--parser", "css"] }
-# formatter = { command = "dprint", args = [ "fmt", "--stdin", "css" ] }
+language-servers = ["vscode-css-language-server", "emmet-lsp"]
+formatter = { command = "bunx", args = ["prettier", "--parser", "css"] }
+# formatter = { command = "dprint", args = ["fmt", "--stdin", "css"] }
 auto-format = true
