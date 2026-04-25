@@ -16,6 +16,9 @@
     "dock": "left"
   },
   "agent_servers": {
+    "pi-acp": {
+      "type": "registry"
+    },
     "codex-acp": {
       "type": "registry"
     },
@@ -28,11 +31,8 @@
   },
   "vim_mode": false,
   "agent": {
-    "dock": "right",
-    "default_model": {
-      "provider": "copilot_chat",
-      "model": "gpt-5-mini"
-    }
+    "dock": "bottom",
+    "limit_content_width": false
   },
   "language_models": {
     "ollama": {
