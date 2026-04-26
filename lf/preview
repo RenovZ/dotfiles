@@ -241,12 +241,16 @@ case "$lc_file" in
 		text_preview --language=cpp "$file"
 		;;
 	*)
-		# Try to detect if binary
-		if file -b "$file" | grep -qi "executable\|binary\|data"; then
-			file -b "$file"
-		else
-			text_preview "$file"
-		fi
+		# Detect binary vs text via MIME type
+		mime=$(file -b --mime-type "$file" 2>/dev/null)
+		case "$mime" in
+			text/*|application/json|application/xml|application/javascript|application/x-ndjson|application/x-yaml|application/toml)
+				text_preview "$file"
+				;;
+			*)
+				file -b "$file"
+				;;
+		esac
 		;;
 esac
 
