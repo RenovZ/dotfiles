@@ -45,6 +45,22 @@ command = "ty"
 command = "vtsls"
 args = ["--stdio"]
 
+[language-server.vtsls.config.typescript.inlayHints]
+parameterNames.enabled = false
+parameterTypes.enabled = false
+variableTypes.enabled = false
+propertyDeclarationTypes.enabled = false
+functionLikeReturnTypes.enabled = false
+enumMemberValues.enabled = false
+
+[language-server.vtsls.config.javascript.inlayHints]
+parameterNames.enabled = false
+parameterTypes.enabled = false
+variableTypes.enabled = false
+propertyDeclarationTypes.enabled = false
+functionLikeReturnTypes.enabled = false
+enumMemberValues.enabled = false
+
 [language-server.svelteserver]
 command = "svelteserver"
 args = ["--stdio"]
