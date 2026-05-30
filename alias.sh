@@ -4,8 +4,6 @@ alias tpc="curl cip.cc"
 alias ls="eza --header --icons --git"
 alias ll="ls -agl"
 
-alias pn="pnpm"
-alias px="pnpx"
 alias k=kubectl
 alias h=helm
 alias zj="zellij"

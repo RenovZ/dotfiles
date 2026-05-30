@@ -1,5 +1,5 @@
 source ~/.config/dotfiles/export.sh
-source ~/.config/dotfiles/homebrew.sh
+# source ~/.config/dotfiles/homebrew.sh
 
 source ~/.config/dotfiles/rust.sh
 source ~/.config/dotfiles/golang.sh

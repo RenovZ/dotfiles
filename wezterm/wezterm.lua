@@ -44,7 +44,7 @@ return {
     font = wezterm.font_with_fallback({
         { family = "Hack Nerd Font Mono", weight = "Bold" },
     }),
-    font_size = 14.0,
+    font_size = 16.0,
 
     default_cursor_style = "BlinkingUnderline",
     cursor_thickness = "2pt",
@@ -64,5 +64,5 @@ return {
     	},
     },
 
-    default_prog = { "/bin/zsh", "-l" },
+    -- default_prog = { "/bin/zsh", "-l" },
 }
