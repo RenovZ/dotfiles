@@ -48,8 +48,6 @@ $(git --no-pager remote -v|awk '{print $1 " " $2}'|sort|uniq)" \
     if [ ! -z $remote ]; then
         echo "git push $remote $current_branch:$target_branch"
         git push $remote $current_branch:$target_branch
-        echo "press ENTER"
-        read ENTER
     fi
 }}
 cmd git_diff ${{clear;git-forgit diff}}
@@ -66,14 +64,12 @@ $(git --no-pager remote -v|awk '{print $1 " " $2}'|sort|uniq)" \
     if [ ! -z $remote ]; then
         echo "git pull $remote $branch"
         git pull $remote $branch
-        echo "press ENTER"
-        read ENTER
     fi
 }}
-cmd git_status ${{clear; git status; echo "press ENTER"; read ENTER}}
+cmd git_status ${{clear; git -c color.status=always status | less -R}}
 cmd git_reset_head ${{clear;git-forgit reset_head}}
 cmd git_log ${{clear;git-forgit log}}
-cmd git_remote ${{clear; git remote -v; echo "press ENTER"; read ENTER}}
+cmd git_remote ${{clear; git remote -v | less -R}}
 cmd git_checkout_branch ${{clear;git-forgit checkout_branch}}
 cmd git_branch_delete ${{clear;git-forgit branch_delete}}
 cmd git_checkout_tag ${{clear;git-forgit checkout_tag}}
@@ -88,7 +84,9 @@ cmd git_commit ${{
 cmd git_fixup ${{clear;git-forgit fixup}}
 cmd git_cherry_pick ${{clear;git-forgit cherry_pick}}
 cmd git_ignore ${{clear;git-forgit ignore}}
+cmd git_show ${{clear;git-forgit show}}
 
+map gso :git_show
 map ga :git_add
 map gp :git_push
 map gd :git_diff

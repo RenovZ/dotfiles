@@ -28,6 +28,7 @@ lf/
 | `fd` | Fast file finder (find alternative) | `brew install fd` / `apt install fd-find` |
 | `ripgrep` (rg) | Fast grep | `brew install ripgrep` / `apt install ripgrep` |
 | `zoxide` | Smart cd | `brew install zoxide` / See [zoxide install](https://github.comajeetdsouza/zoxide) |
+| `git-forgit` | Git UI wrapper | `brew install forgit` |
 
 ### Image Preview Tools
 
@@ -48,7 +49,6 @@ lf/
 | `exa` / `eza` | ls alternative | File stats display |
 | `trash-cli` | Trash management | `:trash` command |
 | `jq` | JSON processor | npm scripts (in lfrc) |
-| `git-forgit` | Git UI wrapper | Git commands (ga, gp, gl, etc.) |
 | `glow` | Markdown renderer | .md file preview |
 | `darklight` | Theme detection | Markdown theme selection |
 | `chafa` | Terminal image renderer | Images, PDFs, videos |
