@@ -91,9 +91,9 @@ case "$lc_file" in
 			if command -v darklight >/dev/null 2>&1; then
 				theme=$(darklight 2>/dev/null | tr '[:upper:]' '[:lower:]')
 				[ -z "$theme" ] && theme="dark"
-				glow -s "$theme" "$file"
+				CLICOLOR_FORCE=1 glow -s "$theme" "$file"
 			else
-				glow "$file"
+				CLICOLOR_FORCE=1 glow "$file"
 			fi
 		else
 			text_preview "$file"
