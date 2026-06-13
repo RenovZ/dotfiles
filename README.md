@@ -2,6 +2,27 @@
 
 A macOS-first personal dotfiles repository for shells, terminals, multiplexers, editors, and daily CLI tools. There is no build output here — the files in this repository are the final configuration.
 
+## Usage
+
+```bash
+git clone git@github.com:RenovZ/dotfiles.git -- ~/.config/dotfiles
+```
+
+**zsh**:
+
+```bash
+cp ~/.zshrc ~/.zshrc.backup
+ln -sf ~/.config/dotfiles/zshrc ~/.zshrc
+```
+
+**fish**:
+
+```bash
+cd ~/.config
+mv fish fish.backup
+ln -s dotfiles/fish .
+```
+
 ## Features
 
 - **Shells**: `zsh` and `fish` share a common environment/toolchain setup through `profile.sh`
