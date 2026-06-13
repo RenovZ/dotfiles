@@ -64,9 +64,38 @@ cmd on-cd &{{
 cmd on-select &{{
     stat="$(eza -ld --color=always --icons=always "$f" 2>/dev/null || ls -ld --color=always "$f" 2>/dev/null || ls -ld "$f")"
     if git rev-parse --git-dir >/dev/null 2>&1; then
+        # Case 1: current dir is inside a git project → show last commit for the selected file
         last="$(git log -1 --format='%h %s' -- "$f" 2>/dev/null)"
         [ -n "$last" ] && stat="$stat | $last"
+    elif [ -d "$f" ] && git -C "$f" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+        # Case 2: selected dir is a git repo (but not inside a parent git project)
+        # Show condensed git repo info (same style as on-cd)
+        if git -C "$f" rev-parse HEAD >/dev/null 2>&1; then
+            remote_count="$(git -C "$f" remote 2>/dev/null | wc -l | tr -d ' ')"
+            if [ "$remote_count" -gt 0 ]; then
+                remote="$(git -C "$f" remote get-url origin 2>/dev/null || git -C "$f" remote get-url "$(git -C "$f" remote 2>/dev/null | head -1)")"
+                [ "$remote_count" -gt 1 ] && remote="$remote (+$((remote_count - 1)))"
+            else
+                remote="no remote"
+            fi
+            branch="$(git -C "$f" branch --show-current 2>/dev/null)"
+            [ -z "$branch" ] && branch="$(git -C "$f" rev-parse --short HEAD 2>/dev/null)"
+            commits="$(git -C "$f" rev-list --count HEAD 2>/dev/null)"
+            authors="$(git -C "$f" log --format='%aN' 2>/dev/null | sort -u | wc -l | tr -d ' ')"
+            last_commit="$(git -C "$f" log -1 --format='%h %s' 2>/dev/null)"
+            changed="$(git -C "$f" diff --shortstat HEAD 2>/dev/null)"
+            if [ -n "$changed" ]; then
+                files="$(echo "$changed" | grep -o '[0-9]* file' | grep -o '[0-9]*')"
+                insertions="$(echo "$changed" | grep -o '[0-9]* insertion' | grep -o '[0-9]*')"
+                deletions="$(echo "$changed" | grep -o '[0-9]* deletion' | grep -o '[0-9]*')"
+                changed=" | ${files}f"
+                [ -n "$insertions" ] && changed="$changed +$insertions"
+                [ -n "$deletions" ] && changed="$changed -$deletions"
+            fi
+            stat="$stat | git: $remote | $branch | ${commits}c ${authors}a | $last_commit$changed"
+        fi
     fi
+    # Case 3: regular dir, not in a git project → just eza info (no extra processing)
     lf -remote "send $id set user_status \"$stat\""
 }}
 
