@@ -35,19 +35,41 @@ text_preview() {
 	fi
 }
 
+# Detect terminals that support Kitty graphics protocol (not just Kitty itself)
+kitty_gfx_supported() {
+	[ -n "$KITTY_WINDOW_ID" ] && return 0
+	[ "$TERM_PROGRAM" = "ghostty" ] && return 0
+	[ "$TERM" = "xterm-ghostty" ] && return 0
+	return 1
+}
+
 # Image preview with terminal graphics protocol support
 image_preview() {
 	img="$1"
 
-	# Kitty terminal (native icat protocol)
-	if [ -n "$KITTY_WINDOW_ID" ]; then
+	# Terminals with Kitty graphics protocol support (Kitty, Ghostty, etc.)
+	# All tools in this block write directly to /dev/tty, then exit 1 to
+	# tell lf there's nothing to display (stdout is empty/captured).
+	if kitty_gfx_supported; then
 		if command -v kitten >/dev/null 2>&1; then
-			kitten icat --silent --transfer-mode=file --place="${w}x${h}@${x}x${y}" "$img"
+			# Write directly to /dev/tty so lf doesn't capture the escape sequences
+			# as text in the preview pane.
+			kitten icat --silent --transfer-mode=file --place="${w}x${h}@${x}x${y}" "$img" > /dev/tty 2>/dev/null
 			exit 1
 		elif command -v kitty >/dev/null 2>&1; then
-			kitty +icat --silent --transfer-mode=file --place="${w}x${h}@${x}x${y}" "$img"
+			kitty +icat --silent --transfer-mode=file --place="${w}x${h}@${x}x${y}" "$img" > /dev/tty 2>/dev/null
+			exit 1
+		elif command -v chafa >/dev/null 2>&1; then
+			# chafa outputs Kitty protocol escape sequences directly to /dev/tty
+			# to bypass lf's stdout capture, achieving native-quality rendering.
+			if [ "$w" -gt 0 ] && [ "$h" -gt 0 ]; then
+				chafa --format=kitty -s "${w}x${h}" "$img" > /dev/tty 2>/dev/null
+			else
+				chafa --format=kitty "$img" > /dev/tty 2>/dev/null
+			fi
 			exit 1
 		fi
+		# No usable tool found; fall through to general chafa symbols below
 	fi
 
 	# General terminals via chafa (auto-detects best format: sixel/iterm/symbols)

@@ -266,9 +266,9 @@ Image previews require Sixel support. Check if your terminal supports it:
 2. Check terminal supports Sixel
 3. For ctpv: Ensure it's running: `ctpv -s $id`
 
-### ctpv errors with newer lf
+### ~~ctpv errors with newer lf~~
 
-If you see API errors, switch to pure chafa preview script or use [ueberzugpp](https://github.com/jstkdng/ueberzugpp).
+~~If you see API errors, switch to pure chafa preview script or use [ueberzugpp](https://github.com/jstkdng/ueberzugpp).~~
 
 ### Nerd Fonts icons not showing
 
