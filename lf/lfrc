@@ -46,7 +46,14 @@ cmd on-cd &{{
         authors="$(git log --format='%aN' 2>/dev/null | sort -u | wc -l | tr -d ' ')"
         last="$(git log -1 --format='%h %s' 2>/dev/null)"
         changed="$(git diff --shortstat HEAD 2>/dev/null)"
-        [ -n "$changed" ] && changed=" | $changed"
+        if [ -n "$changed" ]; then
+            files="$(echo "$changed" | grep -o '[0-9]* file' | grep -o '[0-9]*')"
+            insertions="$(echo "$changed" | grep -o '[0-9]* insertion' | grep -o '[0-9]*')"
+            deletions="$(echo "$changed" | grep -o '[0-9]* deletion' | grep -o '[0-9]*')"
+            changed=" | ${files}f"
+            [ -n "$insertions" ] && changed="$changed +$insertions"
+            [ -n "$deletions" ] && changed="$changed -$deletions"
+        fi
         lf -remote "send $id set statfmt \"git: $remote | $branch | ${commits}c ${authors}a | $last$changed\""
     else
         lf -remote "send $id set statfmt \"\""
