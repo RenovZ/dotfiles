@@ -1,0 +1,80 @@
+# yazi.toml — Main yazi config, ported from lfrc
+
+[mgr]
+# Layout ratios: [parent, current, preview] — matches lf's 1:2:3
+ratio          = [1, 2, 3]
+# Scrolloff: keep 10 entries above/below cursor
+scrolloff      = 10
+# Show icons (nerd fonts required)
+show_hidden    = false
+# Sort: directories first, case-insensitive natural sort
+sort_by        = "natural"
+sort_dir_first = true
+sort_case_sensitive = false
+# Linemode: show size+permissions (like "ls -l" style)
+linemode       = "size"
+
+[preview]
+# Syntax highlighting tab width
+tab_size    = 2
+# Max image preview dimensions
+max_width   = 1200
+max_height  = 900
+# Image scaling filter
+image_filter  = "lanczos3"
+# Image quality for cached thumbnails (50-90)
+image_quality = 90
+# Image max file size for preview in bytes (0 = no limit)
+image_max_size = 20971520  # 20MB
+
+[opener]
+# Open files with appropriate applications
+edit = [
+    { run = 'hx "$@"', desc = "Open with Helix", for = "unix" },
+]
+play = [
+    { run = 'open "$@"', desc = "Open with default app", for = "unix" },
+]
+open = [
+    { run = 'open "$@"', desc = "Open with default app", for = "unix" },
+]
+
+[open]
+# Rules for opening specific file types
+rules = [
+    # Text files → edit with helix
+    { mime = "text/*", use = "edit" },
+    { mime = "application/json", use = "edit" },
+    { mime = "application/xml", use = "edit" },
+    { mime = "application/javascript", use = "edit" },
+    { mime = "application/x-yaml", use = "edit" },
+    { mime = "application/toml", use = "edit" },
+    # Media files → open with default app
+    { mime = "image/*", use = "play" },
+    { mime = "video/*", use = "play" },
+    { mime = "audio/*", use = "play" },
+    { mime = "application/pdf", use = "play" },
+]
+
+[tasks]
+# Micro workers for preview generation (1-20)
+micro_workers = 5
+# Macro workers for heavy tasks (1-10)
+macro_workers = 3
+# Bizarre retry count for failed tasks
+bizarre_retry = 2
+# Suppress preload for files (boolean, true = skip all preloading)
+suppress_preload = false
+
+[plugin]
+# Yazi's built-in preview supports:
+# - Images: kitty protocol (native on Ghostty/WezTerm!)
+# - Videos: ffmpegthumbnailer
+# - PDFs: pdftoppm
+# - Archives: 7z/tar/zip
+# - Code: syntect highlighting
+# - Markdown: rendered preview
+# - Audio: exiftool metadata
+# All of these work out of the box — no custom preview script needed!
+
+# Additional previewers — removed (built-in handles all types, scripts not installed)

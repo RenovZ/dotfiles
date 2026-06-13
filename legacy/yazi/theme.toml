@@ -1,6 +1,6 @@
 # A TOML linter such as https://taplo.tamasfe.dev/ can use this schema to validate your config.
 # If you encounter any issues, please make an issue at https://github.com/yazi-rs/schemas.
-"$schema" = "https://yazi-rs.github.io/schemas/theme.json"
+# "$schema" = "https://yazi-rs.github.io/schemas/theme.json"
 
 # vim:fileencoding=utf-8:foldmethod=marker
 
@@ -13,7 +13,7 @@ use = ""
 
 # : Manager {{{
 
-[manager]
+[mgr]
 cwd = { fg = "cyan" }
 
 # Hovered
@@ -166,37 +166,8 @@ icon_error = ""
 
 # : File-specific styles {{{
 
-[filetype]
-
-rules = [
-	# Images
-	{ mime = "image/*", fg = "yellow" },
-
-	# Media
-	{ mime = "{audio,video}/*", fg = "magenta" },
-
-	# Archives
-	{ mime = "application/{,g}zip", fg = "red" },
-	{ mime = "application/x-{tar,bzip*,7z-compressed,xz,rar}", fg = "red" },
-
-	# Documents
-	{ mime = "application/{pdf,doc,rtf,vnd.*}", fg = "cyan" },
-
-	# Empty files
-	# { mime = "inode/x-empty", fg = "red" },
-
-	# Special files
-	{ name = "*", is = "orphan", bg = "red" },
-	{ name = "*", is = "exec"  , fg = "green" },
-
-	# Dummy files
-	{ name = "*", is = "dummy", bg = "red" },
-	{ name = "*/", is = "dummy", bg = "red" },
-
-	# Fallback
-	# { name = "*", fg = "white" },
-	{ name = "*/", fg = "blue" }
-]
+# [filetype] — migrated to [icon] section below (newer Yazi format)
+# MIME-based filetype styling is now built-in; use [icon] for icon rules.
 
 [icon]
 

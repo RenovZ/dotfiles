@@ -1,0 +1,310 @@
+# keymap.toml — Keybindings ported from lfrc
+# Yazi default keys are kept; only lf-specific mappings are added.
+
+# ═══════════════════════════════════════════════════════════
+# Git commands (g prefix) — ported from lfrc
+# ═══════════════════════════════════════════════════════════
+
+[[manager.prepend_keymap]]
+on   = [ "g", "a" ]
+run  = 'shell "git-forgit add" --block'
+desc = "Git add (forgit)"
+
+[[manager.prepend_keymap]]
+on   = [ "g", "p" ]
+run  = '''
+  shell " \
+    current_branch=\$(git branch --show-current); \
+    selected=\$(git branch -rv | fzf --header=\"\$current_branch (current branch)\n\$(git remote -v | awk '{print \$1 \" \" \$2}' | sort | uniq)\" \
+      --preview=\"echo {} | awk '{print \\\$2}' | xargs git show\"); \
+    remote=\$(echo \$selected | awk -F / '{print \$1}'); \
+    target=\$(echo \$selected | awk '{print \$1}' | awk -F / '{print \$2}'); \
+    [ -n \"\$remote\" ] && git push \$remote \$current_branch:\$target \
+  " --block --confirm
+'''
+desc = "Git push (fzf remote/branch)"
+
+[[manager.prepend_keymap]]
+on   = [ "g", "d" ]
+run  = 'shell "git-forgit diff" --block'
+desc = "Git diff (forgit)"
+
+[[manager.prepend_keymap]]
+on   = [ "g", "u" ]
+run  = '''
+  shell " \
+    current_branch=\$(git branch --show-current); \
+    selected=\$(git branch -rv | fzf --header=\"\$current_branch (current branch)\n\$(git remote -v | awk '{print \$1 \" \" \$2}' | sort | uniq)\" \
+      --preview=\"echo {} | awk '{print \\\$2}' | xargs git show\"); \
+    remote=\$(echo \$selected | awk '{print \$1}' | awk -F / '{print \$1}'); \
+    branch=\$(echo \$selected | awk '{print \$1}' | awk -F / '{print \$2}'); \
+    [ -n \"\$remote\" ] && git pull \$remote \$branch \
+  " --block --confirm
+'''
+desc = "Git pull (fzf remote/branch)"
+
+[[manager.prepend_keymap]]
+on   = [ "g", "l" ]
+run  = 'shell "git-forgit log" --block'
+desc = "Git log (forgit)"
+
+[[manager.prepend_keymap]]
+on   = [ "g", "e" ]
+run  = 'shell "git" --block'
+desc = "Git command (prompt)"
+
+[[manager.prepend_keymap]]
+on   = [ "g", "i" ]
+run  = 'shell "git-forgit ignore" --block'
+desc = "Git ignore (forgit)"
+
+[[manager.prepend_keymap]]
+on   = [ "g", "c", "e" ]
+run  = 'shell "git commit" --block'
+desc = "Git commit"
+
+[[manager.prepend_keymap]]
+on   = [ "g", "b", "d" ]
+run  = 'shell "git-forgit branch_delete" --block'
+desc = "Git branch delete (forgit)"
+
+[[manager.prepend_keymap]]
+on   = [ "g", "c", "b" ]
+run  = 'shell "git-forgit checkout_branch" --block'
+desc = "Git checkout branch (forgit)"
+
+[[manager.prepend_keymap]]
+on   = [ "g", "c", "t" ]
+run  = 'shell "git-forgit checkout_tag" --block'
+desc = "Git checkout tag (forgit)"
+
+[[manager.prepend_keymap]]
+on   = [ "g", "c", "c" ]
+run  = 'shell "git-forgit checkout_commit" --block'
+desc = "Git checkout commit (forgit)"
+
+[[manager.prepend_keymap]]
+on   = [ "g", "c", "p" ]
+run  = 'shell "git-forgit cherry_pick" --block'
+desc = "Git cherry-pick (forgit)"
+
+[[manager.prepend_keymap]]
+on   = [ "g", "c", "f" ]
+run  = 'shell "git-forgit checkout_file" --block'
+desc = "Git checkout file (forgit)"
+
+[[manager.prepend_keymap]]
+on   = [ "g", "b", "l" ]
+run  = 'shell "git-forgit blame" --block'
+desc = "Git blame (forgit)"
+
+[[manager.prepend_keymap]]
+on   = [ "g", "s", "t" ]
+run  = 'shell "git -c color.status=always status | less -R" --block'
+desc = "Git status"
+
+[[manager.prepend_keymap]]
+on   = [ "g", "s", "s" ]
+run  = 'shell "git-forgit stash_show" --block'
+desc = "Git stash show (forgit)"
+
+[[manager.prepend_keymap]]
+on   = [ "g", "f", "u" ]
+run  = 'shell "git-forgit fixup" --block'
+desc = "Git fixup (forgit)"
+
+[[manager.prepend_keymap]]
+on   = [ "g", "r", "v" ]
+run  = 'shell "git remote -v | less -R" --block'
+desc = "Git remotes"
+
+[[manager.prepend_keymap]]
+on   = [ "g", "r", "h" ]
+run  = 'shell "git-forgit reset_head" --block'
+desc = "Git reset HEAD (forgit)"
+
+[[manager.prepend_keymap]]
+on   = [ "g", "s", "o" ]
+run  = 'shell "git-forgit show" --block'
+desc = "Git show (forgit)"
+
+# ── Git repo info (g I) — full repo overview ──
+[[manager.prepend_keymap]]
+on   = [ "g", "I" ]
+run  = '''
+  shell " \
+    if ! git rev-parse --git-dir >/dev/null 2>&1; then \
+      echo 'Not a git repository.'; read -p 'Press enter...'; exit 0; \
+    fi; \
+    { \
+      printf '\\033[1;36m╭──────────────────────────────────────╮\\033[0m\n'; \
+      printf '\\033[1;36m│\\033[0m         \\033[1;33mGit Repository Info\\033[0m          \\033[1;36m│\\033[0m\n'; \
+      printf '\\033[1;36m╰──────────────────────────────────────╯\\033[0m\n\n'; \
+      git remote >/dev/null 2>&1 || printf '\\033[1;32m Remote:\\033[0m      \\033[2m(none)\\033[0m\n'; \
+      git remote 2>/dev/null | while IFS= read -r name; do \
+        url=\"\$(git remote get-url \\\"\$name\\\" 2>/dev/null)\"; \
+        printf '\\033[1;32m Remote:\\033[0m      \\033[2m%s\\033[0m  %s\n' \"\$name\" \"\$url\"; \
+      done; \
+      branch=\"\$(git branch --show-current)\"; \
+      [ -z \"\$branch\" ] && branch=\"\$(git rev-parse --short HEAD) (detached)\"; \
+      printf '\\033[1;32m Branch:\\033[0m      %s\n' \"\$branch\"; \
+      if git rev-parse @{upstream} >/dev/null 2>&1; then \
+        ahead=\"\$(git rev-list @{upstream}..HEAD --count)\"; \
+        behind=\"\$(git rev-list HEAD..@{upstream} --count)\"; \
+        printf '\\033[1;32m Tracking:\\033[0m    '; \
+        [ \"\$ahead\" -gt 0 ] && printf '↑%s ' \"\$ahead\"; \
+        [ \"\$behind\" -gt 0 ] && printf '↓%s' \"\$behind\"; \
+        [ \"\$ahead\" -eq 0 ] && [ \"\$behind\" -eq 0 ] && printf 'up to date'; \
+        echo; \
+      fi; \
+      printf '\\033[1;32m Commits:\\033[0m     %s\n' \"\$(git rev-list --count HEAD)\"; \
+      printf '\\033[1;32m Authors:\\033[0m     %s\n' \"\$(git log --format='%aN' | sort -u | wc -l | tr -d ' ')\"; \
+      echo; printf '\\033[1;36m── Status ──\\033[0m\n'; \
+      git -c color.status=always status -s; \
+    } | less -R \
+  " --block
+'''
+desc = "Git repo info"
+
+# ═══════════════════════════════════════════════════════════
+# FZF / Search commands (F prefix) — ported from lfrc
+# ═══════════════════════════════════════════════════════════
+
+[[manager.prepend_keymap]]
+on   = [ "F", "s" ]
+run  = '''
+  shell " \
+    res=\$( \
+      RG_PREFIX='rg -U --column --hidden --line-number --no-heading --glob \"!.git/*\" --color=always --smart-case'; \
+      FZF_DEFAULT_COMMAND=\"\$RG_PREFIX ''\" \
+      fzf --bind \"change:reload:\$RG_PREFIX {q} || true\" \
+        --ansi --header='Search in files (ripgrep)' \
+        --preview 'filepath=\$(echo {} | cut -d: -f1); currentline=\$(echo {} | cut -d: -f2); startline=\$(( currentline > 20 ? currentline - 20 : 0 )); bat -n --line-range \$startline: --highlight-line \$currentline --color always \$filepath' \
+        --preview-window='+{2}-/2' \
+        | cut -d: -f1 \
+    ); [ -n \"\$res\" ] && printf '%s' \"\$res\" \
+  " --block
+'''
+desc = "Ripgrep search with fzf"
+
+[[manager.prepend_keymap]]
+on   = [ "F", "d" ]
+run  = '''
+  shell " \
+    res=\$( \
+      FD_PREFIX='fd --color=always --type f --exclude \".git\" --ignore-case'; \
+      FZF_DEFAULT_COMMAND=\"\$FD_PREFIX ''\" \
+      fzf --bind \"change:reload:\$FD_PREFIX {q} || true\" \
+        --ansi --header='Find files (fd)' \
+        --preview 'bat --color=always --style=numbers {}' \
+    ); [ -n \"\$res\" ] && printf '%s' \"\$res\" \
+  " --block
+'''
+desc = "Find files with fzf (fd)"
+
+[[manager.prepend_keymap]]
+on   = [ "F", "h" ]
+run  = '''
+  shell " \
+    res=\$( \
+      FD_PREFIX='fd --color=always --hidden --type f --exclude \".git\" --ignore-case'; \
+      FZF_DEFAULT_COMMAND=\"\$FD_PREFIX ''\" \
+      fzf --bind \"change:reload:\$FD_PREFIX {q} || true\" \
+        --ansi --header='Find files including hidden (fd)' \
+        --preview 'bat --color=always --style=numbers {}' \
+    ); [ -n \"\$res\" ] && printf '%s' \"\$res\" \
+  " --block
+'''
+desc = "Find files including hidden (fd)"
+
+[[manager.prepend_keymap]]
+on   = [ "F", "i" ]
+run  = '''
+  shell " \
+    res=\$( \
+      FD_PREFIX='fd --color=always --no-ignore --type f --exclude \".git\" --ignore-case'; \
+      FZF_DEFAULT_COMMAND=\"\$FD_PREFIX ''\" \
+      fzf --bind \"change:reload:\$FD_PREFIX {q} || true\" \
+        --ansi --header='Find files ignoring .gitignore (fd)' \
+        --preview 'bat --color=always --style=numbers {}' \
+    ); [ -n \"\$res\" ] && printf '%s' \"\$res\" \
+  " --block
+'''
+desc = "Find files ignoring .gitignore (fd)"
+
+[[manager.prepend_keymap]]
+on   = [ "F", "a" ]
+run  = '''
+  shell " \
+    res=\$( \
+      FD_PREFIX='fd --color=always --hidden --no-ignore --type f --exclude \".git\" --ignore-case'; \
+      FZF_DEFAULT_COMMAND=\"\$FD_PREFIX ''\" \
+      fzf --bind \"change:reload:\$FD_PREFIX {q} || true\" \
+        --ansi --header='Find all files (fd)' \
+        --preview 'bat --color=always --style=numbers {}' \
+    ); [ -n \"\$res\" ] && printf '%s' \"\$res\" \
+  " --block
+'''
+desc = "Find all files (fd)"
+
+[[manager.prepend_keymap]]
+on   = [ "F", "j" ]
+run  = '''
+  shell " \
+    res=\$( \
+      fd --type d --hidden --no-ignore --exclude '.git' --ignore-case \
+        | fzf --header='Jump to directory' \
+    ); [ -n \"\$res\" ] && printf '%s' \"\$res\" \
+  " --block
+'''
+desc = "Jump to directory (fzf)"
+
+[[manager.prepend_keymap]]
+on   = [ "F", "e" ]
+run  = 'shell "hx \$(fzf)" --block'
+desc = "Edit file with fzf"
+
+[[manager.prepend_keymap]]
+on   = [ "F", "w" ]
+run  = 'shell "fzf" --block'
+desc = "Raw fzf"
+
+# ═══════════════════════════════════════════════════════════
+# Other custom keys — ported from lfrc
+# ═══════════════════════════════════════════════════════════
+
+# npm scripts selector
+[[manager.prepend_keymap]]
+on   = [ "N" ]
+run  = '''
+  shell " \
+    [ -f package.json ] || { echo 'No package.json found'; exit 1; }; \
+    script=\$(jq -r '.scripts | keys[]' < package.json | sort | fzf --height 20%); \
+    [ -n \"\$script\" ] && npm run \"\$script\" \
+  " --block
+'''
+desc = "Run npm script (fzf)"
+
+# Preview raw file info
+[[manager.prepend_keymap]]
+on   = [ "i" ]
+run  = 'shell "$HOME/.config/yazi/scripts/inspect.sh \"$1\"" --block'
+desc = "Inspect file (detailed info)"
+
+# ═══════════════════════════════════════════════════════════
+# Note: These lf features are built into yazi (no config needed):
+# ═══════════════════════════════════════════════════════════
+#  .    = toggle hidden files       (yazi built-in)
+#  a    = create file/directory     (yazi built-in, then choose file or dir)
+#  d    = delete (cut)              (yazi built-in)
+#  D    = trash                     (yazi built-in)
+#  z    = zoxide jump               (yazi built-in, requires zoxide)
+#  zi   = zoxide interactive        (yazi built-in)
+#  f    = find files                (yazi built-in fzf-style)
+#  /    = filter/search             (yazi built-in)
+#  Space = toggle select            (yazi built-in)
+#  v    = visual/select mode        (yazi built-in)
+#  y    = yank (copy)               (yazi built-in)
+#  p    = paste                     (yazi built-in)
+#  r    = rename                    (yazi built-in)
+#  Tab  = preview focus             (yazi built-in)

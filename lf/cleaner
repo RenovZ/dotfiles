@@ -1,17 +1,3 @@
 #!/bin/sh
-
-# Clear Kitty graphics protocol images (Kitty, Ghostty, etc.)
-kitty_gfx_supported() {
-	[ -n "$KITTY_WINDOW_ID" ] && return 0
-	[ "$TERM_PROGRAM" = "ghostty" ] && return 0
-	[ "$TERM" = "xterm-ghostty" ] && return 0
-	return 1
-}
-
-if kitty_gfx_supported; then
-	if command -v kitten >/dev/null 2>&1; then
-		kitten icat --clear --silent > /dev/tty 2>/dev/null
-	elif command -v kitty >/dev/null 2>&1; then
-		kitty +icat --clear --silent > /dev/tty 2>/dev/null
-	fi
-fi
+# Clear previous Kitty graphics protocol image (harmless no-op on terminals without kitty support)
+printf '\033_Ga=d\033\\'
