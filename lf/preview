@@ -35,11 +35,9 @@ text_preview() {
 	fi
 }
 
-# Detect terminals that support Kitty graphics protocol (not just Kitty itself)
-kitty_gfx_supported() {
+# Detect true Kitty terminal (has kitten/kitty tools and supports --place)
+is_kitty() {
 	[ -n "$KITTY_WINDOW_ID" ] && return 0
-	[ "$TERM_PROGRAM" = "ghostty" ] && return 0
-	[ "$TERM" = "xterm-ghostty" ] && return 0
 	return 1
 }
 
@@ -47,45 +45,29 @@ kitty_gfx_supported() {
 image_preview() {
 	img="$1"
 
-	# ── ueberzugpp (best: native positioning, direct terminal rendering) ──
-	if [ -n "${FIFO_UEBERZUGPP:-}" ] && [ -p "$FIFO_UEBERZUGPP" ]; then
-		printf '{"action":"add","identifier":"preview","path":"%s","x":%d,"y":%d,"max_width":%d,"max_height":%d}\n' \
-			"$img" "$x" "$y" "$w" "$h" > "$FIFO_UEBERZUGPP"
-		exit 1
-	fi
-
-	# Terminals with Kitty graphics protocol support (Kitty, Ghostty, etc.)
-	# All tools in this block write directly to /dev/tty, then exit 1 to
-	# tell lf there's nothing to display (stdout is empty/captured).
-	if kitty_gfx_supported; then
+	# ── True Kitty terminal: kitten icat supports --place for exact positioning ──
+	if is_kitty; then
 		if command -v kitten >/dev/null 2>&1; then
-			# Write directly to /dev/tty so lf doesn't capture the escape sequences
-			# as text in the preview pane.
 			kitten icat --silent --transfer-mode=file --place="${w}x${h}@${x}x${y}" "$img" > /dev/tty 2>/dev/null
 			exit 1
 		elif command -v kitty >/dev/null 2>&1; then
 			kitty +icat --silent --transfer-mode=file --place="${w}x${h}@${x}x${y}" "$img" > /dev/tty 2>/dev/null
 			exit 1
-		elif command -v chafa >/dev/null 2>&1; then
-			# chafa outputs Kitty protocol escape sequences directly to /dev/tty
-			# to bypass lf's stdout capture, achieving native-quality rendering.
-			if [ "$w" -gt 0 ] && [ "$h" -gt 0 ]; then
-				chafa --format=kitty -s "${w}x${h}" "$img" > /dev/tty 2>/dev/null
-			else
-				chafa --format=kitty "$img" > /dev/tty 2>/dev/null
-			fi
-			exit 1
 		fi
-		# No usable tool found; fall through to general chafa symbols below
 	fi
 
-	# General terminals via chafa (auto-detects best format: sixel/iterm/symbols)
+	# ── WezTerm, Ghostty and all other terminals: use chafa symbols mode ──
+	# Terminal graphics protocols (kitty/iterm/sixel) rendered via /dev/tty
+	# appear at the cursor position, which is outside lf's preview pane in
+	# most terminals, causing UI corruption. Symbols mode renders safely
+	# inside lf's preview pane via stdout.
+	# NOTE: --format=symbols is required; --symbols alone does NOT force
+	# symbol mode (chafa would still auto-detect kitty/iterm/sixel).
 	if command -v chafa >/dev/null 2>&1; then
-		# Only pass size if both dimensions are valid (>0)
 		if [ "$w" -gt 0 ] && [ "$h" -gt 0 ]; then
-			chafa -s "${w}x${h}" --symbols all "$img"
+			chafa --format=symbols --symbols all -s "${w}x${h}" "$img"
 		else
-			chafa --symbols all "$img"
+			chafa --format=symbols --symbols all "$img"
 		fi
 		return
 	fi

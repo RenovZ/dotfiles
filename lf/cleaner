@@ -1,20 +1,20 @@
 #!/bin/sh
 
-# Remove ueberzug preview if active
-[ -p "$FIFO_UEBERZUGPP" ] && printf '{"action":"remove","identifier":"preview"}\n' >"$FIFO_UEBERZUGPP"
-
-# Clear Kitty graphics protocol images (Kitty, Ghostty, etc.)
-kitty_gfx_supported() {
+# Clear Kitty graphics protocol images (only true Kitty uses kitten icat).
+# All other terminals use chafa symbols mode which renders inside lf's
+# preview pane and does not need external clearing.
+needs_kitty_clear() {
 	[ -n "$KITTY_WINDOW_ID" ] && return 0
-	[ "$TERM_PROGRAM" = "ghostty" ] && return 0
-	[ "$TERM" = "xterm-ghostty" ] && return 0
 	return 1
 }
 
-if kitty_gfx_supported; then
+if needs_kitty_clear; then
 	if command -v kitten >/dev/null 2>&1; then
 		kitten icat --clear --silent > /dev/tty 2>/dev/null
 	elif command -v kitty >/dev/null 2>&1; then
 		kitty +icat --clear --silent > /dev/tty 2>/dev/null
+	else
+		# No kitten/kitty binary available; send raw kitty clear-all sequence.
+		printf '\033_Ga=d,d=A\033\\' > /dev/tty 2>/dev/null
 	fi
 fi
