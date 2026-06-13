@@ -1,3 +1,41 @@
 #!/usr/bin/env bash
 
+# ── ueberzugpp daemon management ──────────────────────────────────────
+FIFO_UEBERZUGPP="${FIFO_UEBERZUGPP:-/tmp/ueberzugpp-${USER}.fifo}"
+export FIFO_UEBERZUGPP
+
+_ueberzugpp_start() {
+	# Don't start if already running via this fifo
+	if [ -p "$FIFO_UEBERZUGPP" ]; then
+		# Check that a process is actually reading from it
+		if pgrep -f "ueberzugpp layer" >/dev/null 2>&1; then
+			return 0
+		fi
+		# Stale fifo — clean up
+		rm -f "$FIFO_UEBERZUGPP"
+	fi
+
+	if ! command -v ueberzugpp >/dev/null 2>&1; then
+		return 1
+	fi
+
+	mkfifo "$FIFO_UEBERZUGPP" 2>/dev/null || return 1
+	ueberzugpp layer --output kitty --silent < "$FIFO_UEBERZUGPP" &
+	UEBERZUGPP_PID=$!
+	# Give it a moment to start
+	sleep 0.3
+}
+
+_ueberzugpp_stop() {
+	[ -p "$FIFO_UEBERZUGPP" ] && rm -f "$FIFO_UEBERZUGPP"
+	if [ -n "${UEBERZUGPP_PID:-}" ]; then
+		kill "$UEBERZUGPP_PID" 2>/dev/null
+		wait "$UEBERZUGPP_PID" 2>/dev/null
+	fi
+}
+
+_ueberzugpp_start
+trap _ueberzugpp_stop EXIT
+
+# ── Launch lf ─────────────────────────────────────────────────────────
 SHELL=/bin/bash ~/bin/lf.0 "$@"
