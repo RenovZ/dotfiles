@@ -33,11 +33,17 @@ cmd zi ${{
 # show git repo info on cd, file stats on select
 cmd on-cd &{{
     if git rev-parse --git-dir >/dev/null 2>&1; then
-        remote="$(git remote get-url origin 2>/dev/null | sed 's|.*[:/]\([^/]*/[^/.]*\)\(.git\)\?$|\1|')"
-        branch="$(git branch --show-current)"
+        remote_count="$(git remote 2>/dev/null | wc -l | tr -d ' ')"
+        if [ "$remote_count" -gt 0 ]; then
+            remote="$(git remote get-url origin 2>/dev/null || git remote get-url "$(git remote 2>/dev/null | head -1)")"
+            [ "$remote_count" -gt 1 ] && remote="$remote (+$((remote_count - 1)))"
+        else
+            remote="no remote"
+        fi
+        branch="$(git branch --show-current 2>/dev/null)"
+        [ -z "$branch" ] && branch="$(git rev-parse --short HEAD 2>/dev/null)"
         commits="$(git rev-list --count HEAD 2>/dev/null)"
-        authors="$(git shortlog -sne 2>/dev/null | wc -l | tr -d ' ')"
-        [ -z "$remote" ] && remote="no remote"
+        authors="$(git log --format='%aN' 2>/dev/null | sort -u | wc -l | tr -d ' ')"
         lf -remote "send $id set statfmt \"git: $remote | $branch | ${commits}c ${authors}a\""
     else
         lf -remote "send $id set statfmt \"\""
@@ -63,12 +69,16 @@ cmd git_repo_info ${{
         printf '\033[1;36m╰──────────────────────────────────────────────╯\033[0m\n'
         echo
 
-        # Remote
-        remote_url="$(git remote get-url origin 2>/dev/null)"
-        if [ -n "$remote_url" ]; then
-            printf "\033[1;32m Remote:\033[0m    %s\n" "$remote_url"
+        # Remotes
+        if git remote >/dev/null 2>&1; then
+            while IFS= read -r name; do
+                url="$(git remote get-url "$name" 2>/dev/null)"
+                printf "\033[1;32m Remote:\033[0m    \033[2m%s\033[0m  %s\n" "$name" "$url"
+            done <<EOF
+$(git remote 2>/dev/null)
+EOF
         else
-            printf "\033[1;32m Remote:\033[0m    \033[2m(no remote)\033[0m\n"
+            printf "\033[1;32m Remote:\033[0m    \033[2m(none)\033[0m\n"
         fi
 
         # Branch
@@ -94,7 +104,7 @@ cmd git_repo_info ${{
         printf "\033[1;32m Commits:\033[0m   %s\n" "$total_commits"
 
         # Authors / Contributors
-        authors="$(git shortlog -sne 2>/dev/null | wc -l | tr -d ' ')"
+        authors="$(git log --format='%aN' 2>/dev/null | sort -u | wc -l | tr -d ' ')"
         printf "\033[1;32m Authors:\033[0m   %s\n" "$authors"
 
         # Tags
