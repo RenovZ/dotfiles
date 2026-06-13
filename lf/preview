@@ -37,7 +37,7 @@ image_preview() {
 	img="$1"
 
 	if command -v chafa >/dev/null 2>&1; then
-		chafa -f symbols -s "${w}x${h}" "$img" 2>/dev/null
+		chafa -f kitty -s "${w}x${h}" "$img" 2>/dev/null
 		return
 	fi
 

@@ -2,7 +2,7 @@
 #set shellopts '-eu'
 #set ifs "\n"
 set scrolloff 10
-# set sixel true  # disabled: Ghostty doesn't support sixel; use previewer script instead
+set rulerfile ~/.config/lf/ruler.default
 
 set ratios 1:2:3
 set icons true
@@ -32,7 +32,7 @@ cmd zi ${{
 
 # show git repo info on cd, file stats on select
 cmd on-cd &{{
-    if git rev-parse --git-dir >/dev/null 2>&1; then
+    if git rev-parse --is-inside-work-tree >/dev/null 2>&1 && git rev-parse HEAD >/dev/null 2>&1; then
         remote_count="$(git remote 2>/dev/null | wc -l | tr -d ' ')"
         if [ "$remote_count" -gt 0 ]; then
             remote="$(git remote get-url origin 2>/dev/null || git remote get-url "$(git remote 2>/dev/null | head -1)")"
