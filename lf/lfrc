@@ -30,12 +30,99 @@ cmd zi ${{
     lf -remote "send $id cd \"$result\""
 }}
 
+# show git repo info on cd, file stats on select
+cmd on-cd &{{
+    if git rev-parse --git-dir >/dev/null 2>&1; then
+        remote="$(git remote get-url origin 2>/dev/null | sed 's|.*[:/]\([^/]*/[^/.]*\)\(.git\)\?$|\1|')"
+        branch="$(git branch --show-current)"
+        commits="$(git rev-list --count HEAD 2>/dev/null)"
+        authors="$(git shortlog -sne 2>/dev/null | wc -l | tr -d ' ')"
+        [ -z "$remote" ] && remote="no remote"
+        lf -remote "send $id set statfmt \"git: $remote | $branch | ${commits}c ${authors}a\""
+    else
+        lf -remote "send $id set statfmt \"\""
+    fi
+}}
+
 # file stats via eza
 cmd on-select &{{
     lf -remote "send $id set statfmt \"$(eza -ld --color=always --icons=always "$f" 2>/dev/null || ls -ld --color=always "$f" 2>/dev/null || ls -ld "$f")\""
 }}
 
 # git
+cmd git_repo_info ${{
+    if ! git rev-parse --git-dir >/dev/null 2>&1; then
+        echo "Not a git repository."
+        exit 0
+    fi
+
+    {
+        # Header
+        printf '\033[1;36m╭──────────────────────────────────────────────╮\033[0m\n'
+        printf '\033[1;36m│\033[0m             \033[1;33mGit Repository Info\033[0m              \033[1;36m│\033[0m\n'
+        printf '\033[1;36m╰──────────────────────────────────────────────╯\033[0m\n'
+        echo
+
+        # Remote
+        remote_url="$(git remote get-url origin 2>/dev/null)"
+        if [ -n "$remote_url" ]; then
+            printf "\033[1;32m Remote:\033[0m    %s\n" "$remote_url"
+        else
+            printf "\033[1;32m Remote:\033[0m    \033[2m(no remote)\033[0m\n"
+        fi
+
+        # Branch
+        branch="$(git branch --show-current)"
+        if [ -z "$branch" ]; then
+            branch="$(git rev-parse --short HEAD) (detached)"
+        fi
+        printf "\033[1;32m Branch:\033[0m    %s\n" "$branch"
+
+        # Ahead/behind tracking
+        if git rev-parse @{upstream} >/dev/null 2>&1; then
+            ahead="$(git rev-list @{upstream}..HEAD --count)"
+            behind="$(git rev-list HEAD..@{upstream} --count)"
+            printf "\033[1;32m Tracking:\033[0m  "
+            [ "$ahead" -gt 0 ] && printf "↑%s " "$ahead"
+            [ "$behind" -gt 0 ] && printf "↓%s" "$behind"
+            [ "$ahead" -eq 0 ] && [ "$behind" -eq 0 ] && printf "up to date"
+            echo
+        fi
+
+        # Commits
+        total_commits="$(git rev-list --count HEAD 2>/dev/null)"
+        printf "\033[1;32m Commits:\033[0m   %s\n" "$total_commits"
+
+        # Authors / Contributors
+        authors="$(git shortlog -sne 2>/dev/null | wc -l | tr -d ' ')"
+        printf "\033[1;32m Authors:\033[0m   %s\n" "$authors"
+
+        # Tags
+        tag_count="$(git tag | wc -l | tr -d ' ')"
+        [ "$tag_count" -gt 0 ] && printf "\033[1;32m Tags:\033[0m      %s\n" "$tag_count"
+
+        # First & last commit
+        first_commit="$(git log --reverse --format='%ad (%h)' --date=short 2>/dev/null | head -1)"
+        last_commit="$(git log -1 --format='%ad (%h)' --date=short 2>/dev/null)"
+        printf "\033[1;32m First:\033[0m     %s\n" "$first_commit"
+        printf "\033[1;32m Last:\033[0m      %s\n" "$last_commit"
+
+        # Stashes
+        stash_count="$(git stash list 2>/dev/null | wc -l | tr -d ' ')"
+        [ "$stash_count" -gt 0 ] && printf "\033[1;32m Stashes:\033[0m   %s\n" "$stash_count"
+
+        # Worktree status
+        echo
+        printf '\033[1;36m── Status ──\033[0m\n'
+        git -c color.status=always status -s
+
+        # Top contributors
+        echo
+        printf '\033[1;36m── Top Contributors ──\033[0m\n'
+        git shortlog -sne 2>/dev/null | sort -rn | head -10
+    } | less -R
+}}
+
 cmd git_add ${{clear;git-forgit add}}
 cmd git_push ${{
     clear
@@ -107,6 +194,7 @@ map gss :git_stash_show
 map gfu :git_fixup
 map grv :git_remote
 map grh :git_reset_head
+map gI :git_repo_info
 
 # fzf
 cmd fzf $$EDITOR $(find . -name "$1" | fzf)
