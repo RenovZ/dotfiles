@@ -2,7 +2,7 @@
 #set shellopts '-eu'
 #set ifs "\n"
 set scrolloff 10
-set rulerfile ~/.config/lf/ruler.default
+set rulerfile ~/.config/lf/ruler.custom
 
 set ratios 1:2:3
 set icons true
@@ -54,9 +54,9 @@ cmd on-cd &{{
             [ -n "$insertions" ] && changed="$changed +$insertions"
             [ -n "$deletions" ] && changed="$changed -$deletions"
         fi
-        lf -remote "send $id set statfmt \"git: $remote | $branch | ${commits}c ${authors}a | $last$changed\""
+        lf -remote "send $id set user_status \"git: $remote | $branch | ${commits}c ${authors}a | $last$changed\""
     else
-        lf -remote "send $id set statfmt \"\""
+        lf -remote "send $id set user_status \"\""
     fi
 }}
 
@@ -67,7 +67,7 @@ cmd on-select &{{
         last="$(git log -1 --format='%h %s' -- "$f" 2>/dev/null)"
         [ -n "$last" ] && stat="$stat | $last"
     fi
-    lf -remote "send $id set statfmt \"$stat\""
+    lf -remote "send $id set user_status \"$stat\""
 }}
 
 # git

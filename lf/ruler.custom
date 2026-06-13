@@ -1,13 +1,19 @@
 {{with .Message -}}
     {{. -}}
-{{else with .Stat -}}
-    {{.Permissions | printf "\033[36m%s\033[0m" -}}
-    {{with .LinkCount}} {{.}}{{end -}}
-    {{with .User}} {{.}}{{end -}}
-    {{with .Group}} {{.}}{{end -}}
-    {{.Size | humanize | printf " %5s" -}}
-    {{.ModTime | printf " %s" -}}
-    {{with .Target}} -> {{.}}{{end -}}
+{{else -}}
+    {{if index .UserOptions "status" -}}
+        {{index .UserOptions "status" -}}
+    {{else -}}
+        {{with .Stat -}}
+            {{.Permissions | printf "\033[36m%s\033[0m" -}}
+            {{with .LinkCount}} {{.}}{{end -}}
+            {{with .User}} {{.}}{{end -}}
+            {{with .Group}} {{.}}{{end -}}
+            {{.Size | humanize | printf " %5s" -}}
+            {{.ModTime | printf " %s" -}}
+            {{with .Target}} -> {{.}}{{end -}}
+        {{end -}}
+    {{end -}}
 {{end -}}
 {{.SPACER -}}
 {{with .Keys}}  {{.}}{{end -}}
