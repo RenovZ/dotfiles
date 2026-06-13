@@ -62,7 +62,12 @@ cmd on-cd &{{
 
 # file stats via eza
 cmd on-select &{{
-    lf -remote "send $id set statfmt \"$(eza -ld --color=always --icons=always "$f" 2>/dev/null || ls -ld --color=always "$f" 2>/dev/null || ls -ld "$f")\""
+    stat="$(eza -ld --color=always --icons=always "$f" 2>/dev/null || ls -ld --color=always "$f" 2>/dev/null || ls -ld "$f")"
+    if git rev-parse --git-dir >/dev/null 2>&1; then
+        last="$(git log -1 --format='%h %s' -- "$f" 2>/dev/null)"
+        [ -n "$last" ] && stat="$stat | $last"
+    fi
+    lf -remote "send $id set statfmt \"$stat\""
 }}
 
 # git
