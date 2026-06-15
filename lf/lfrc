@@ -310,7 +310,7 @@ cmd git_changes ${{
         if ! git ls-files --error-unmatch "$file" >/dev/null 2>&1; then
             bat --color=always --style=plain "$file" 2>/dev/null || echo "New/untracked file"
         else
-            git diff --color=always HEAD -- "$file" 2>/dev/null || echo "(binary or no diff)"
+            bat --diff --diff-context=3 --color=always --style=plain "$file" 2>/dev/null || echo "(binary or no diff)"
         fi
     '
 
@@ -385,6 +385,7 @@ map grh :git_reset_head
 map gI :git_repo_info
 map gc :git_changes
 map gds :git_diffstat
+map gD $bat --diff --diff-context=5 --color=always $f | less -R
 
 # fzf
 cmd fzf $$EDITOR $(find . -name "$1" | fzf)
