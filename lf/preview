@@ -233,7 +233,11 @@ case "$lc_file" in
 		fi
 		;;
 	*.[1-8])
-		man "$file" | col -b
+		if [ "$(file -b --mime-type "$file" 2>/dev/null)" = "text/troff" ]; then
+			man "$file" | col -b
+		else
+			text_preview "$file"
+		fi
 		;;
 	*.o|*.obj)
 		nm "$file" 2>/dev/null || file -b "$file"
