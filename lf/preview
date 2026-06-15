@@ -38,8 +38,10 @@ text_preview() {
 				&& git ls-files --error-unmatch "$1" >/dev/null 2>&1 \
 				&& ! git diff --quiet HEAD -- "$1" 2>/dev/null \
 				&& command -v delta >/dev/null 2>&1; then
+				dt="--dark"
+				[ "$(darklight 2>/dev/null)" = "Light" ] && dt="--light"
 				git diff -U99999 HEAD -- "$1" 2>/dev/null | \
-					delta --features 'line-numbers decorations' --paging=never --width="${w:-80}" 2>/dev/null
+					delta $dt --features 'line-numbers decorations' --paging=never --width="${w:-80}" 2>/dev/null
 				return
 			fi
 			;;
