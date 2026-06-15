@@ -310,7 +310,7 @@ cmd git_changes ${{
         if ! git ls-files --error-unmatch "$file" >/dev/null 2>&1; then
             bat --color=always --style=plain "$file" 2>/dev/null || echo "New/untracked file"
         else
-            git diff HEAD -- "$file" 2>/dev/null | delta --paging=never 2>/dev/null || echo "(binary or no diff)"
+            git diff HEAD -- "$file" 2>/dev/null | delta --features 'line-numbers decorations' --paging=never --width="$FZF_PREVIEW_COLUMNS" 2>/dev/null || echo "(binary or no diff)"
         fi
     '
 
@@ -385,10 +385,10 @@ map grh :git_reset_head
 map gI :git_repo_info
 map gc :git_changes
 map gds :git_diffstat
-# Full file with per-line git gutter (like editor)
-map gD $git diff -U99999 HEAD -- $f | delta --paging=never | less -R
+# Full file with per-line git gutter (unified view, like editor)
+map gD $git diff -U99999 HEAD -- $f | delta --features 'line-numbers decorations' --paging=never --width=$(tput cols) | less -R
 # Compact diff with delta syntax highlighting
-map gC $git diff HEAD -- $f | delta --paging=never | less -R
+map gC $git diff HEAD -- $f | delta --features 'line-numbers decorations' --paging=never --width=$(tput cols) | less -R
 
 # fzf
 cmd fzf $$EDITOR $(find . -name "$1" | fzf)
