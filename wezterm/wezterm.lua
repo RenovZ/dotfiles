@@ -31,38 +31,56 @@ wezterm.on("window-config-reloaded", function(window, pane)
 end)
 
 return {
-    automatically_reload_config = true,
-    window_close_confirmation = "NeverPrompt",
-    window_decorations = "RESIZE",
-    window_background_opacity = 0.88,
-    macos_window_background_blur = 10,
-    -- native_macos_fullscreen_mode = true,
+	automatically_reload_config = true,
+	window_close_confirmation = "NeverPrompt",
+	window_decorations = "RESIZE",
+	window_background_opacity = 0.88,
+	macos_window_background_blur = 10,
+	-- native_macos_fullscreen_mode = true,
 
-    use_fancy_tab_bar = true,
-    -- hide_tab_bar_if_only_one_tab = true,
+	use_fancy_tab_bar = true,
+	-- hide_tab_bar_if_only_one_tab = true,
 
-    font = wezterm.font_with_fallback({
-        { family = "Hack Nerd Font Mono", weight = "Bold" },
-    }),
-    font_size = 16.0,
+	font = wezterm.font_with_fallback({
+		{ family = "Hack Nerd Font Mono", weight = "Bold" },
+	}),
+	font_size = 16.0,
 
-    default_cursor_style = "BlinkingUnderline",
-    cursor_thickness = "2pt",
-    -- cursor_blink_ease_in = "Linear",
-    -- cursor_blink_ease_out = "Linear",
+	default_cursor_style = "BlinkingUnderline",
+	cursor_thickness = "2pt",
+	-- cursor_blink_ease_in = "Linear",
+	-- cursor_blink_ease_out = "Linear",
 
-    -- color_scheme = "ToyChest",
-    -- color_scheme = "Solarized (dark) (terminal.sexy)",
-    -- color_scheme = "Solarized (light) (terminal.sexy)",
-    -- color_scheme = "Google (dark) (terminal.sexy)",
+	-- color_scheme = "ToyChest",
+	-- color_scheme = "Solarized (dark) (terminal.sexy)",
+	-- color_scheme = "Solarized (light) (terminal.sexy)",
+	-- color_scheme = "Google (dark) (terminal.sexy)",
 
-    keys = {
-    	{
-    		key = "f",
-    		mods = "CMD|CTRL",
-    		action = wezterm.action.ToggleFullScreen,
-    	},
-    },
+	keys = {
+		{ key = "f", mods = "CMD|CTRL", action = wezterm.action.ToggleFullScreen },
 
-    -- default_prog = { "/bin/zsh", "-l" },
+		-- "Cmd+Backspace" send "Ctrl+U"
+		{ key = "Backspace", mods = "SUPER", action = wezterm.action.SendKey({ key = "u", mods = "CTRL" }) },
+
+		-- "Cmd+Backspace" send "Ctrl+W"
+		-- { key = 'Backspace', mods = 'SUPER', action = act.SendKey { key = 'w', mods = 'CTRL' } },
+
+		-- Option+Backspace
+		-- { key = 'Backspace', mods = 'ALT', action = wezterm.action.SendKey { key = 'w', mods = 'CTRL' } },
+
+		-- Cmd+K send Ctrl+L (without cleanup history)
+		-- { key = 'k', mods = 'SUPER', action = wezterm.action.SendKey { key = 'l', mods = 'CTRL' } },
+
+		-- Cmd+K -> cleanup history, send Ctrl+L
+		{
+			key = "k",
+			mods = "SUPER",
+			action = wezterm.action.Multiple({
+				wezterm.action.ClearScrollback("ScrollbackAndViewport"),
+				wezterm.action.SendKey({ key = "l", mods = "CTRL" }),
+			}),
+		},
+	},
+
+	-- default_prog = { "/bin/zsh", "-l" },
 }

@@ -67,6 +67,26 @@ cmd on-select &{{
         # Case 1: current dir is inside a git project → show last commit for the selected file
         last="$(git log -1 --format='%h %s' -- "$f" 2>/dev/null)"
         [ -n "$last" ] && stat="$stat | $last"
+
+        # Show git working-tree status for the selected file (with colors)
+        gs="$(git status --porcelain -- "$f" 2>/dev/null)"
+        if [ -n "$gs" ]; then
+            xy="$(echo "$gs" | head -1 | cut -c1-2)"
+            E="$(printf '\033')"  # real ESC byte for ANSI colors in lf status bar
+            case "$xy" in
+                "M "|"MM") indicator="${E}[1;32m[staged]${E}[0m" ;;
+                " M")         indicator="${E}[1;33m[modified]${E}[0m" ;;
+                "A ")         indicator="${E}[1;32m[added]${E}[0m" ;;
+                "D ")         indicator="${E}[1;31m[deleted]${E}[0m" ;;
+                " D")         indicator="${E}[1;31m[rm-staged]${E}[0m" ;;
+                "R ")         indicator="${E}[1;35m[renamed]${E}[0m" ;;
+                "C ")         indicator="${E}[1;35m[copied]${E}[0m" ;;
+                "??")         indicator="${E}[1;37m[untracked]${E}[0m" ;;
+                "!!")         indicator="${E}[2m[ignored]${E}[0m" ;;
+                *)             indicator="[$xy]" ;;
+            esac
+            stat="$stat $indicator"
+        fi
     elif [ -d "$f" ] && git -C "$f" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
         # Case 2: selected dir is a git repo (but not inside a parent git project)
         # Show condensed git repo info (same style as on-cd)
@@ -278,6 +298,69 @@ cmd git_cherry_pick ${{clear;git-forgit cherry_pick}}
 cmd git_ignore ${{clear;git-forgit ignore}}
 cmd git_show ${{clear;git-forgit show}}
 
+# Interactive changed-files browser — like the VSCode/Zed git panel
+cmd git_changes ${{
+    if ! git rev-parse --git-dir >/dev/null 2>&1; then
+        echo "Not a git repository."
+        exit 0
+    fi
+
+    preview='
+        file=$(printf "%s\n" "{}" | cut -c4- | sed "s/.* -> //")
+        if ! git ls-files --error-unmatch "$file" >/dev/null 2>&1; then
+            bat --color=always --style=plain "$file" 2>/dev/null || echo "New/untracked file"
+        else
+            git diff --color=always HEAD -- "$file" 2>/dev/null || echo "(binary or no diff)"
+        fi
+    '
+
+    selected=$(git -c color.status=always status --short | \
+        fzf --multi \
+            --ansi \
+            --header='Changed Files  (enter: open | tab: multi-select | ctrl-d: diff in pager)' \
+            --preview "$preview" \
+            --preview-window='right:55%:wrap' \
+            --bind='ctrl-d:execute(
+                file=$(printf "%s\n" "{}" | cut -c4- | sed "s/.* -> //")
+                git diff --color=always HEAD -- "$file" 2>/dev/null | less -R
+            )+abort')
+
+    if [ -n "$selected" ]; then
+        target=$(echo "$selected" | cut -c4- | sed 's/.* -> //')
+        [ -z "$target" ] && target=$(echo "$selected" | cut -c4-)
+        target=$(echo "$target" | sed 's/\\/\\\\/g;s/"/\\"/g')
+        lf -remote "send $id select \"$target\""
+    fi
+}}
+
+# Colored diffstat of staged + unstaged changes
+cmd git_diffstat ${{
+    if ! git rev-parse --git-dir >/dev/null 2>&1; then
+        echo "Not a git repository."
+        exit 0
+    fi
+    {
+        staged="$(git -c color.ui=always diff --cached --stat 2>/dev/null)"
+        if [ -n "$staged" ]; then
+            echo "=== Staged changes ==="
+            echo "$staged"
+            echo
+        fi
+        unstaged="$(git -c color.ui=always diff --stat 2>/dev/null)"
+        if [ -n "$unstaged" ]; then
+            echo "=== Unstaged changes ==="
+            echo "$unstaged"
+            echo
+        fi
+        untracked="$(git ls-files --others --exclude-standard 2>/dev/null)"
+        if [ -n "$untracked" ]; then
+            echo "=== Untracked files ==="
+            echo "$untracked"
+        fi
+        [ -z "$staged" ] && [ -z "$unstaged" ] && [ -z "$untracked" ] && echo "Working tree clean."
+    } | less -R
+}}
+
 map gso :git_show
 map ga :git_add
 map gp :git_push
@@ -300,6 +383,8 @@ map gfu :git_fixup
 map grv :git_remote
 map grh :git_reset_head
 map gI :git_repo_info
+map gc :git_changes
+map gds :git_diffstat
 
 # fzf
 cmd fzf $$EDITOR $(find . -name "$1" | fzf)

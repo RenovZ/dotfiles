@@ -29,6 +29,7 @@ source ~/.config/dotfiles/bind.sh
 [[ ! `type wezterm &> /dev/null` ]] || source <(wezterm shell-completion --shell zsh)
 [[ ! `type helm &> /dev/null` ]] || source <(helm completion zsh)
 [[ ! `type orbctl &> /dev/null` ]] || source <(orbctl completion zsh)
+[[ ! `type hermes &> /dev/null` ]] || source <(hermes completion zsh)
 
 type zoxide &> /dev/null && eval "$(zoxide init zsh)"
 # type direnv &> /dev/null && eval "$(direnv hook zsh)"

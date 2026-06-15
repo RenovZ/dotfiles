@@ -118,6 +118,9 @@ scss = { validate = { enable = true } }
 less = { validate = { enable = true } }
 provideFormatter = true
 
+[language-server.lua-language-server]
+command = "lua-language-server"
+
 # ============================================================
 # Languages
 # ============================================================
@@ -125,6 +128,8 @@ provideFormatter = true
 [[language]]
 name = "rust"
 language-servers = ["rust-analyzer"]
+formatter = { command = "rustfmt" }
+# auto-format = true
 
 [[language]]
 name = "go"
@@ -138,6 +143,7 @@ language-servers = ["gopls"]
 name = "python"
 language-servers = ["ruff", "ty"]
 formatter = { command = "ruff", args = ["format", "-"] }
+auto-format = true
 
 [[language]]
 name = "svelte"
@@ -198,4 +204,10 @@ name = "css"
 language-servers = ["vscode-css-language-server", "emmet-lsp"]
 formatter = { command = "bunx", args = ["prettier", "--parser", "css"] }
 # formatter = { command = "dprint", args = ["fmt", "--stdin", "css"] }
+auto-format = true
+
+[[language]]
+name = "lua"
+language-servers = ["lua-language-server"]
+formatter = { command = "stylua", args = ["-"] }
 auto-format = true
