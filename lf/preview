@@ -27,8 +27,24 @@ cleanup() {
 }
 trap cleanup EXIT
 
-# Text preview with bat fallback to cat
+# Text preview with git gutter (dirty files) or bat (clean files)
 text_preview() {
+	# Only do git gutter when first arg is a real file (not a flag like --language=csv)
+	case "$1" in
+		--*|-*) ;;
+		*)
+			if [ -f "$1" ] \
+				&& git rev-parse --git-dir >/dev/null 2>&1 \
+				&& git ls-files --error-unmatch "$1" >/dev/null 2>&1 \
+				&& ! git diff --quiet HEAD -- "$1" 2>/dev/null \
+				&& command -v delta >/dev/null 2>&1; then
+				git diff -U99999 HEAD -- "$1" 2>/dev/null | \
+					delta --features 'line-numbers decorations' --paging=never --width="${w:-80}" 2>/dev/null
+				return
+			fi
+			;;
+	esac
+	# Fallback: normal bat / cat preview (preserving all args like --language=...)
 	if command -v bat >/dev/null 2>&1; then
 		bat --color=always --style=plain --pager=never "$@"
 	else
