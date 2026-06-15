@@ -8,11 +8,15 @@ y="${5:-0}"
 
 [ -z "$file" ] && exit 0
 
-# If it's a directory, list contents
+# If it's a directory, list contents (with git status when applicable)
 if [ -d "$file" ]; then
-	eza -la --color=always --icons=always "$file" 2>/dev/null || \
-		ls -la --color=always "$file" 2>/dev/null || \
-		ls -la "$file"
+	if git -C "$file" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+		eza -agl --git --color=always --icons=always "$file" 2>/dev/null
+	elif git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+		eza -agl --git --color=always --icons=always "$file" 2>/dev/null
+	else
+		eza -agl --color=always --icons=always "$file" 2>/dev/null
+	fi || ls -agl --color=always "$file" 2>/dev/null || ls -agl "$file"
 	exit 0
 fi
 

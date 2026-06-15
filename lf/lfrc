@@ -64,11 +64,8 @@ cmd on-cd &{{
 cmd on-select &{{
     stat="$(eza -ld --color=always --icons=always "$f" 2>/dev/null || ls -ld --color=always "$f" 2>/dev/null || ls -ld "$f")"
     if git rev-parse --git-dir >/dev/null 2>&1; then
-        # Case 1: current dir is inside a git project → show last commit for the selected file
-        last="$(git log -1 --format='%h %s' -- "$f" 2>/dev/null)"
-        [ -n "$last" ] && stat="$stat | $last"
-
-        # Show git working-tree status for the selected file (with colors)
+        # Case 1: current dir is inside a git project
+        # First, show git working-tree status right after eza info (with colors)
         gs="$(git status --porcelain -- "$f" 2>/dev/null)"
         if [ -n "$gs" ]; then
             xy="$(echo "$gs" | head -1 | cut -c1-2)"
@@ -87,6 +84,9 @@ cmd on-select &{{
             esac
             stat="$stat $indicator"
         fi
+        # Then show last commit for the selected file
+        last="$(git log -1 --format='%h %s' -- "$f" 2>/dev/null)"
+        [ -n "$last" ] && stat="$stat | $last"
     elif [ -d "$f" ] && git -C "$f" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
         # Case 2: selected dir is a git repo (but not inside a parent git project)
         # Show condensed git repo info (same style as on-cd)
