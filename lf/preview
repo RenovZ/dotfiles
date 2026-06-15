@@ -41,7 +41,7 @@ text_preview() {
 				dt="--dark"
 				[ "$(darklight 2>/dev/null)" = "Light" ] && dt="--light"
 				git diff -U99999 HEAD -- "$1" 2>/dev/null | \
-					delta $dt --features 'line-numbers decorations' --paging=never --width="${w:-80}" 2>/dev/null
+					delta $dt --features 'line-numbers decorations' --file-style=omit --hunk-header-style=omit --paging=never --width="${w:-80}" 2>/dev/null
 				return
 			fi
 			;;
