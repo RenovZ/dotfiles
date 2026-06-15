@@ -18,7 +18,7 @@ not command -v helm >/dev/null || helm completion fish | source
 not command -v kubectl >/dev/null || kubectl completion fish | source
 not command -v kubebuilder >/dev/null || kubebuilder completion fish | source
 not command -v orbctl >/dev/null || orbctl completion fish | source
-not command -v hermes >/dev/null || hermes completion fish | source
+not command -v hermes >/dev/null || hermes completion fish 2>/dev/null | source
 
 if status is-interactive
     # Commands to run in interactive sessions can go here
