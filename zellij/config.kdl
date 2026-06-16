@@ -54,6 +54,7 @@ plugins {
     }
 }
 
+mouse_mode true
 pane_frames false
 serialize_pane_viewport true
 // default_layout "disable-status-bar"
