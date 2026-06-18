@@ -540,4 +540,4 @@ map of push %touch<space>
 map x
 map x push :delete<enter>
 
-map i $~/.config/lf/preview $f | less -R
+map i $LF_LINE_NUMBERS=1 ~/.config/lf/preview $f | less -R

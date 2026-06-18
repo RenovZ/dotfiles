@@ -49,7 +49,9 @@ text_preview() {
 	esac
 	# Fallback: normal bat / cat preview (preserving all args like --language=...)
 	if command -v bat >/dev/null 2>&1; then
-		bat --color=always --style=plain --pager=never "$@"
+		style="plain"
+		[ -n "$LF_LINE_NUMBERS" ] && style="numbers"
+		bat --color=always --style="$style" --pager=never "$@"
 	else
 		cat "$@"
 	fi
