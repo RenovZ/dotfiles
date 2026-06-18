@@ -1,11 +1,10 @@
 #!/bin/bash
 
 res="$( \
-    RG_PREFIX="rg --column \
+    RG_PREFIX="rg -U --column \
         --hidden \
         --line-number \
         --no-heading \
-        --no-ignore \
         --glob '!.git/*' \
         --color=always \
         --smart-case "
