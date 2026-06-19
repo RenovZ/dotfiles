@@ -35,9 +35,7 @@ export PATH=$PATH:${BUN_INSTALL:-~/.bun}/bin
 
 # export FORGIT_PREVIEW_PAGER='bat -l diff --color=always --style=plain'
 export FORGIT_PREVIEW_PAGER="delta --diff-highlight --features=\"line-numbers decorations\" --$($HOME/.cargo/bin/darklight 2>/dev/null | tr '[:upper:]' '[:lower:]') --paging=never --width=\"\${FZF_PREVIEW_COLUMNS:-80}\""
-export FORGIT_LOG_FZF_OPTS='--height=100%'
-# export FORGIT_LOG_GRAPH_ENABLE=false
-export FORGIT_FZF_DEFAULT_OPTS=--no-scrollbar
+export FORGIT_FZF_DEFAULT_OPTS="--no-scrollbar --height=100%"
 
 #export FZF_DEFAULT_COMMAND='rg --files --hidden -g "!.git"'
 export FZF_DEFAULT_COMMAND='fd --type f -H -E ".git/"'
