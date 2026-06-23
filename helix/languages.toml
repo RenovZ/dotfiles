@@ -147,11 +147,7 @@ auto-format = true
 
 [[language]]
 name = "svelte"
-language-servers = [
-  "svelteserver",
-  "vtsls",
-  "tailwindcss-ls",
-]
+language-servers = ["svelteserver", "vtsls", "tailwindcss-ls"]
 formatter = { command = "bunx", args = ["prettier", "--parser", "svelte"] }
 # formatter = { command = "dprint", args = ["fmt", "--stdin", "svelte"] }
 comment-token = "<!--"
@@ -187,10 +183,18 @@ auto-format = true
 
 [[language]]
 name = "json"
+file-types = ["jsonl"]
 language-servers = ["vscode-json-language-server"]
-formatter = { command = "bunx", args = ["prettier", "--parser", "json"] }
-# formatter = { command = "dprint", args = ["fmt", "--stdin", "json"] }
-auto-format = true
+# No auto-format — JSONL is line-delimited (one JSON value per line),
+# not a single document, so neither external formatters nor LSP formatting apply.
+# Use :format manually only if you need to format a single-line JSON value.
+
+[[language]]
+name = "jsonc"
+file-types = ["jsonc", "json"]
+language-servers = ["vscode-json-language-server"]
+# Both .json and .jsonc open as JSONC so comments are allowed without errors.
+# Use :format manually only if you need to format a single-line JSON value.
 
 [[language]]
 name = "html"
