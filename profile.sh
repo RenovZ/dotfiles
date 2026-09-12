@@ -1,3 +1,6 @@
+source ~/.bashrc
+source ~/.profile
+
 source ~/.config/dotfiles/export.sh
 # source ~/.config/dotfiles/homebrew.sh
 
@@ -20,8 +23,8 @@ if [[ -f ~/.bashrc_docker ]]; then
   source ~/.bashrc_docker
 fi
 
-# luarocks
-# [[ ! -f ~/.acme.sh/acme.sh.env ]] || source ~/.acme.sh/acme.sh.env
-if command -v luarocks >/dev/null 2>&1; then
-  eval "$(luarocks path --bin)"
-fi
+# # luarocks
+# # [[ ! -f ~/.acme.sh/acme.sh.env ]] || source ~/.acme.sh/acme.sh.env
+# if command -v luarocks >/dev/null 2>&1; then
+#   eval "$(luarocks path --bin)"
+# fi

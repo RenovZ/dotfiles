@@ -6,8 +6,11 @@ bass source ~/.config/dotfiles/profile.sh
 # bass -d "source ~/.config/dotfiles/profile.sh" > profile.fish
 # source ~/.config/dotfiles/profile.fish.sh
 
-source ~/.config/fish/asdf.fish
+# source ~/.config/fish/asdf.fish
 source ~/.config/dotfiles/vendor/fzf-git.sh/fzf-git.fish
+
+# first of first
+not command -v mise >/dev/null || mise activate fish | source
 
 not command -v wezterm >/dev/null || wezterm shell-completion --shell fish | source
 zoxide init fish | source

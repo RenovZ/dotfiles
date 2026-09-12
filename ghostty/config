@@ -1,14 +1,16 @@
 font-family = "Hack Nerd Font Mono"
-font-style = bold
-font-size = 18
+# font-style = regular
+font-size = 14
 
 # window-padding-x = 4
 background-opacity = 0.85
 background-blur = true
 
-macos-titlebar-style = tabs
-macos-option-as-alt = true
-macos-non-native-fullscreen = true
+cursor-style = block
+cursor-style-blink = true
+shell-integration-features = no-cursor,sudo,title
 
-theme = dark:Ubuntu,light:Atom One Light
-# theme = Ubuntu
+# gtk-titlebar-style = tabs
+
+# theme = dark:Ubuntu,light:Atom One Light
+theme = Ubuntu

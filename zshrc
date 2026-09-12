@@ -44,7 +44,7 @@ eval "$(fzf --zsh)"
 if [[ -d $(brew --prefix)/share/zsh-completions ]]; then
 	type kubectl >/dev/null 2>&1 && source <(kubectl completion zsh)
 	type kubebuilder >/dev/null 2>&1 && source <(kubebuilder completion zsh)
-	type asdf >/dev/null 2>&1 && source <(asdf completion zsh)
+	# type asdf >/dev/null 2>&1 && source <(asdf completion zsh)
 	autoload -Uz compinit
 	compinit
 fi
