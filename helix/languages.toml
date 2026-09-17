@@ -215,3 +215,9 @@ name = "lua"
 language-servers = ["lua-language-server"]
 formatter = { command = "stylua", args = ["-"] }
 auto-format = true
+
+# Verilog / SystemVerilog (.v/.vh/.sv/.svh are all mapped to this language).
+[[language]]
+name = "verilog"
+language-servers = ["svlangserver"]
+indent = { tab-width = 4, unit = "    " }

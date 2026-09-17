@@ -32,6 +32,7 @@ export PNPM_HOME=~/.pnpm
 
 # bun
 export PATH=$PATH:${BUN_INSTALL:-~/.bun}/bin
+export PATH=$PATH:$HOME/.cache/.bun/bin
 
 
 # configure all the other tools after the path has been set
