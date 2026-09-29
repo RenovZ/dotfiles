@@ -10,7 +10,8 @@ res="$( \
         $*"
     preview="bat --color=always --style=numbers {}"
     FZF_DEFAULT_COMMAND="$FD_PREFIX ''" \
-        fzf --bind "change:reload:$FD_PREFIX {q} || true" \
+        fzf --with-shell 'bash -c' \
+        --bind "change:reload:$FD_PREFIX {q} || true" \
         --ansi --header 'Search in files' \
         --preview "$preview" \
         | cut -d':' -f1

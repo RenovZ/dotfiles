@@ -14,7 +14,8 @@ preview='
 '
 
 selected=$(git -c color.status=always status --short | \
-    fzf --multi \
+    fzf --with-shell 'bash -c' \
+        --multi \
         --ansi \
         --header='Changed Files  (enter: open | tab: multi-select | ctrl-d: diff in pager)' \
         --preview "$preview" \

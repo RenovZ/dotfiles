@@ -16,10 +16,10 @@ export PATH=$PATH:~/bin
 # export PATH=$PATH:${ASDF_DATA_DIR:-~/.asdf}/shims
 
 # mise
-export PATH="$HOME/.local/share/mise/shims:$PATH"
+export PATH=$PATH:$HOME/.local/share/mise/shims
 
 # c++
-export PATH=${VCPKG_ROOT:-~/vcpkg}:$PATH
+export PATH=$PATH:${VCPKG_ROOT:-~/vcpkg}
 
 # export SDKROOT=$(xcrun --show-sdk-path)
 # export CFLAGS="-I$(xcrun --show-sdk-path)/usr/include"
@@ -32,7 +32,7 @@ export PNPM_HOME=~/.pnpm
 
 # bun
 export PATH=$PATH:${BUN_INSTALL:-~/.bun}/bin
-export PATH=$PATH:$HOME/.cache/.bun/bin
+# export PATH=$PATH:$HOME/.cache/.bun/bin
 
 
 # configure all the other tools after the path has been set

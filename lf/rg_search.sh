@@ -17,7 +17,8 @@ res="$( \
         bat -n --line-range \$startline: --highlight-line \$currentline --color always \$filepath
     "
     FZF_DEFAULT_COMMAND="$RG_PREFIX ''" \
-        fzf --bind "change:reload:$RG_PREFIX {q} || true" \
+        fzf --with-shell 'bash -c' \
+        --bind "change:reload:$RG_PREFIX {q} || true" \
         --ansi --header 'Search in files' \
         --preview "$preview" \
         | cut -d':' -f1
