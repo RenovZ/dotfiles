@@ -4,7 +4,7 @@ import = ["themes/catppuccin-latte.toml"]
 
 [window]
 opacity = 0.9
-padding = { x = 4, y = 4 }
+padding = { x = 6, y = 0 }
 
 [font]
 size = 12.0

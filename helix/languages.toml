@@ -216,8 +216,22 @@ language-servers = ["lua-language-server"]
 formatter = { command = "stylua", args = ["-"] }
 auto-format = true
 
-# Verilog / SystemVerilog (.v/.vh/.sv/.svh are all mapped to this language).
+# ── Verilog / SystemVerilog ──
+# All of .v/.vh/.sv/.svh map to the `verilog` language.
+# The built-in default (`svlangserver`) is not installed, so use the same
+# toolchain as Zed:
+#   slang-server        → go-to-definition / references / rename / completion / diagnostics
+#   verible-verilog-ls  → lint + formatting (LSP formatting)
+[language-server.slang]
+command = "slang-server"
+
+[language-server.verible]
+command = "verible-verilog-ls"
+args = ["--rules_config_search"] # pick up `.rules.verible_lint` upward from each file
+
 [[language]]
 name = "verilog"
-language-servers = ["svlangserver"]
+language-servers = ["slang", "verible"]
 indent = { tab-width = 4, unit = "    " }
+# Formatting is provided by verible's LSP formatting (slang has none).
+auto-format = true
