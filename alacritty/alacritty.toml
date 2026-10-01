@@ -1,0 +1,24 @@
+[general]
+# Theme files live in themes/ (from catppuccin/alacritty)
+import = ["themes/catppuccin-latte.toml"]
+
+[window]
+opacity = 0.9
+padding = { x = 4, y = 4 }
+
+[font]
+size = 12.0
+normal = { family = "Hack Nerd Font Mono", style = "Regular" }
+
+[selection]
+save_to_clipboard = true
+
+[cursor.style]
+shape = "Block"
+blinking = "On"
+
+# Ctrl+Shift+U opens the URL under the cursor
+[hints]
+enabled = [
+  { regex = '(ipfs:|ipns:|magnet:|mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)[^\u0000-\u001F\u007F-\u009F<>"\s{-}\^⟨⟩`]+', command = "xdg-open", hyperlinks = true, post_processing = true, mouse = { enabled = true }, binding = { key = "U", mods = "Control|Shift" } },
+]

@@ -4,10 +4,10 @@ local wezterm = require("wezterm")
 local function scheme_for_appearance(appearance)
 	if appearance:find("Dark") then
 		-- return "Builtin Tango Dark"
-		return "Builtin Dark"
+		-- return "Builtin Dark"
 		-- return "Builtin Solarized Dark"
 		-- return "nord"
-		-- return "Catppuccin Mocha"
+		return "Catppuccin Mocha"
 		-- return "Ubuntu"
 	else
 		-- return "Builtin Tango Light"
@@ -15,8 +15,8 @@ local function scheme_for_appearance(appearance)
 		-- return "Builtin Solarized Light"
 		-- return "nord-light"
 		-- return "nord"
-		-- return "Catppuccin Latte"
-		return "Ubuntu"
+		return "Catppuccin Latte"
+		-- return "Ubuntu"
 	end
 end
 
@@ -42,9 +42,12 @@ return {
 	-- hide_tab_bar_if_only_one_tab = true,
 
 	font = wezterm.font_with_fallback({
-		{ family = "Hack Nerd Font Mono", weight = "Bold" },
+		{
+			family = "Hack Nerd Font Mono",
+			-- weight = "Bold"
+		},
 	}),
-	font_size = 16.0,
+	font_size = 12.0,
 
 	default_cursor_style = "BlinkingUnderline",
 	cursor_thickness = "2pt",
