@@ -47,7 +47,7 @@ lf/
 | Tool | Purpose | Used For |
 |------|---------|----------|
 | `exa` / `eza` | ls alternative | File stats display |
-| `trash-cli` | Trash management | `:trash` command |
+| `gio` (glib) | Trash management | `x` / `:delete`; Ubuntu ships it in `libglib2.0-bin`, macOS needs `brew install glib` |
 | `jq` | JSON processor | npm scripts (in lfrc) |
 | `glow` | Markdown renderer | .md file preview |
 | `darklight` | Theme detection | Markdown theme selection |

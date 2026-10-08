@@ -7,11 +7,15 @@ set rulerfile ~/.config/lf/ruler.custom
 set ratios 1:2:3
 set icons true
 
+set sortby time
+# reverse sort order (directories still come first); toggle at runtime with zr
+set reverse true
+
 set previewer ~/.config/lf/preview
 set cleaner ~/.config/lf/cleaner
 
-# trash-cli
-cmd trash %trash-put -- $fx
+# gio (glib) trash backend with a statline confirmation (see trash.sh)
+cmd delete %~/.config/lf/trash.sh
 
 # node.js
 cmd node_script ${{
@@ -159,4 +163,5 @@ map of push %touch<space>
 map x
 map x push :delete<enter>
 
-map i $LF_LINE_NUMBERS=1 ~/.config/lf/preview $f | ov
+# If need to show line_numbers, use `map i $LF_LINE_NUMBERS=1 ~/.config/lf/preview $f | ov` instead
+map i $~/.config/lf/preview $f | ov
