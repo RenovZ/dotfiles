@@ -258,6 +258,11 @@ Image previews require Sixel support. Check if your terminal supports it:
 | Man pages | man + col |
 | HTML | w3m dump |
 
+Non-UTF-8 text files (GBK, Big5, Shift-JIS, EUC, Latin-1, UTF-16, ...) are
+detected with `chardet` and converted to UTF-8 via `iconv` before previewing,
+so legacy-encoded files render without mojibake. Requires `iconv` (coreutils)
+and `chardet` (python3-chardet).
+
 ## Troubleshooting
 
 ### Images not showing

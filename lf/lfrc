@@ -7,7 +7,7 @@ set rulerfile ~/.config/lf/ruler.custom
 set ratios 1:2:3
 set icons true
 
-set sortby time
+# set sortby time
 # reverse sort order (directories still come first); toggle at runtime with zr
 set reverse true
 

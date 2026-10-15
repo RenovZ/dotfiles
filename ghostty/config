@@ -17,3 +17,7 @@ shell-integration-features = no-cursor,sudo,title
 theme = Catppuccin Latte
 
 config-file = ?auto/theme.ghostty
+
+keybind = cmd+enter=toggle_fullscreen
+keybind = cmd+ctrl+f=toggle_fullscreen
+keybind = ctrl+enter=unbind

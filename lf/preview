@@ -27,33 +27,123 @@ cleanup() {
 }
 trap cleanup EXIT
 
-# Text preview with git gutter (dirty files) or bat (clean files)
-text_preview() {
-	# Only do git gutter when first arg is a real file (not a flag like --language=csv)
-	case "$1" in
-		--*|-*) ;;
-		*)
-			if [ -f "$1" ] \
-				&& git rev-parse --git-dir >/dev/null 2>&1 \
-				&& git ls-files --error-unmatch "$1" >/dev/null 2>&1 \
-				&& ! git diff --quiet HEAD -- "$1" 2>/dev/null \
-				&& command -v delta >/dev/null 2>&1; then
-				dt="--dark"
-				[ "$(darklight 2>/dev/null)" = "Light" ] && dt="--light"
-				git diff -U99999 HEAD -- "$1" 2>/dev/null | \
-					delta $dt --features 'line-numbers decorations' --file-style=omit --hunk-header-style=omit --paging=never --width="${w:-80}" 2>/dev/null | \
-					tail -n +2
-				return
-			fi
+# Detect a non-UTF-8 encoding for a file; print an iconv-compatible name,
+# or nothing when the file is UTF-8/ASCII or detection is unreliable.
+detect_encoding() {
+	f="$1"
+
+	# Fast path: file(1) reliably recognizes UTF-8/ASCII and explicit UTF-16/32
+	fenc=$(file -b --mime-encoding "$f" 2>/dev/null)
+	case "$fenc" in
+		utf-8|utf-8-with-bom|us-ascii|ascii) return 0 ;;
+		utf-16le|utf-16be|utf-32le|utf-32be)
+			printf '%s' "$fenc"
+			return 0
 			;;
 	esac
-	# Fallback: normal bat / cat preview (preserving all args like --language=...)
+
+	if command -v chardet >/dev/null 2>&1; then
+		# Sample only the head: chardet slows down on large files
+		res=$(head -c 262144 "$f" 2>/dev/null | chardet 2>/dev/null | head -n 1)
+		conf=${res##* }
+		# Require a numeric confidence so "no result" lines are filtered out
+		case "$conf" in
+			''|*[!0-9.]*) return 0 ;;
+		esac
+		# Weak guesses lead to wrong conversions, which look worse than raw bytes
+		[ "$(awk -v c="$conf" 'BEGIN { print (c + 0 >= 0.6) ? 1 : 0 }')" = 1 ] || return 0
+		enc=${res#*: }
+		enc=${enc%% *}
+		case "$enc" in
+			''|utf-8|utf-8-sig|ascii|None|unknown) return 0 ;;
+			# GB2312 is a strict subset of GBK/GB18030; decode with the widest
+			GB2312|gb2312) enc=GB18030 ;;
+			MacRoman|macroman) enc=MACINTOSH ;;
+		esac
+		printf '%s' "$enc"
+	else
+		case "$fenc" in
+			''|binary|unknown|unknown-8bit) return 0 ;;
+		esac
+		printf '%s' "$fenc"
+	fi
+}
+
+# Set $utf8_file to a UTF-8 temp copy of $1 for non-UTF-8 text files,
+# or to $1 itself when the file is already UTF-8 (or cannot be converted).
+to_utf8() {
+	utf8_file="$1"
+	enc=$(detect_encoding "$1")
+	[ -z "$enc" ] && return 0
+	command -v iconv >/dev/null 2>&1 || return 0
+	base=${1##*/}
+	case "$base" in
+		*.*) ext=".${base##*.}" ;;
+		*) ext="" ;;
+	esac
+	tmp=$(mktemp "/tmp/lf-utf8-XXXXXX${ext}" 2>/dev/null) || return 0
+	# -c drops bytes iconv cannot map so one bad byte cannot hide the rest
+	if iconv -c -f "$enc" -t UTF-8 "$1" >"$tmp" 2>/dev/null; then
+		tmp_files="$tmp_files $tmp"
+		utf8_file="$tmp"
+	else
+		rm -f "$tmp"
+	fi
+}
+
+# Text preview with git gutter (dirty files) or bat (clean files)
+text_preview() {
+	# Split leading bat flags (e.g. --language=cpp) from the file argument;
+	# without a file argument the content is read from stdin (e.g. CSV pipes)
+	flags=""
+	while [ $# -gt 0 ]; do
+		case "$1" in
+			--*|-*) flags="$flags $1"; shift ;;
+			*) break ;;
+		esac
+	done
+	src="${1:-}"
+
+	# Git gutter: tracked, modified files get per-line markers (like editors)
+	if [ -z "$flags" ] && [ -n "$src" ] && [ -f "$src" ] \
+		&& git rev-parse --git-dir >/dev/null 2>&1 \
+		&& git ls-files --error-unmatch "$src" >/dev/null 2>&1 \
+		&& ! git diff --quiet HEAD -- "$src" 2>/dev/null \
+		&& command -v delta >/dev/null 2>&1; then
+		dt="--dark"
+		[ "$(darklight 2>/dev/null)" = "Light" ] && dt="--light"
+		enc=$(detect_encoding "$src")
+		if [ -n "$enc" ] && iconv -f "$enc" -t UTF-8 </dev/null >/dev/null 2>&1; then
+			git diff -U99999 HEAD -- "$src" 2>/dev/null | iconv -c -f "$enc" -t UTF-8 | \
+				delta $dt --features 'line-numbers decorations' --file-style=omit --hunk-header-style=omit --paging=never --width="${w:-80}" 2>/dev/null | \
+				tail -n +2
+		else
+			git diff -U99999 HEAD -- "$src" 2>/dev/null | \
+				delta $dt --features 'line-numbers decorations' --file-style=omit --hunk-header-style=omit --paging=never --width="${w:-80}" 2>/dev/null | \
+				tail -n +2
+		fi
+		return
+	fi
+
+	# Non-UTF-8 text must be converted or the terminal renders mojibake
+	if [ -n "$src" ] && [ -f "$src" ]; then
+		to_utf8 "$src"
+		src="$utf8_file"
+	fi
+
+	# Fallback: normal bat / cat preview (preserving flags like --language=...)
 	if command -v bat >/dev/null 2>&1; then
 		style="plain"
 		[ -n "$LF_LINE_NUMBERS" ] && style="numbers"
-		bat --color=always --style="$style" --pager=never "$@"
+		if [ -n "$src" ]; then
+			bat --color=always --style="$style" --pager=never $flags "$src"
+		else
+			bat --color=always --style="$style" --pager=never $flags
+		fi
+	elif [ -n "$src" ]; then
+		cat "$src"
 	else
-		cat "$@"
+		cat
 	fi
 }
 
@@ -97,12 +187,13 @@ case "$lc_file" in
 		;;
 	*.md)
 		if command -v glow >/dev/null 2>&1; then
+			to_utf8 "$file"
 			if command -v darklight >/dev/null 2>&1; then
 				theme=$(darklight 2>/dev/null | tr '[:upper:]' '[:lower:]')
 				[ -z "$theme" ] && theme="dark"
-				CLICOLOR_FORCE=1 glow -s "$theme" "$file"
+				CLICOLOR_FORCE=1 glow -s "$theme" "$utf8_file"
 			else
-				CLICOLOR_FORCE=1 glow "$file"
+				CLICOLOR_FORCE=1 glow "$utf8_file"
 			fi
 		else
 			text_preview "$file"
