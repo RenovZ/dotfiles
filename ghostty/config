@@ -16,6 +16,9 @@ shell-integration-features = no-cursor,sudo,title
 # theme = Ubuntu
 theme = Catppuccin Latte
 
+# 选中即复制到 PRIMARY 和系统剪贴板
+copy-on-select = clipboard
+
 config-file = ?auto/theme.ghostty
 
 keybind = cmd+enter=toggle_fullscreen
