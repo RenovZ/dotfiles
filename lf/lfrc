@@ -6,6 +6,8 @@ set rulerfile ~/.config/lf/ruler.custom
 
 set ratios 1:2:3
 set icons true
+# per-file git status markers on the right side of the pane (see git_status_info.sh)
+set info custom
 
 # set sortby time
 # reverse sort order (directories still come first); toggle at runtime with zr
@@ -37,6 +39,9 @@ cmd zi ${{
 # show git repo info on cd, file stats on select
 cmd on-cd &{{ ~/.config/lf/on_cd.sh }}
 cmd on-select &{{ ~/.config/lf/on_select.sh }}
+
+# per-file git status in the info column
+cmd on-load &{{ ~/.config/lf/git_status_info.sh "$@" }}
 
 # git
 cmd git_repo_info ${{

@@ -6,14 +6,15 @@ A feature-rich lf configuration with image previews, git integration, fuzzy sear
 
 ```
 lf/
-├── lfrc          # Main lf configuration
-├── preview       # File preview script
-├── cleaner       # Preview cleanup script
-├── icons         # Nerd Fonts icon mappings
-├── colors        # Terminal color scheme
-├── rg_search.sh  # ripgrep + fzf search script
-├── lf.1          # Shell wrapper script
-└── README.md     # This file
+├── lfrc                # Main lf configuration
+├── preview             # File preview script
+├── cleaner             # Preview cleanup script
+├── git_status_info.sh  # Per-file git status markers (on-load hook)
+├── icons               # Nerd Fonts icon mappings
+├── colors              # Terminal color scheme
+├── rg_search.sh        # ripgrep + fzf search script
+├── lf.1                # Shell wrapper script
+└── README.md           # This file
 ```
 
 ## Prerequisites
@@ -187,6 +188,41 @@ alias lf='lfcd'
 | `gbl` | git blame |
 | `gss` | git stash show |
 | `gbd` | git branch delete |
+| `gc` | Browse changed files in fzf (enter: open, `ctrl-d`: diff) |
+| `gD` / `gC` | Full-file / compact diff of the selected file via delta |
+
+### Git Status in the File List
+
+When browsing a git repository, every changed file shows a status marker on
+the right side of the pane (the `custom` info column), refreshed on each
+directory load by `git_status_info.sh`:
+
+| Marker | Meaning | Color |
+|--------|---------|-------|
+| `M` | modified (worktree) | yellow |
+| `M` | modified (staged) | green |
+| `MM` | staged + unstaged changes | yellow |
+| `A` | added | green |
+| `D` | deleted | red |
+| `R` / `C` | renamed / copied | magenta |
+| `UU` | merge conflict | bold red |
+| `??` | untracked | dim |
+| `●` | directory contains changes | yellow |
+
+Directories `●` are aggregated from the changed files below them, so going
+up a level still shows which subdirectory is dirty. The same dot also marks
+a repository root when the pane is outside that repository (e.g. a workspace
+directory containing several projects): each child directory with a `.git`
+is checked, and its result is cached for about 10 seconds so navigating
+through the workspace does not re-run git on every repository for every
+keypress.
+
+Untracked files show `??`; a newly created untracked directory shows `??`
+until you enter it (its children are then listed individually). Enable or
+disable the feature via the `on-load` hook and `set info custom` in `lfrc`.
+Inside a repository the script runs a single `git status` per directory load
+(not one per file).
+
 
 ### Search & Jump
 | Key | Action |
