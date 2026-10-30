@@ -294,6 +294,11 @@ Image previews require Sixel support. Check if your terminal supports it:
 | Man pages | man + col |
 | HTML | w3m dump |
 
+Symlinks are followed before previewing, so the pane shows the target's
+content (image, text, archive listing, directory listing, ...) rather than
+the literal `symbolic link to ...` text. Broken or looping links show an
+explicit `broken symbolic link` message.
+
 Non-UTF-8 text files (GBK, Big5, Shift-JIS, EUC, Latin-1, UTF-16, ...) are
 detected with `chardet` and converted to UTF-8 via `iconv` before previewing,
 so legacy-encoded files render without mojibake. Requires `iconv` (coreutils)

@@ -8,6 +8,26 @@ y="${5:-0}"
 
 [ -z "$file" ] && exit 0
 
+# Follow symlinks so the preview shows the target's content instead of the
+# literal string "symbolic link to ...". Broken links get an explicit message.
+if [ -L "$file" ]; then
+	link=$file
+	n=0
+	# Resolve the chain by hand: readlink -f is not portable to BSD/macOS
+	while [ -L "$file" ] && [ "$n" -lt 40 ]; do
+		target=$(readlink "$file" 2>/dev/null) || break
+		case $target in
+			/*) file=$target ;;
+			*) file=$(dirname "$file")/$target ;;
+		esac
+		n=$((n + 1))
+	done
+	if [ ! -e "$file" ]; then
+		printf 'broken symbolic link: %s -> %s\n' "$link" "$(readlink "$link" 2>/dev/null)"
+		exit 0
+	fi
+fi
+
 # If it's a directory, list contents (with git status when applicable)
 if [ -d "$file" ]; then
 	if git -C "$file" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
