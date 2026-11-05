@@ -205,16 +205,22 @@ case "$lc_file" in
 	*.7z)
 		7z l "$file" 2>/dev/null || echo "Install p7zip to preview 7z files"
 		;;
-	*.md)
+	*.md|*.markdown|*.mdown|*.mkd|*.mkdn|*.mdwn|*.mdx)
 		if command -v glow >/dev/null 2>&1; then
 			to_utf8 "$file"
-			if command -v darklight >/dev/null 2>&1; then
-				theme=$(darklight 2>/dev/null | tr '[:upper:]' '[:lower:]')
-				[ -z "$theme" ] && theme="dark"
-				CLICOLOR_FORCE=1 glow -s "$theme" "$utf8_file"
-			else
-				CLICOLOR_FORCE=1 glow "$utf8_file"
+			# glow's "auto" style degrades to uncolored "notty" when stdout is
+			# a pipe (always true for the preview pane and for `preview $f | ov`),
+			# so an explicit style is required for the markdown to be rendered.
+			theme=${LF_GLOW_STYLE:-}
+			if [ -z "$theme" ] && command -v darklight >/dev/null 2>&1; then
+				case "$(darklight 2>/dev/null | tr '[:upper:]' '[:lower:]')" in
+					dark) theme=dark ;;
+					light) theme=light ;;
+				esac
 			fi
+			[ -z "$theme" ] && theme=dark
+			# </dev/null: glow reads stdin instead of the file when stdin is a pipe
+			CLICOLOR_FORCE=1 glow -s "$theme" "$utf8_file" </dev/null
 		else
 			text_preview "$file"
 		fi

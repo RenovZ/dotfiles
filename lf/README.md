@@ -286,13 +286,18 @@ Image previews require Sixel support. Check if your terminal supports it:
 | PDF | chafa (renders first page) |
 | Video (mp4, mkv, avi, etc.) | chafa (first frame) |
 | EPUB, CBZ, CBR | chafa (cover) |
-| Markdown (.md) | glow (with darklight theme) |
+| Markdown (.md, .markdown, .mdx, .mkd, ...) | glow (with darklight theme) |
 | Source code | bat (syntax highlighting) |
 | Archives (.tar, .zip, .7z, etc.) | List contents |
 | Audio | exiftool metadata |
 | Documents (.doc, .docx, .odt) | Text extraction |
 | Man pages | man + col |
 | HTML | w3m dump |
+
+Markdown is rendered with an explicit glow style because glow's automatic
+style falls back to uncolored plain text when its output is piped. The style
+comes from `LF_GLOW_STYLE` (any glow style name), then `darklight` if it is
+installed, and finally defaults to `dark`.
 
 Symlinks are followed before previewing, so the pane shows the target's
 content (image, text, archive listing, directory listing, ...) rather than
