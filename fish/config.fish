@@ -9,26 +9,12 @@ bass source ~/.config/dotfiles/profile.sh
 # source ~/.config/fish/asdf.fish
 source ~/.config/dotfiles/vendor/fzf-git.sh/fzf-git.fish
 
-# first of first
-not command -v mise >/dev/null || mise activate fish | source
-
-not command -v wezterm >/dev/null || wezterm shell-completion --shell fish | source
-zoxide init fish | source
-fzf --fish | source
-
-# not command -v direnv >/dev/null || direnv allow
-not command -v helm >/dev/null || helm completion fish | source
-not command -v kubectl >/dev/null || kubectl completion fish | source
-not command -v kubebuilder >/dev/null || kubebuilder completion fish | source
-not command -v orbctl >/dev/null || orbctl completion fish | source
-not command -v hermes >/dev/null || hermes completion fish 2>/dev/null | source
-
 if status is-interactive
     # Commands to run in interactive sessions can go here
 end
 
-source ~/.profile.fish || :
+source ~/.profile.fish 2>/dev/null || :
 
-# Added by OrbStack: command-line tools and integration
-# This won't be added again if you remove it.
-source ~/.orbstack/shell/init2.fish 2>/dev/null || :
+# Deduplicate PATH while preserving order; profile scripts append the same
+# directories on every nested shell.
+set -gx PATH (printf '%s\n' $PATH | awk '!seen[$0]++')
