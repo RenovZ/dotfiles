@@ -1,0 +1,105 @@
+#!/usr/bin/env bash
+# theme-detect - print the terminal background mode as "light" or "dark".
+#
+# The only reliable way to ask a terminal for its real background color is an
+# OSC 11 query ("ESC ] 11 ; ? ST"). The reply arrives on the terminal input
+# stream, so this script must run while nothing else is reading the tty: at
+# shell startup, or right before exec'ing a TUI.
+#
+# It must NOT run from inside a TUI (lf/tcell, helix, ...): those keep a read
+# pending on /dev/tty and would steal the reply, and `stty raw` below would
+# clobber the TUI's terminal state. lf sets LF_LEVEL for everything it spawns,
+# so nested shells and previewers are rejected here.
+#
+# Prints "light"/"dark" and exits 0 only when the terminal actually answered;
+# exits 1 without output otherwise, so callers can keep a previous value
+# instead of overwriting it with a wrong guess.
+#
+# Detection order: $COLORFGBG -> OSC 11 query.
+
+set -u
+
+if [ -n "${LF_LEVEL:-}" ]; then
+	exit 1
+fi
+
+# 1. COLORFGBG holds "<fg>;<bg>" palette indexes, e.g. "0;15" (xterm, Konsole,
+#    urxvt, ...). Background 7 and above are the light palette entries.
+if [[ ${COLORFGBG:-} == *';'* ]]; then
+	fg=${COLORFGBG%%;*}
+	bg=${COLORFGBG##*;}
+	if [[ $fg =~ ^[0-9]+$ && $bg =~ ^[0-9]+$ ]]; then
+		if ((bg >= 7)); then
+			printf 'light\n'
+		else
+			printf 'dark\n'
+		fi
+		exit 0
+	fi
+fi
+
+# 2. OSC 11 query. Requires a controlling terminal.
+{ exec 3<>/dev/tty; } 2>/dev/null || exit 1
+
+saved=$(stty -g <&3 2>/dev/null) || exit 1
+restore() { stty "$saved" <&3 2>/dev/null; }
+trap restore EXIT
+
+# Raw + VMIN=0/VTIME=1 so reads never block for more than 100ms; without raw
+# mode the reply (no trailing newline) would sit in the canonical buffer.
+stty raw -echo min 0 time 1 <&3 2>/dev/null || exit 1
+printf '\033]11;?\033\\' >&3
+
+reply=
+osc_header=$'\033]11;'
+# bash >= 4 can time out a single-byte read; older bash (macOS 3.2) falls back
+# to dd, which returns an empty read once VMIN=0/VTIME=1 expires.
+read_byte() {
+	if ((BASH_VERSINFO[0] >= 4)); then
+		IFS= read -r -n 1 -t 0.1 -u 3 ch
+	else
+		ch=$(dd bs=1 count=1 2>/dev/null <&3)
+		[ -n "$ch" ]
+	fi
+}
+while ((${#reply} < 64)) && read_byte; do
+	reply+=$ch
+	[[ $reply == *$'\a' || $reply == *$'\033\\' ]] && break
+	# Bail out as soon as the bytes cannot be an OSC 11 reply: this is
+	# type-ahead input, and swallowing it would lose the user's keystrokes.
+	if [[ $reply != "$osc_header"* && $osc_header != "$reply"* ]]; then
+		break
+	fi
+done
+
+case $reply in
+	*rgba:*) rgb=${reply#*rgba:} ;;
+	*rgb:*) rgb=${reply#*rgb:} ;;
+	*) exit 1 ;;
+esac
+
+r=${rgb%%/*}
+rest=${rgb#*/}
+g=${rest%%/*}
+b=${rest#*/}
+b=${b%%[!0-9a-fA-F]*}
+
+case $r in '' | *[!0-9a-fA-F]*) exit 1 ;; esac
+case $g in '' | *[!0-9a-fA-F]*) exit 1 ;; esac
+case $b in '' | *[!0-9a-fA-F]*) exit 1 ;; esac
+
+# Terminals send 1-4 hex digits per channel; keep the high 8 bits.
+norm() {
+	local h="${1}0000"
+	printf '%d' "$((16#${h:0:2}))"
+}
+r8=$(norm "$r")
+g8=$(norm "$g")
+b8=$(norm "$b")
+
+lum=$(((299 * r8 + 587 * g8 + 114 * b8) / 1000))
+if ((lum >= 128)); then
+	printf 'light\n'
+else
+	printf 'dark\n'
+fi

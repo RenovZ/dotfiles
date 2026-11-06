@@ -13,7 +13,7 @@ lf/
 ├── icons               # Nerd Fonts icon mappings
 ├── colors              # Terminal color scheme
 ├── rg_search.sh        # ripgrep + fzf search script
-├── lf.1                # Shell wrapper script
+├── lf.sh               # Launcher: refreshes the terminal background before starting lf
 └── README.md           # This file
 ```
 
@@ -51,7 +51,7 @@ lf/
 | `gio` (glib) | Trash management | `x` / `:delete`; Ubuntu ships it in `libglib2.0-bin`, macOS needs `brew install glib` |
 | `jq` | JSON processor | npm scripts (in lfrc) |
 | `glow` | Markdown renderer | .md file preview |
-| `darklight` | Theme detection | Markdown theme selection |
+| `darklight` | Theme detection (macOS only) | Fallback when `DOTFILES_APPEARANCE` is unset |
 | `chafa` | Terminal image renderer | Images, PDFs, videos |
 
 ### Archive & Document Tools
@@ -286,7 +286,7 @@ Image previews require Sixel support. Check if your terminal supports it:
 | PDF | chafa (renders first page) |
 | Video (mp4, mkv, avi, etc.) | chafa (first frame) |
 | EPUB, CBZ, CBR | chafa (cover) |
-| Markdown (.md, .markdown, .mdx, .mkd, ...) | glow (with darklight theme) |
+| Markdown (.md, .markdown, .mdx, .mkd, ...) | glow (light/dark from the terminal background) |
 | Source code | bat (syntax highlighting) |
 | Archives (.tar, .zip, .7z, etc.) | List contents |
 | Audio | exiftool metadata |
@@ -295,9 +295,35 @@ Image previews require Sixel support. Check if your terminal supports it:
 | HTML | w3m dump |
 
 Markdown is rendered with an explicit glow style because glow's automatic
-style falls back to uncolored plain text when its output is piped. The style
-comes from `LF_GLOW_STYLE` (any glow style name), then `darklight` if it is
-installed, and finally defaults to `dark`.
+style cannot detect the terminal background through the preview pipe. The
+style comes from `LF_GLOW_STYLE` (any glow style name), then the terminal
+background (`DOTFILES_APPEARANCE` is `light` or `dark`), then `darklight`
+(macOS), and finally defaults to `dark`.
+
+The background is detected by `theme-detect`, which sends an OSC 11 query to
+the terminal. The reply arrives on `/dev/tty`, so it must be read while nothing
+else owns the terminal. It is therefore **not** called from `lf/preview`: lf
+(tcell) keeps a read pending on `/dev/tty` and would steal the reply, and
+switching the tty to raw mode there would also disturb lf. Instead:
+
+- `export.sh` runs it at every shell startup (a fresh query, not an inherited
+  value), and
+- `lf/lf.sh` runs it right before starting lf, so a light/dark switch made
+  after the shell started is picked up on the next `lf` launch.
+
+`alias.sh` wires the launcher up as `alias lf="~/.config/dotfiles/lf/lf.sh"`.
+`command lf`, scripts, and `lfcd` bypass the alias and use the value inherited
+from the shell. When the terminal does not answer the query, the previous
+value is kept instead of guessing.
+
+In fish, the shell already queries the background itself
+(`fish_terminal_color_theme`, including light/dark switches reported through
+mode 2031) and `fish/config.fish` mirrors it into `DOTFILES_APPEARANCE`.
+Non-interactive fish subprocesses (prompt helpers such as tide's `fish -c`)
+re-source the config while the parent shell is reading input, so `export.sh`
+skips the query there (`DOTFILES_SHELL_INTERACTIVE=0`); querying there would
+race with the parent shell and the reply would be inserted into the command
+line.
 
 Symlinks are followed before previewing, so the pane shows the target's
 content (image, text, archive listing, directory listing, ...) rather than

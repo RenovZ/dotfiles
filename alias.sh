@@ -6,3 +6,7 @@ alias ll="ls -agl"
 
 alias zj="zellij"
 # alias lf="yazi"
+
+# lf launcher: re-detects the terminal background right before lf starts, so
+# Markdown previews follow a temporary light/dark switch (see lf/lf.sh).
+alias lf="~/.config/dotfiles/lf/lf.sh"

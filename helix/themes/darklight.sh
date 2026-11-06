@@ -1,29 +1,45 @@
 #!/bin/bash
 
+# Point the helix "adaptive" theme symlink at light.toml or dark.toml.
+#
+# Mode resolution order:
+#   1. explicit argument (darklight.applescript passes the macOS appearance)
+#   2. $DOTFILES_APPEARANCE (OSC 11 query in ../../theme-detect, shell startup)
+#   3. darklight (macOS)
+#   4. dark
+#
 # https://github.com/qdentity/darklight
 
-export PATH=${HOME}/.cargo/bin:$PATH
+set -u
 
-if [[ "$(darklight)" == *"Dark"* ]]; then
-	mode="dark"
-else
-	mode="light"
+mode=
+case ${1:-} in
+	[Dd]ark) mode=dark ;;
+	[Ll]ight) mode=light ;;
+esac
+
+if [ -z "$mode" ]; then
+	case ${DOTFILES_APPEARANCE:-} in
+		dark | light) mode=$DOTFILES_APPEARANCE ;;
+	esac
 fi
 
-THEME_TARGET="${HOME}/.config/helix/themes/${mode}.toml"
-THEME_LINK="${HOME}/.config/helix/themes/adaptive.toml"
-
-target_file=$(readlink -f $THEME_LINK)
-file_name=$(basename $target_file)
-file_name_no_ext="${file_name%.*}"
-
-if [[ "${file_name_no_ext}" != *"${mode}"* ]]; then
-	ln -sf $THEME_TARGET $THEME_LINK
+if [ -z "$mode" ]; then
+	export PATH=${HOME}/.cargo/bin:$PATH
+	case "$(darklight 2>/dev/null)" in
+		*[Dd]ark*) mode=dark ;;
+		*[Ll]ight*) mode=light ;;
+	esac
 fi
 
-# echo "mode:" $mode
-# echo "target_file:" $target_file
-# echo "file_name:" $file_name
-# echo "file_name_no_ext:" $file_name_no_ext
-#
-# ln -sf $THEME_TARGET $THEME_LINK
+mode=${mode:-dark}
+
+themes_dir="${HOME}/.config/helix/themes"
+target="${themes_dir}/${mode}.toml"
+link="${themes_dir}/adaptive.toml"
+
+# readlink without -f so this also works on macOS (BSD readlink)
+current=$(basename "$(readlink "$link" 2>/dev/null)")
+if [ "${current%.*}" != "$mode" ]; then
+	ln -sf "$target" "$link"
+fi

@@ -9,7 +9,7 @@ preview='
     if ! git ls-files --error-unmatch "$file" >/dev/null 2>&1; then
         bat --color=always --style=plain "$file" 2>/dev/null || echo "New/untracked file"
     else
-        dt="--dark"; [ "$(darklight 2>/dev/null)" = "Light" ] && dt="--light"; git diff HEAD -- "$file" 2>/dev/null | delta $dt --features 'line-numbers decorations' --file-style=omit --hunk-header-style=omit --paging=never --width="$FZF_PREVIEW_COLUMNS" 2>/dev/null | tail -n +2 || echo "(binary or no diff)"
+        dt=${DOTFILES_APPEARANCE:+--$DOTFILES_APPEARANCE}; [ -z "$dt" ] && { [ "$(darklight 2>/dev/null)" = "Light" ] && dt=--light || dt=--dark; }; git diff HEAD -- "$file" 2>/dev/null | delta $dt --features 'line-numbers decorations' --file-style=omit --hunk-header-style=omit --paging=never --width="$FZF_PREVIEW_COLUMNS" 2>/dev/null | tail -n +2 || echo "(binary or no diff)"
     fi
 '
 

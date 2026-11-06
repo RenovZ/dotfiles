@@ -25,21 +25,15 @@ ln -s dotfiles/fish .
 
 ## Shell Layering
 
-`profile.sh` is the shared entrypoint. Each shell loads it plus an optional machine-local profile:
+`profile.sh` is the shared entrypoint:
 
 | Shell | Loads |
 | --- | --- |
-| zsh | `zshrc` → `~/.config/dotfiles/profile.sh` → `~/.profile.zsh` |
-| fish | `fish/config.fish` → `bass source profile.sh` → `~/.profile.fish` |
+| zsh | `zshrc` → `~/.config/dotfiles/profile.sh` |
+| fish | `fish/config.fish` → `bass source profile.sh` |
 | bash | `~/.bashrc` (not versioned here) |
 
-The `~/.profile.sh`, `~/.profile.fish`, and `~/.profile.zsh` files are the optional host-specific layer. They provide:
-
-- mise activation, zoxide, and shell-specific fzf integration;
-- completions for wsh/wezterm/hermes/orbctl and kubectl/helm/kubebuilder;
-- a `GH_TOKEN` fallback: use an existing `GH_TOKEN` if set, otherwise `gh auth token` (no plaintext token in any config).
-
-`profile.sh` itself sources `~/.profile.sh` (if present), `export.sh`, `golang.sh`, `alias.sh`, and `bat.sh`, then applies `ulimit -n 65535`.
+`profile.sh` sources `export.sh`, `golang.sh`, `alias.sh`, and `bat.sh`, then applies `ulimit -n 65535`.
 
 ## Features
 
@@ -56,8 +50,9 @@ The `~/.profile.sh`, `~/.profile.fish`, and `~/.profile.zsh` files are the optio
 
 | Path | Description |
 | --- | --- |
-| `profile.sh` | Shared shell entrypoint (exports, language env, aliases, optional `~/.profile.sh`) |
+| `profile.sh` | Shared shell entrypoint (exports, language env, aliases) |
 | `export.sh` | Environment variables and PATH exports (sourced first by `profile.sh`) |
+| `theme-detect` | Terminal light/dark detection via OSC 11; sets `DOTFILES_APPEARANCE` (re-run by `lf/lf.sh` at lf launch) |
 | `alias.sh` / `bat.sh` / `golang.sh` | Shell fragments sourced by `profile.sh` |
 | `homebrew.sh` | Optional Homebrew mirror configuration (disabled by default) |
 | `zshrc` / `p10k.zsh` | zsh config; Powerlevel10k config sourced directly from this repo |
@@ -117,6 +112,7 @@ Missing dependencies usually just disable optional completions/prompt integratio
 ## Notes
 
 - `profile.sh` is the central entrypoint shared by `zshrc` and `fish/config.fish`.
+- `export.sh` runs `theme-detect` at every shell startup and exports `DOTFILES_APPEARANCE=light|dark`; tools (lf, delta, forgit) inherit it. The OSC 11 query must own the tty, so it is never run from inside a TUI; `alias.sh` aliases `lf` to `lf/lf.sh`, which re-detects right before starting lf so a light/dark switch is picked up on the next launch. A failed query keeps the previously exported value. Non-interactive fish subprocesses skip the query (`DOTFILES_SHELL_INTERACTIVE=0`, since the parent shell is reading the tty), and fish mirrors its own `fish_terminal_color_theme` detection into `DOTFILES_APPEARANCE`.
 - `homebrew.sh` is intentionally not sourced by `profile.sh`; enable it on macOS if you rely on the Tsinghua mirror settings.
 - `fish/fish_plugins` only declares `jorgebucaran/fisher`; tide and bass are vendored under `fish/functions` and `fish/conf.d`, and `fzf-git.sh` comes from the vendor submodule. `fisher update` does not manage the vendored plugins.
 - fish uses the native `fzf --fish` integration (Ctrl-R / Ctrl-T / Alt-C); the old fzf.fish plugin files are no longer vendored.

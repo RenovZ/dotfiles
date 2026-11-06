@@ -21,6 +21,7 @@
 | `config.toml` | Helix 主配置，使用 `theme = "adaptive"` |
 | `toggle-theme.sh` | 主题切换脚本，切换符号链接 |
 | `themes/adaptive.toml` | 符号链接，指向 light.toml 或 dark.toml |
+| `themes/darklight.sh` | 按显式参数 / `DOTFILES_APPEARANCE` / `darklight` 的顺序决定模式并切换符号链接 |
 | `themes/light.toml` | 浅色主题 |
 | `themes/dark.toml` | 深色主题 |
 
@@ -44,6 +45,19 @@ launchctl unload ~/Library/LaunchAgents/com.user.dark-notify.plist
 
 # 查看状态
 launchctl list | grep dark-notify
+```
+
+## Linux
+
+`darklight` 只有 macOS 版本。`themes/darklight.sh` 在 Linux 上优先读取
+`$DOTFILES_APPEARANCE`（`export.sh` 在 shell 启动时通过 OSC 11 探测终端背景并导出
+`light`/`dark`），没有时才调用 `darklight`，都没有则回退 `dark`。
+
+需要手动同步时：
+
+```bash
+~/.config/helix/themes/darklight.sh
+pkill -USR1 hx    # 通知已运行的 helix 重新加载主题
 ```
 
 ## 原生支持（未来）

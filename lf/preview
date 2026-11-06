@@ -130,8 +130,14 @@ text_preview() {
 		&& git ls-files --error-unmatch "$src" >/dev/null 2>&1 \
 		&& ! git diff --quiet HEAD -- "$src" 2>/dev/null \
 		&& command -v delta >/dev/null 2>&1; then
-		dt="--dark"
-		[ "$(darklight 2>/dev/null)" = "Light" ] && dt="--light"
+		# A piped preview can never reach a tty, so delta cannot detect the
+		# terminal background here; use the value that theme-detect exported at
+		# shell startup and lf/lf.sh refreshed at launch.
+		case "${DOTFILES_APPEARANCE:-}" in
+			light) dt=--light ;;
+			dark) dt=--dark ;;
+			*) [ "$(darklight 2>/dev/null)" = "Light" ] && dt=--light || dt=--dark ;;
+		esac
 		enc=$(detect_encoding "$src")
 		if [ -n "$enc" ] && iconv -f "$enc" -t UTF-8 </dev/null >/dev/null 2>&1; then
 			git diff -U99999 HEAD -- "$src" 2>/dev/null | iconv -c -f "$enc" -t UTF-8 | \
@@ -208,10 +214,17 @@ case "$lc_file" in
 	*.md|*.markdown|*.mdown|*.mkd|*.mkdn|*.mdwn|*.mdx)
 		if command -v glow >/dev/null 2>&1; then
 			to_utf8 "$file"
-			# glow's "auto" style degrades to uncolored "notty" when stdout is
-			# a pipe (always true for the preview pane and for `preview $f | ov`),
-			# so an explicit style is required for the markdown to be rendered.
+			# glow cannot detect the terminal background through the preview
+			# pipe (its "auto" style degrades to dark/notty), so an explicit
+			# style is required. Use the value exported by theme-detect, then
+			# darklight (macOS), then fall back to dark.
 			theme=${LF_GLOW_STYLE:-}
+			if [ -z "$theme" ]; then
+				case "${DOTFILES_APPEARANCE:-}" in
+					dark) theme=dark ;;
+					light) theme=light ;;
+				esac
+			fi
 			if [ -z "$theme" ] && command -v darklight >/dev/null 2>&1; then
 				case "$(darklight 2>/dev/null | tr '[:upper:]' '[:lower:]')" in
 					dark) theme=dark ;;
