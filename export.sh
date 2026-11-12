@@ -57,6 +57,8 @@ fi
 # export FORGIT_PREVIEW_PAGER='bat -l diff --color=always --style=plain'
 export FORGIT_PREVIEW_PAGER="delta --diff-highlight --features=\"line-numbers decorations\" --${DOTFILES_APPEARANCE:-dark} --paging=never --width=\"\${FZF_PREVIEW_COLUMNS:-80}\""
 export FORGIT_FZF_DEFAULT_OPTS="--no-scrollbar --height=100%"
+# Used by fzf-git.sh (`Ctrl-G` bindings) to render diff previews in the fzf pane.
+export FZF_GIT_PAGER="delta --features=\"line-numbers decorations\" --${DOTFILES_APPEARANCE:-dark} --paging=never --width=\"\${FZF_PREVIEW_COLUMNS:-80}\""
 
 #export FZF_DEFAULT_COMMAND='rg --files --hidden -g "!.git"'
 export FZF_DEFAULT_COMMAND='fd --type f -H -E ".git/"'
