@@ -15,6 +15,9 @@ set info custom
 
 set previewer ~/.config/lf/preview
 set cleaner ~/.config/lf/cleaner
+# preview pane mode for changed files: false = diff hunks, true = whole file
+# (toggled with `T`, see toggle_preview at the bottom)
+set user_preview_full false
 
 # gio (glib) trash backend with a statline confirmation (see trash.sh)
 cmd delete %~/.config/lf/trash.sh
@@ -110,9 +113,11 @@ map gc :git_changes
 map gds :git_diffstat
 # Full file with per-line git gutter (unified view, like editor)
 # --paging=always gives delta direct TTY access so it auto-detects terminal background
-map gD $git diff -U99999 HEAD -- $f | delta --features 'line-numbers decorations' --paging=always
+# --no-ext-diff keeps a global diff.external (omnidiff) from swallowing the diff,
+# which would make -U99999 inert and show only collapsed hunks
+map gD $git diff --no-ext-diff -U99999 HEAD -- $f | delta --features 'line-numbers decorations' --paging=always
 # Compact diff with delta syntax highlighting
-map gC $git diff HEAD -- $f | delta --features 'line-numbers decorations' --paging=always
+map gC $git diff --no-ext-diff HEAD -- $f | delta --features 'line-numbers decorations' --paging=always
 
 # fzf
 cmd fzf $$EDITOR $(find . -name "$1" | fzf)
@@ -168,5 +173,13 @@ map of push %touch<space>
 map x
 map x push :delete<enter>
 
+# Preview pane: changed files show only their diff by default; `T` switches the
+# pane to the whole file (see preview), `i` opens the preview in a pager.
+cmd toggle_preview %{{
+    if [ "$lf_user_preview_full" = true ]; then v=false; else v=true; fi
+    lf -remote "send $id set user_preview_full $v"
+    lf -remote "send $id reload"
+}}
+map T :toggle_preview
 # If need to show line_numbers, use `map i $LF_LINE_NUMBERS=1 ~/.config/lf/preview $f | ov` instead
 map i $~/.config/lf/preview $f | ov

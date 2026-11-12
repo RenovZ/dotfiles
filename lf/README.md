@@ -163,7 +163,8 @@ alias lf='lfcd'
 | `h/j/k/l` | Navigate (or arrow keys) |
 | `g` / `G` | Go to top/bottom |
 | `Enter` | Open file or enter directory |
-| `i` | Preview file |
+| `i` | Preview file in a pager (`ov`) |
+| `T` | Toggle diff-only / full-file preview for changed files |
 | `q` | Quit |
 
 ### File Operations
@@ -190,6 +191,23 @@ alias lf='lfcd'
 | `gbd` | git branch delete |
 | `gc` | Browse changed files in fzf (enter: open, `ctrl-d`: diff) |
 | `gD` / `gC` | Full-file / compact diff of the selected file via delta |
+
+### Changed File Preview
+
+A tracked file with uncommitted changes is previewed as a diff: only the
+changed hunks are shown, with delta's line-number gutter. Press `T` to switch
+the preview pane to the whole file (still with the +/- gutter, like an editor)
+and `T` again to go back to hunks only. Files without changes always show
+their full content (bat).
+
+The mode is kept in the `user_preview_full` option. `toggle_preview` flips it
+and reloads the directory so the pane re-renders; because a user option lives
+in the lf instance, each client toggles independently and a fresh lf starts in
+diff mode again.
+
+The diff is produced with `git diff --no-ext-diff`: a global `diff.external`
+(such as omnidiff) would otherwise replace git's own diff engine, making
+`-U99999` inert and showing only collapsed hunks.
 
 ### Git Status in the File List
 

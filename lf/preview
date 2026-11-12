@@ -138,13 +138,31 @@ text_preview() {
 			dark) dt=--dark ;;
 			*) [ "$(darklight 2>/dev/null)" = "Light" ] && dt=--light || dt=--dark ;;
 		esac
+		# Default view: only the changed hunks. `T` in lf flips user_preview_full,
+		# which switches to the whole file with -U99999 (editor-like gutter view).
+		case "${lf_user_preview_full:-}" in
+			true|1|yes|on)
+				hint='… full file — T: changes only'
+				set -- --no-ext-diff -U99999
+				;;
+			*)
+				hint='… changes only — T: full file'
+				set -- --no-ext-diff
+				;;
+		esac
+		# --no-ext-diff: a global `diff.external` (e.g. omnidiff) would bypass git's
+		# own diff engine, making -U99999 inert and yielding only collapsed hunks.
+		set -- "$@" HEAD -- "$src"
+
+		# The hint only makes sense in the pane; keep it out of piped views.
+		[ -n "${id:-}" ] && printf '\033[2m%s\033[0m\n' "$hint"
 		enc=$(detect_encoding "$src")
 		if [ -n "$enc" ] && iconv -f "$enc" -t UTF-8 </dev/null >/dev/null 2>&1; then
-			git diff -U99999 HEAD -- "$src" 2>/dev/null | iconv -c -f "$enc" -t UTF-8 | \
+			git diff "$@" 2>/dev/null | iconv -c -f "$enc" -t UTF-8 | \
 				delta $dt --features 'line-numbers decorations' --file-style=omit --hunk-header-style=omit --paging=never --width="${w:-80}" 2>/dev/null | \
 				tail -n +2
 		else
-			git diff -U99999 HEAD -- "$src" 2>/dev/null | \
+			git diff "$@" 2>/dev/null | \
 				delta $dt --features 'line-numbers decorations' --file-style=omit --hunk-header-style=omit --paging=never --width="${w:-80}" 2>/dev/null | \
 				tail -n +2
 		fi
