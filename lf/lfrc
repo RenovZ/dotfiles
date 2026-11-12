@@ -48,33 +48,18 @@ cmd git_repo_info ${{
     ~/.config/lf/git_repo_info.sh || true
 }}
 
-cmd git_add ${{clear;git-forgit add}}
 cmd git_push ${{
     ~/.config/lf/git_push.sh || true
 }}
-cmd git_diff ${{clear;git-forgit diff}}
 cmd git_pull ${{
     ~/.config/lf/git_pull.sh || true
 }}
 cmd git_status ${{clear; git -c color.status=always status | less -R}}
-cmd git_reset_head ${{clear;git-forgit reset_head}}
-cmd git_log ${{clear;FORGIT_LOG_GRAPH_ENABLE=false git-forgit log}}
 cmd git_remote ${{clear; git remote -v | less -R}}
-cmd git_checkout_branch ${{clear;git-forgit checkout_branch}}
-cmd git_branch_delete ${{clear;git-forgit branch_delete}}
-cmd git_checkout_tag ${{clear;git-forgit checkout_tag}}
-cmd git_checkout_commit ${{clear;git-forgit checkout_commit}}
-cmd git_checkout_file ${{clear;git-forgit checkout_file}}
-cmd git_blame ${{clear;git-forgit blame}}
-cmd git_stash_show ${{clear;git-forgit stash_show}}
 cmd git_commit ${{
     clear
     git commit "$@"
 }}
-cmd git_fixup ${{clear;git-forgit fixup}}
-cmd git_cherry_pick ${{clear;git-forgit cherry_pick}}
-cmd git_ignore ${{clear;git-forgit ignore}}
-cmd git_show ${{clear;git-forgit show}}
 
 # Interactive changed-files browser — like the VSCode/Zed git panel
 cmd git_changes ${{
@@ -84,35 +69,20 @@ cmd git_diffstat ${{
     ~/.config/lf/git_diffstat.sh || true
 }}
 
-map gso :git_show
-map ga :git_add
-map gp :git_push
-map gd :git_diff
-map gu :git_pull
-map gl :git_log
+map gP :git_push
+map gp :git_pull
 map ge push %git<space>
-map gi :git_ignore
-map gce :git_commit
-map gbd :git_branch_delete
-map gcb :git_checkout_branch
-map gct :git_checkout_tag
-map gcc :git_checkout_commit
-map gcp :git_cherry_pick
-map gcf :git_checkout_file
-map gbl :git_blame
-map gst :git_status
-map gss :git_stash_show
-map gfu :git_fixup
-map grv :git_remote
-map grh :git_reset_head
+map gm :git_commit
+map gs :git_status
+map gr :git_remote
 map gI :git_repo_info
 map gc :git_changes
-map gds :git_diffstat
+map gd :git_diffstat
 # Full file with per-line git gutter (unified view, like editor)
 # --paging=always gives delta direct TTY access so it auto-detects terminal background
-map gD $git diff -U99999 HEAD -- $f | delta --features 'line-numbers decorations' --paging=always
+map gD $git diff --no-ext-diff -U99999 HEAD -- $f | delta --features 'line-numbers decorations' --paging=always
 # Compact diff with delta syntax highlighting
-map gC $git diff HEAD -- $f | delta --features 'line-numbers decorations' --paging=always
+map gC $git diff --no-ext-diff HEAD -- $f | delta --features 'line-numbers decorations' --paging=always
 
 # fzf
 cmd fzf $$EDITOR $(find . -name "$1" | fzf)

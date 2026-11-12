@@ -29,7 +29,6 @@ lf/
 | `fd` | Fast file finder (find alternative) | `brew install fd` / `apt install fd-find` |
 | `ripgrep` (rg) | Fast grep | `brew install ripgrep` / `apt install ripgrep` |
 | `zoxide` | Smart cd | `brew install zoxide` / See [zoxide install](https://github.comajeetdsouza/zoxide) |
-| `git-forgit` | Git UI wrapper | `brew install forgit` |
 
 ### Image Preview Tools
 
@@ -163,31 +162,29 @@ alias lf='lfcd'
 | `h/j/k/l` | Navigate (or arrow keys) |
 | `g` / `G` | Go to top/bottom |
 | `Enter` | Open file or enter directory |
-| `i` | Preview file |
+| `i` | Preview the selected file in a pager (`ov`) |
 | `q` | Quit |
 
 ### File Operations
 | Key | Action |
 |-----|--------|
-| `o` | Create new file/directory |
+| `o` | Prefix for the create actions below |
 | `od` | Create new directory |
 | `of` | Create new file |
-| `x` | Delete file |
+| `x` | Move to trash (gio) after a confirmation |
 | `.` | Toggle hidden files |
 
 ### Git Commands
 | Key | Action |
 |-----|--------|
-| `ga` | git add |
-| `gp` | git push |
-| `gd` | git diff |
-| `gu` | git pull |
-| `gl` | git log |
-| `gst` | git status |
-| `gcb` | git checkout branch |
-| `gbl` | git blame |
-| `gss` | git stash show |
-| `gbd` | git branch delete |
+| `gP` | git push |
+| `gp` | git pull |
+| `gs` | git status |
+| `gd` | diffstat of the repository |
+| `gr` | git remote -v |
+| `gm` | git commit |
+| `gI` | repository info |
+| `ge` | run a git command (prompt) |
 | `gc` | Browse changed files in fzf (enter: open, `ctrl-d`: diff) |
 | `gD` / `gC` | Full-file / compact diff of the selected file via delta |
 
@@ -227,7 +224,10 @@ Inside a repository the script runs a single `git status` per directory load
 ### Search & Jump
 | Key | Action |
 |-----|--------|
-| `f` | Open file with $EDITOR via fzf |
+| `f` | Prefix for the search actions below |
+| `ff` | Find by name (`find`) → pick with fzf → open in `$EDITOR` |
+| `fe` | Pick any file with fzf → open in `$EDITOR` |
+| `fw` | Raw `fzf` |
 | `fg` | fzf search (ripgrep) |
 | `fj` | fzf jump to directory |
 | `fs` | ripgrep search |
@@ -237,10 +237,13 @@ Inside a repository the script runs a single `git status` per directory load
 | `fa` | fd search (all) |
 
 ### Zoxide Integration
-| Key | Action |
-|-----|--------|
-| `z` | Jump to directory with zoxide |
-| `zi` | Interactive zoxide jump |
+`z` and `zi` are commands rather than key bindings, so they are run from the
+command line (`:`):
+
+| Command | Action |
+|---------|--------|
+| `:z [query]` | Jump to a directory with zoxide (skips `$PWD`) |
+| `:zi` | Interactive zoxide jump |
 
 ## Preview Configuration
 
