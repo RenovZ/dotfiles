@@ -41,7 +41,6 @@ ln -s dotfiles/fish .
 - **zsh**: works without Oh My Zsh; when Homebrew is available it loads Powerlevel10k, zsh-autosuggestions, and zsh-syntax-highlighting. `fzf-git.sh` and native fzf/zoxide integration are included.
 - **fish**: shared environment via vendored `bass`, tide prompt, native fzf bindings (Ctrl-R / Ctrl-T / Alt-C), zoxide, and mise.
 - **Terminals**: configs for `zellij`, `wezterm`, `ghostty`, and `alacritty`.
-- **Editors**: Helix config with language settings and theme auto-switching helpers.
 - **File Tools**: `lf` (git integration, previews), `bat`, and `ov` (pager).
 - **Toolchains**: mise-managed CLI tools, Rust via rustup (`~/.cargo/env`), and Go; Kubernetes completions are optional.
 - **Homebrew**: optional; `homebrew.sh` contains Tsinghua mirror settings but is not sourced by default.
@@ -59,7 +58,6 @@ ln -s dotfiles/fish .
 | `fish/` | Fish config, vendored functions (tide, bass), completions, and fisher manifest |
 | `bootstrap.sh` | Debian/Ubuntu bootstrap: apt packages, mise, fish, and symlinks |
 | `zellij/` / `wezterm/` / `ghostty/` / `alacritty/` | Terminal configs |
-| `helix/` | Helix editor config and theme helpers |
 | `lf/` / `bat/` / `ov/` | File manager, bat, and pager configs |
 | `cargo/` / `pip/` | Cargo and pip configs |
 | `legacy/` | Archived configs no longer in active use |
@@ -82,7 +80,6 @@ mkdir -p ~/.config
 
 ln -sfn ~/.config/dotfiles/zshrc     ~/.zshrc
 ln -sfn ~/.config/dotfiles/fish      ~/.config/fish
-ln -sfn ~/.config/dotfiles/helix     ~/.config/helix
 ln -sfn ~/.config/dotfiles/lf        ~/.config/lf
 ln -sfn ~/.config/dotfiles/wezterm   ~/.config/wezterm
 ln -sfn ~/.config/dotfiles/ghostty   ~/.config/ghostty
@@ -107,7 +104,8 @@ Missing dependencies usually just disable optional completions/prompt integratio
 - **kubectl**, **helm**, **kubebuilder** (optional, for completions)
 - **Homebrew** (optional, only for the zsh plugins below)
 - **Oh My Zsh**, **Powerlevel10k**, **zsh-autosuggestions**, **zsh-syntax-highlighting** (optional)
-- **helix**, **zellij**, **wezterm** or **ghostty** (optional)
+- **zellij**, **wezterm** or **ghostty** (optional)
+- **helix** (used as `$EDITOR`/`$VISUAL`; its config lives outside this repository)
 
 ## Notes
 
@@ -119,7 +117,7 @@ Missing dependencies usually just disable optional completions/prompt integratio
 - `p10k.zsh` is sourced from `~/.config/dotfiles/p10k.zsh`; no `~/.p10k.zsh` symlink is required.
 - `zellij/config.kdl` follows a tmux-like keybinding scheme for easier switching.
 - `wezterm/wezterm.lua` and `ghostty/config` both use translucent windows and a unified visual style.
-- See `helix/README.md`, `fish/README.md`, and `lf/README.md` for component-specific notes.
+- See `fish/README.md` and `lf/README.md` for component-specific notes.
 
 ## Validation
 
@@ -138,13 +136,9 @@ for f in fish/config.fish fish/conf.d/*.fish; do fish -n "$f"; done
 
 # zellij
 zellij --check
-
-# helix
-hx --health
 ```
 
 ## Related Documentation
 
 - [fish/README.md](fish/README.md)
-- [helix/README.md](helix/README.md)
 - [lf/README.md](lf/README.md)

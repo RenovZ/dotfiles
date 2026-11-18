@@ -25,9 +25,6 @@ ln -s dotfiles/fish ~/.config/fish
 sudo usermod -s /usr/local/bin/fish $(whoami)
 chsh -s "$(command -v fish)"
 
-# configure helix
-ln -s dotfiles/helix ~/.config/helix
-
 # install bun
 curl -fsSL https://bun.sh/install | bash
 
