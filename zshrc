@@ -9,34 +9,27 @@ fi
 
 plugins=(
 git
-zsh-shift-select
 docker-compose
 rsync
 fzf
 )
 
+# Oh My Zsh is optional. ZSH_CUSTOM holds its themes and plugins.
 [[ ! -f ~/.oh-my-zsh/oh-my-zsh.sh ]] || source ~/.oh-my-zsh/oh-my-zsh.sh
+ZSH_CUSTOM=${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}
 
 source ~/.config/dotfiles/profile.sh
 source ~/.config/dotfiles/vendor/fzf-git.sh/fzf-git.sh
 source ~/.config/dotfiles/bind.sh
-# source ~/.local/bin/env
 
-# Homebrew-installed zsh plugins, only when brew is available.
-_brew_prefix=
-if (( $+commands[brew] )); then
-  _brew_prefix=$(brew --prefix)
-  [[ ! -f $_brew_prefix/share/powerlevel10k/powerlevel10k.zsh-theme ]] || source $_brew_prefix/share/powerlevel10k/powerlevel10k.zsh-theme
-  [[ ! -f $_brew_prefix/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] || source $_brew_prefix/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-fi
+# Powerlevel10k, plus optional plugins that are simply skipped when missing.
+[[ ! -f $ZSH_CUSTOM/themes/powerlevel10k/powerlevel10k.zsh-theme ]] || source $ZSH_CUSTOM/themes/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.config/dotfiles/p10k.zsh ]] || source ~/.config/dotfiles/p10k.zsh
 
 [[ ! -f ~/.profile.zsh ]] || source ~/.profile.zsh
 
+[[ ! -f $ZSH_CUSTOM/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]] || source $ZSH_CUSTOM/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 # zsh-syntax-highlighting must be sourced last, after all ZLE widgets are defined.
-if [[ -f $_brew_prefix/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
-  source $_brew_prefix/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-fi
-unset _brew_prefix
+[[ ! -f $ZSH_CUSTOM/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] || source $ZSH_CUSTOM/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

@@ -38,7 +38,7 @@ ln -s dotfiles/fish .
 ## Features
 
 - **Shells**: fish is the default login shell; zsh is fully configured; bash gets mise and the gh token fallback.
-- **zsh**: works without Oh My Zsh; when Homebrew is available it loads Powerlevel10k, zsh-autosuggestions, and zsh-syntax-highlighting. `fzf-git.sh` and native fzf/zoxide integration are included.
+- **zsh**: works with or without Oh My Zsh; Powerlevel10k is sourced from `$ZSH_CUSTOM/themes/powerlevel10k`, and zsh-autosuggestions / zsh-syntax-highlighting load from `$ZSH_CUSTOM/plugins/` when present. `fzf-git.sh` and native fzf/zoxide integration are included.
 - **fish**: shared environment via vendored `bass`, tide prompt, native fzf bindings (Ctrl-R / Ctrl-T / Alt-C), zoxide, and mise.
 - **Terminals**: configs for `zellij`, `wezterm`, `ghostty`, and `alacritty`.
 - **File Tools**: `lf` (git integration, previews), `bat`, and `ov` (pager).
@@ -102,7 +102,7 @@ Missing dependencies usually just disable optional completions/prompt integratio
 - **gh** (provides `GH_TOKEN` via `gh auth token`)
 - **fzf**, **fd**, **zoxide**, **ripgrep**, **bat**, **delta**, **eza**, **ov**
 - **kubectl**, **helm**, **kubebuilder** (optional, for completions)
-- **Homebrew** (optional, only for the zsh plugins below)
+- **Homebrew** (optional; zsh does not use it, only `homebrew.sh` on macOS)
 - **Oh My Zsh**, **Powerlevel10k**, **zsh-autosuggestions**, **zsh-syntax-highlighting** (optional)
 - **zellij**, **wezterm** or **ghostty** (optional)
 - **helix** (used as `$EDITOR`/`$VISUAL`; its config lives outside this repository)
@@ -114,7 +114,8 @@ Missing dependencies usually just disable optional completions/prompt integratio
 - `homebrew.sh` is intentionally not sourced by `profile.sh`; enable it on macOS if you rely on the Tsinghua mirror settings.
 - `fish/fish_plugins` only declares `jorgebucaran/fisher`; tide and bass are vendored under `fish/functions` and `fish/conf.d`, and `fzf-git.sh` comes from the vendor submodule. `fisher update` does not manage the vendored plugins.
 - fish uses the native `fzf --fish` integration (Ctrl-R / Ctrl-T / Alt-C); the old fzf.fish plugin files are no longer vendored.
-- `p10k.zsh` is sourced from `~/.config/dotfiles/p10k.zsh`; no `~/.p10k.zsh` symlink is required.
+- `p10k.zsh` is sourced from `~/.config/dotfiles/p10k.zsh`; no `~/.p10k.zsh` symlink is required. The theme itself lives at `$ZSH_CUSTOM/themes/powerlevel10k` (install it with `git clone --depth=1 https://github.com/romkatv/powerlevel10k ~/.oh-my-zsh/custom/themes/powerlevel10k`); zsh does not use Homebrew-installed plugins.
+- `theme-detect` skips its OSC 11 query when type-ahead is pending (bash >= 4), so keystrokes typed while the prompt comes up are never swallowed.
 - `zellij/config.kdl` follows a tmux-like keybinding scheme for easier switching.
 - `wezterm/wezterm.lua` and `ghostty/config` both use translucent windows and a unified visual style.
 - See `fish/README.md` and `lf/README.md` for component-specific notes.
