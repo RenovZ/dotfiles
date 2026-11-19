@@ -2,6 +2,9 @@
 # Theme files live in themes/ (from catppuccin/alacritty)
 import = ["themes/catppuccin-latte.toml"]
 
+[terminal]
+shell = { program = "/usr/local/bin/fish" }
+
 [window]
 opacity = 0.9
 padding = { x = 6, y = 0 }
