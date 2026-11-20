@@ -12,7 +12,7 @@ ln -s ~/.config/dotfiles/fish ~/.config/fish
 | Path | Description |
 | --- | --- |
 | `config.fish` | Sources `profile.sh` via `bass`, mirrors `fish_terminal_color_theme` to `DOTFILES_APPEARANCE`, loads `fzf-git.fish` |
-| `conf.d/` | Vendored tide init/theme, fish 4.3 key-binding migration, fisher/git init, rustup env |
+| `conf.d/` | Vendored tide init/theme, fish 4.3 key-binding migration, fisher/git init, rustup env, docker compose abbreviations |
 | `functions/` | Vendored tide and `bass` functions plus `__bass.py` |
 | `completions/` | atlas, bun, fisher, lfcd, and tide completions |
 | `fish_plugins` | Fisher manifest (only `jorgebucaran/fisher`) |
@@ -26,6 +26,7 @@ ln -s ~/.config/dotfiles/fish ~/.config/fish
 - `asdf` is no longer used — `mise` replaces it.
 - `lf` completion is vendored as `completions/lfcd.fish`; no manual symlink is needed.
 - `conf.d/rustup.fish` only sources `~/.cargo/env.fish` when that file exists.
+- `conf.d/docker-compose.fish` defines the `dc*` abbreviations over `docker compose` (falling back to `docker-compose` only when that binary exists and the plugin does not). It replaces the vendored `demartini/dc.fish` functions, which invoked the retired v1 binary.
 
 ## Dependencies
 
