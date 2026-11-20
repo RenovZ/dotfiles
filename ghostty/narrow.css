@@ -1,0 +1,81 @@
+/*
+ * Flatten Ghostty GTK's tab bar / title bar height to near zero.
+ *
+ * Loaded via `gtk-custom-css` (GTK registers it at USER priority 800, so it
+ * overrides min-height / padding from the libadwaita theme).
+ * Selectors keep the same specificity as libadwaita's own rules to avoid
+ * precedence ambiguity.
+ */
+
+/* ── Tab bar (AdwTabBar) ─────────────────────────────────── */
+
+/* Default padding: 1px 1px 0 */
+tabbar .box {
+  padding: 0;
+}
+
+/* Default min-height: 34px; padding: 6px 0 -- 2px leaves a little breathing room */
+tabbar tabbox {
+  min-height: 0;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+/* Default min-height: 26px; padding: 4px */
+tabbar tab {
+  min-height: 0;
+  padding: 2px 6px;
+}
+
+/* Default padding of the two action areas: 6px 5px */
+tabbar .start-action,
+tabbar .end-action {
+  padding: 2px 4px;
+}
+
+/* Tab close button defaults to 24x24 */
+tabbar tab button.image-button {
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+  padding: 0 3px;
+}
+
+/* Start/end buttons (new tab, menu, window controls) default to min-height 24px + 5px padding */
+tabbar .start-action button,
+tabbar .end-action button,
+windowcontrols > button {
+  min-width: 0;
+  min-height: 0;
+  padding: 0 3px;
+}
+
+/* Window buttons add 4px padding around the icon to draw their circular background */
+windowcontrols > button > image {
+  padding: 0;
+}
+
+/* ── Native title bar (applies when gtk-titlebar-style = native) ── */
+
+/* Default min-height: 47px; the window titlebar has its own 46px rule */
+headerbar,
+window:not(.ssd-frame) > headerbar.titlebar {
+  min-height: 0;
+}
+
+/* Default padding: 6px 7px 7px 7px */
+headerbar > windowhandle > box {
+  padding: 2px 4px;
+}
+
+/* Title bar buttons default to min-height 24px + 5px/10px padding */
+headerbar button {
+  min-width: 0;
+  min-height: 0;
+  padding: 1px 4px;
+}
+
+headerbar .title,
+headerbar .subtitle {
+  padding: 0 6px;
+}

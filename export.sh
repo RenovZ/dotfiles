@@ -31,8 +31,7 @@ export PATH=$PATH:${VCPKG_ROOT:-~/vcpkg}
 export PNPM_HOME=~/.pnpm
 
 # bun
-export PATH=$PATH:${BUN_INSTALL:-~/.bun}/bin
-# export PATH=$PATH:$HOME/.cache/.bun/bin
+export PATH=$PATH:${BUN_INSTALL:-~/.bun}/bin:$HOME/.cache/.bun/bin
 
 
 # Configure all the other tools after the path has been set.

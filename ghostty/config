@@ -10,13 +10,16 @@ cursor-style = block
 cursor-style-blink = true
 shell-integration-features = no-cursor,sudo,title
 
-# gtk-titlebar-style = tabs
+# Keep the native title bar (draggable) with its height flattened by narrow.css;
+# merging into the tabs style would lose the title bar drag area
+gtk-titlebar-style = tabs
+gtk-custom-css = ~/.config/ghostty/narrow.css
 
 # theme = dark:Ubuntu,light:Atom One Light
 # theme = Ubuntu
 theme = Catppuccin Latte
 
-# 选中即复制到 PRIMARY 和系统剪贴板
+# Selecting text copies it to both PRIMARY and the system clipboard
 copy-on-select = clipboard
 
 config-file = ?auto/theme.ghostty
