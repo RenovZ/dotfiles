@@ -27,3 +27,7 @@ config-file = ?auto/theme.ghostty
 keybind = cmd+enter=toggle_fullscreen
 keybind = cmd+ctrl+f=toggle_fullscreen
 keybind = ctrl+enter=unbind
+
+# Alt+h / Alt+l: previous / next tab
+keybind = alt+h=previous_tab
+keybind = alt+l=next_tab
