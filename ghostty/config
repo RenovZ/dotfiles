@@ -28,6 +28,6 @@ keybind = cmd+enter=toggle_fullscreen
 keybind = cmd+ctrl+f=toggle_fullscreen
 keybind = ctrl+enter=unbind
 
-# Alt+h / Alt+l: previous / next tab
-keybind = alt+h=previous_tab
-keybind = alt+l=next_tab
+# Super+Shift+[ / ]: previous / next tab
+keybind = super+shift+[=previous_tab
+keybind = super+shift+]=next_tab
