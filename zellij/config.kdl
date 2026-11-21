@@ -8,8 +8,8 @@ keybinds {
         bind "z" { ToggleFocusFullscreen; SwitchToMode "Normal"; }
         bind "c" { NewTab; SwitchToMode "Normal"; }
         bind "," { SwitchToMode "RenameTab"; }
-        bind "Alt h" { GoToPreviousTab; SwitchToMode "Normal"; }
-        bind "Alt l" { GoToNextTab; SwitchToMode "Normal"; }
+        bind "Super [" { GoToPreviousTab; SwitchToMode "Normal"; }
+        bind "Super ]" { GoToNextTab; SwitchToMode "Normal"; }
         bind "Left" { MoveFocus "Left"; SwitchToMode "Normal"; }
         bind "Right" { MoveFocus "Right"; SwitchToMode "Normal"; }
         bind "Down" { MoveFocus "Down"; SwitchToMode "Normal"; }
