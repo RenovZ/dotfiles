@@ -1,4 +1,4 @@
-keybinds {
+keybinds primary="Ctrl Alt" secondary="Alt Super" {
     tmux {
         bind "Tab" { ToggleTab; }
         // bind "ESC" { Write 2; SwitchToMode "Normal"; }
@@ -8,8 +8,6 @@ keybinds {
         bind "z" { ToggleFocusFullscreen; SwitchToMode "Normal"; }
         bind "c" { NewTab; SwitchToMode "Normal"; }
         bind "," { SwitchToMode "RenameTab"; }
-        bind "Super [" { GoToPreviousTab; SwitchToMode "Normal"; }
-        bind "Super ]" { GoToNextTab; SwitchToMode "Normal"; }
         bind "Left" { MoveFocus "Left"; SwitchToMode "Normal"; }
         bind "Right" { MoveFocus "Right"; SwitchToMode "Normal"; }
         bind "Down" { MoveFocus "Down"; SwitchToMode "Normal"; }
@@ -35,6 +33,14 @@ keybinds {
     shared_except "tmux" {
         bind "Ctrl z" { SwitchToMode "Tmux"; }
     }
+    // Tab switching outside the tmux mode: Super+[ / ] with Ctrl+Alt+[ / ]
+    // as a fallback for terminals/hosts that swallow Super.
+    shared_except "locked" {
+        bind "Super [" { GoToPreviousTab; }
+        bind "Super ]" { GoToNextTab; }
+        bind "Ctrl Alt [" { GoToPreviousTab; }
+        bind "Ctrl Alt ]" { GoToNextTab; }
+    }
     scroll {
         bind "y" { Copy; SwitchToMode "Normal"; }
     }
@@ -54,8 +60,47 @@ plugins {
     }
 }
 
+// Only used by the desktop GUI (`zellij terminal`): it has no host terminal
+// to report light/dark, so the window colours are pinned here.
+terminal {
+    font "Hack Nerd Font Mono"
+    font_size 12
+    // Needs a compositor; blur is only honoured on macOS, KDE Plasma and
+    // Windows 11 22H2+ (ignored under GNOME/Mutter).
+    opacity 0.95
+    opacity_mode "background"
+    blur true
+    theme {
+        background "#eff1f5"
+        foreground "#4c4f69"
+        cursor "#dc8a78"
+        black "#5c5f77"
+        red "#d20f39"
+        green "#40a02b"
+        yellow "#df8e1d"
+        blue "#1e66f5"
+        magenta "#ea76cb"
+        cyan "#179299"
+        white "#acb0be"
+        bright_black "#6c6f85"
+        bright_red "#d20f39"
+        bright_green "#40a02b"
+        bright_yellow "#df8e1d"
+        bright_blue "#1e66f5"
+        bright_magenta "#ea76cb"
+        bright_cyan "#179299"
+        bright_white "#bcc0cc"
+    }
+}
+
 mouse_mode true
 pane_frames false
 serialize_pane_viewport true
+// The desktop GUI has no host terminal to report light/dark, and it cannot be
+// pinned separately: this pins every session to light so its bars match.
+// Remove this line to restore DSR 997/CSI 2031 auto-switching (Ghostty only).
+explicit_theme_hue "light"
+theme_dark "catppuccin-mocha"
+theme_light "catppuccin-latte"
 // default_layout "disable-status-bar"
 default_layout "compact"

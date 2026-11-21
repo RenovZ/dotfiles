@@ -17,7 +17,9 @@ gtk-custom-css = ~/.config/ghostty/narrow.css
 
 # theme = dark:Ubuntu,light:Atom One Light
 # theme = Ubuntu
-theme = Catppuccin Latte
+# Light/dark follows the desktop's color scheme and is reported to apps
+# (DSR 997 / mode 2031), which zellij's theme_dark/theme_light rely on.
+theme = light:Catppuccin Latte,dark:Catppuccin Mocha
 
 # Selecting text copies it to both PRIMARY and the system clipboard
 copy-on-select = clipboard
